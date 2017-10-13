@@ -20,6 +20,7 @@ class Category(models.Model):
     def __unicode__(self):
         return unicode(self.category)
 
+
 # ============================== FingerPrint Category Table ========================================
 class fpCategory(models.Model):
     """ Molecule Finger-Print categories """
@@ -33,6 +34,7 @@ class fpCategory(models.Model):
     def __unicode__(self):
         return unicode(self.category)
 
+
 # ============================== Molecule Data Table ========================================
 # Created Date: 2017-10-13
 # Updated Date: -
@@ -41,25 +43,25 @@ class MoleculeData(models.Model):
     Molecule data model
     """
     SSU_CID = models.IntegerField()
-    Py_MW = models.FloatField()
-    AtomNumber = models.IntegerField()
-    BondNumber = models.IntegerField()
-    RingNumber = models.IntegerField()
-    LogP = models.FloatField()
-    PUB_CID = models.IntegerField()
-    Formula = models.TextField()
-    InChI = models.TextField()
-    SMILES = models.TextField()
-    SMARTS = models.TextField()
-    FormalCharge = models.IntegerField()
-    HBA = models.IntegerField()
-    HBD = models.IntegerField()
-    RotateBond = models.IntegerField()
+    Py_MW = models.FloatField(null=True)
+    AtomNumber = models.IntegerField(null=True)
+    BondNumber = models.IntegerField(null=True)
+    RingNumber = models.IntegerField(null=True)
+    LogP = models.FloatField(null=True)
+    PUB_CID = models.TextField(null=True)
+    Formula = models.TextField(null=True)
+    InChI = models.TextField(null=True)
+    SMILES = models.TextField(null=True)
+    SMARTS = models.TextField(null=True)
+    FormalCharge = models.IntegerField(null=True)
+    HBA = models.IntegerField(null=True)
+    HBD = models.IntegerField(null=True)
+    RotateBond = models.IntegerField(null=True)
     category = models.ForeignKey(Category, related_name='molecules')
     RDKit_MW = models.FloatField(null=True)
     yaChI = models.TextField(null=True)
-    TPSA = models.FloatField()
-    InChIKey = models.TextField()
+    TPSA = models.FloatField(null=True)
+    InChIKey = models.TextField(null=True)
 
     class Meta:
         db_table = 'DB_Data'
