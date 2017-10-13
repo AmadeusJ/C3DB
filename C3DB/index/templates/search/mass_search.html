@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Mass Search{% endblock %}
+
+{% block head %}
+{% load staticfiles %}
+{{ block.super }}
+    .boxA { margin-left: 50px; }
+    #mass-box { float: left; }
+    #search-button { margin-left: 10px; }
+{% endblock %}
+
+{% block content %}
+<form action="{% url 'chemdb:mass' %}" xmlns="http://www.w3.org/1999/xhtml">
+    {% csrf_token %}
+    <div class="dd">
+        <div class="container" style="margin-top: 8px;">
+            <!-- nav menu -->
+            <ul class="nav nav-tabs">
+                <li>
+                    <div class="col-lg-3">
+                        {{ form.Category }}
+                    </div>
+                </li>
+                <li><a href="{% url 'chemdb:exact' %}">Search</a></li>
+                <li><a href="{% url 'chemdb:functional' %}">Identification</a></li>
+                <li><a href="{% url 'chemdb:mass' %}">Mass</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <h3>Mass</h3>
+                <div class="boxA">
+                    <div class="boxA-1">
+                        <div id="mass-box">
+                            MW :
+                            <input type="text" id="Mass" name="Mass">
+                        </div>
+                        <div class="search-submit">
+                            <button id="search-button" type="submit" class="btn btn-primary" style="width: 120px;"><strong>Search</strong></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

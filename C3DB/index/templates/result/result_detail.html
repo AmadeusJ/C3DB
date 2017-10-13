@@ -1,0 +1,334 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}Molecule Detail Info{% endblock %}
+
+{% block head %}
+{{ block.super }}
+    .container {
+        border: 2px solid;
+    }
+    .BoxA {
+        #border: 2px solid;
+    }
+    .Box .InnerA{
+        #border: 2px solid;
+    }
+    .TitleBox {
+        #border: 2px solid;
+        text-align: center;
+    }
+    .SketcherBox {
+        #border: 2px solid;
+        float: left;
+        width: 40%;
+        text-align: center;
+
+    }
+    .Sketcher {
+        border: 2px solid;
+    }
+    .ViewerBox {
+        #border: 2px solid;
+        float: left;
+        width: 60%;
+        height: 408px;
+        margin-left: 0px;
+    }
+    .Viewer {
+        #border: 2px solid;
+        height: 320px;
+    }
+    #viewer3D_query, #viewer3D_select, #viewer3D_submit {
+        display: none;
+    }
+    .ViewerControl {
+        #border: 2px solid;
+        margin-top: 5px;
+    }
+    .MolInfo {
+        float: left;
+        #border: 2px solid;
+        width: 100%;
+    }
+    .Viewer1, .Viewer2, .Viewer3, .Viewer4, .Viewer5, .Viewer6 {
+        float: left;
+    }
+    .Viewer2, .Viewer3, .Viewer4, .Viewer5 {
+        margin-left: 15px;
+    }
+    .Viewer6 {
+        margin-left: 20px;
+    }
+
+    .Info1, .Info2 {
+        width: 50%;
+        float: left;
+    }
+    .BoxB {
+        margin-left: 10px;
+    }
+    #user_db {
+        float:left;
+        margin-left: 15px;
+    }
+    .download {
+        padding-left: 150px;
+        padding-bottom: 10px;
+    }
+    .save {
+        margin-left: 10px;
+    }
+
+
+{% endblock %}
+
+
+{% block content %}
+<div class="dd">
+    <div class="container">
+        <div class="tab-content">
+            <!-- Title -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="TitleBox">
+                        <h3># {{ mol.SSU_CID }}  ({{ mol.MolFormular }}) [<a href="https://pubchem.ncbi.nlm.nih.gov/compound/{{ mol.PUB_CID }}" target="_blank">PubChem_{{ mol.PUB_CID }}</a>]</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-5"></div>
+                <div class="col-sm-7">
+                    <div class="download"></div>
+                    {% if user.is_active %}
+                    <div id="user_db">
+                        <select name="user_db_list" data-style="btn-info" class="chzn-select selectpicker" id="user_db_list">
+                            {% for db in user_db %}
+                            <option value="{{ db.id }}">{{ db.user_db_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="save">
+                        <button class="btn btn-info" type="button" id="save" onclick="">Save</button>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <!-- 2D Image & 3D Viewer -->
+            <div class="row">
+                <div class="col-sm-5">
+                    <div class="Sketcher" id="molImage"></div>
+                </div>
+                <div class="col-sm-7">
+                    <div class="Viewer">
+                        <script src="{% static 'js/imageLoader.js' %}"></script>
+                        <script>
+                            /* Getting mol_file path according ssu_cid */
+                            function getMoleculeFilePath(ssu_cid){
+                                //ssu_cid = Number(ssu_cid);
+                                var ssu_cid_string = addZero(ssu_cid);  //
+                                var ssu_cid_len = ssu_cid.toString().length;
+                                var dir = ssu_cid_string.slice(0, 4);
+                                console.log(ssu_cid_string);
+
+                                final_path_img = "{{ MEDIA_URL }}" + "C3DB/img/" + dir + "/" + ssu_cid_string + ".png";
+                                final_path_file = "{{ MEDIA_URL }}" + "C3DB/mol/" + dir + "/" + ssu_cid_string + ".mol";
+                                final_path_mgf = "{{ MEDIA_URL }}" + "C3DB/mopac/" + dir + "/" + "000000000" + ".mgf";
+                                //final_path = "{% static 'mol_png/" + path + "/' %}mol_" + ssu_cid + ".png";
+                                //        console.log(ssu_cid);
+                                //        console.log(path);
+                                //        console.log(final_path);
+
+                                return [final_path_img, final_path_file, final_path_mgf];
+                            }
+                            // Get the mol_file path according "mol.SSU_CID"
+                            var final_path = getMoleculeFilePath("{{ mol.SSU_CID }}");
+                            var image_path = final_path[0];
+                            var mol_file_path = final_path[1];
+
+                            console.log(image_path);
+                            console.log(mol_file_path);
+                            $('#molImage').html('<img alt="HighslideJS" title="Click to enlarge" src="' + image_path +'">');
+                            $('.download').html('<a class="btn btn-info" href="'+ mol_file_path +'" download="mol_{{ mol.SSU_CID }}.mol">Download</a>');
+
+                            /* 3D-Canvas */
+                            var viewer3D = new ChemDoodle.MolGrabberCanvas3D('viewer3D', 670, 320);
+                            if(!viewer3D.gl){
+                                viewer3D.emptyMessage = 'Your brower does not support WebGL';
+                                viewer3D.displayMessage();
+                            } else {
+                                /* Loading molfile */
+
+                                var molFile = `{{ mol_file }}`;  /** VERY IMPORTANT LINE !!!! **/
+                                //var molFile = data['molFileContent'];
+                                console.log(molFile);
+                                var molecule = ChemDoodle.readMOL(molFile, 1);
+
+                                /* 3D-Canvas Settings */
+                                viewer3D.specs.set3DRepresentation('Ball and Stick');
+                                viewer3D.specs.projectionWidthHeightRatio_3D = 600 / 400;
+                                viewer3D.specs.atoms_displayLabels_3D = false;
+                                viewer3D.specs.backgroundColor = 'black';
+                                viewer3D.handle = null;
+                                viewer3D.timeout = 20;
+                                viewer3D.startAnimation = ChemDoodle._AnimatorCanvas.prototype.startAnimation;
+                                viewer3D.stopAnimation = ChemDoodle._AnimatorCanvas.prototype.stopAnimation;
+                                viewer3D.isRunning = ChemDoodle._AnimatorCanvas.prototype.isRunning;
+                                viewer3D.dblclick = ChemDoodle.RotatorCanvas.prototype.dblclick;
+
+                                viewer3D.nextFrame = function (delta) {
+                                    var matrix = [];
+                                    ChemDoodle.lib.mat4.identity(matrix);
+                                    var change = delta / 1000;
+                                    var increment = Math.PI / 15;
+                                    ChemDoodle.lib.mat4.rotate(matrix, increment * change, [1, 0, 0]);
+                                    ChemDoodle.lib.mat4.rotate(matrix, increment * change, [0, 1, 0]);
+                                    ChemDoodle.lib.mat4.rotate(matrix, increment * change, [0, 0, 1]);
+                                    ChemDoodle.lib.mat4.multiply(this.rotationMatrix, matrix);
+                                };
+
+                                function changeSettings(settings){
+                                    viewer3D.specs.set3DRepresentation(settings);
+                                    viewer3D.setupScene();
+                                    viewer3D.repaint();
+                                }
+                                /* Loat the moldatra to 3D-Canvas */
+                                viewer3D.loadMolecule(molecule);
+                                viewer3D.startAnimation();
+                            }
+                        </script>
+                    </div>
+                    <div class="ViewerControl">
+                        <div class="Viewer1">
+                            <p><input name="group1" type="radio" onclick="changeSettings('Ball and Stick')" checked>Ball and Stick</p>
+                        </div>
+                        <div class="Viewer2">
+                            <p><input name="group1" type="radio" onclick="changeSettings('van der Waals Spheres')">van der Waals Spheres</p>
+                        </div>
+                        <div class="Viewer3">
+                            <p><input name="group1" type="radio" onclick="changeSettings('Stick')">Stick</p>
+                        </div>
+                        <div class="Viewer4">
+                            <p><input name="group1" type="radio" onclick="changeSettings('Wireframe')">Wireframe</p>
+                        </div>
+                        <div class="Viewer5">
+                            <p><input name="group1" type="radio" onclick="changeSettings('Line')">Line</p>
+                        </div>
+                        <div class="Viewer6">
+                            <p><input type="checkbox" onclick="viewer3D.specs.atoms_displayLabels_3D=!viewer3D.specs.atoms_displayLabels_3D;viewer3D.repaint();">Labels</p>
+                        </div>
+                    </div>
+                    <div>
+                        {% url 'chemdb:JMolViewer' mol.SSU_CID as the_url %}
+                        <a href="{{ the_url }}">JSMol</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Descriptors -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div>
+                        <table class="table table-bordered table-hover">
+                            <caption>Descriptors</caption>
+                            <thead class="thead-inverse">
+                                <tr class="active">
+                                    <th>Descriptor</th>
+                                    <th>Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>RDKit_MW</th>
+                                    <td>{{ mol.RDKit_MW }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Pybel_MW</th>
+                                    <td>{{ mol.Py_MW }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Atoms</th>
+                                    <td>{{ mol.AtomNumber }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Bonds</th>
+                                    <td>{{ mol.BondNumber }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Rings</th>
+                                    <td>{{ mol.RingNumber }}</td>
+                                </tr>
+                                <tr>
+                                    <th>LogP</th>
+                                    <td>{{ mol.LogP }}</td>
+                                </tr>
+                                <tr>
+                                    <th>MolFormula</th>
+                                    <td>{{ mol.MolFormular }}</td>
+                                </tr>
+                                <tr>
+                                    <th>yaChI</th>
+                                    <td>None</td>
+                                </tr>
+                                <tr>
+                                    <th>InChI</th>
+                                    <td>{{ mol.MolInchi }}</td>
+                                </tr>
+                                <tr>
+                                    <th>InChIKey</th>
+                                    <td>None</td>
+                                </tr>
+                                <tr>
+                                    <th>SMILES</th>
+                                    <td>{{ mol.MolSmiles }}</td>
+                                </tr>
+                                <tr>
+                                    <th>SMARTS</th>
+                                    <td>{{ mol.MolSmarts }}</td>
+                                </tr>
+                                <tr>
+                                    <th>FormalCharge</th>
+                                    <td>{{ mol.FormalCharge }}</td>
+                                </tr>
+                                <tr>
+                                    <th>HBA</th>
+                                    <td>{{ mol.HBA }}</td>
+                                </tr>
+                                <tr>
+                                    <th>HBD</th>
+                                    <td>{{ mol.HBD }}</td>
+                                </tr>
+                                <tr>
+                                    <th>rBonds</th>
+                                    <td>{{ mol.RotateBond }}</td>
+                                </tr>
+                                <tr>
+                                    <th>TPSA</th>
+                                    <td>None</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // Save a molecule to user_db
+    $('.save').click(function (e) {
+        e.preventDefault();
+        $.post("{% url 'chemdb:mol_add' %}", {mol_ids: '{{ mol.SSU_CID }}', user_db_id: $('#user_db_list option:selected').val(), csrfmiddlewaretoken: "{{ csrf_token }}"}, function (data) {
+            if (data['status'] == 'ok'){
+                alert("Save success!");
+            } else if (data['status'] == 'None'){
+                alert("Sorry, try later...");
+            } else if (data['status'] == 'duplicate') {
+                alert("Mol data already exist in same db!");
+                alert(data['duplicate']);
+            }
+        });
+    });
+
+</script>
+{% endblock %}

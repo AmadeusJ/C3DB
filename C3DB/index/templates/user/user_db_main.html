@@ -1,0 +1,30 @@
+{% extends "user/user_db.html" %}
+
+{% block head %}
+{{ block.super }}
+{% endblock %}
+
+{% block user_db %}
+<form action="#">
+    <div id="user_mol_box">
+        <table class="tablesorter" id="myTable">
+            <thead>
+            <tr>
+                <th></th>
+                <th>SSU_CID</th>
+                <th class="mol_img">Pic</th>
+                <th>MW</th>
+                <th>#ATOM</th>
+                <th>#BOND</th>
+                <th>#Ring</th>
+                <th>MF</th>
+                <th>PUB_CID</th>
+            </tr>
+            </thead>
+            <tbody id="contents">
+
+            </tbody>
+        </table>
+    </div>
+</form>
+{% endblock %}

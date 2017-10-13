@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block title %} 3D Molecule with JSMol {% endblock %}
+
+{% block head %}
+{{ block.super }}
+
+    .homo {
+        text-align: center;
+    }
+    .lumo {
+        text-align: center;
+    }
+    #JMolViewer {
+        text-align: center;
+        margin-left: 150px;
+    }
+    .jmol_title {
+        text-align: center;
+    }
+    #jmol_syng {
+    }
+    #JSmol {
+        width: 100%;
+    }
+
+{% endblock %}
+
+{% block content %}
+
+
+<script type="text/javascript" src="{% static 'js/imageLoader.js' %}"></script>
+<!-- Load 'jmol' javascripts -->
+<script type="text/javascript" src="{% static 'jsmol/JSmol.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'jsmol/js/Jmol2.js' %}"></script>
+<script type="text/javascript">
+
+    /* Jmol/JSmol Guide sites */
+    // http://wiki.jmol.org/index.php/Jmol_JavaScript_Object/Info#Callbacks
+    // https://chemapps.stolaf.edu/jmol/docs/?ver=14.6#setmisc
+
+    var ssu_cid = "{{ mol.SSU_CID }}";
+    var xxxx = "{{ mol.SSU_CID }}";
+    var mol_data = getMoleculeFilePath(ssu_cid)[2];
+
+
+    /* Sync part */
+
+    Jmol.Info = {
+        jarPath: "{% static 'jsmol/java' %}",
+        j2sPath: "{% static 'jsmol/j2s' %}",
+        jarFile: "{% static 'jsmol/java/JmolApplet0.jar' %}",
+
+    };
+
+    /* Synchronize function */
+    function sync() {
+        var syncing = document.getElementById("drive").checked;
+        var s = (syncing ? "sync * on;sync * \"set syncMouse TRUE\"": "sync * off");
+        jmolScript(s, "A");
+
+    }
+
+    /* Get Molfilepath function */
+    function getMoleculeFilePath(ssu_cid){
+        //ssu_cid = Number(ssu_cid);
+        //var ssu_cid_len = ssu_cid.toString().length;
+        var ssu_cid_string = addZero(ssu_cid);  //
+        var dir = ssu_cid_string.slice(0, 4);
+        console.log(ssu_cid_string);
+
+        final_path_img = "{{ MEDIA_URL }}" + "C3DB/img/" + dir + "/" + ssu_cid_string + ".png";
+        final_path_file = "{{ MEDIA_URL }}" + "C3DB/mol/" + dir + "/" + ssu_cid_string + ".mol";
+        final_path_mgf = "{{ MEDIA_URL }}" + "C3DB/mopac/" + dir + "/" + "000000000" + ".mgf";
+        //final_path = "{% static 'mol_png/" + path + "/' %}mol_" + ssu_cid + ".png";
+        //        console.log(ssu_cid);
+        //        console.log(path);
+        //        console.log(final_path);
+
+        return [final_path_img, final_path_file, final_path_mgf];
+    }
+</script>
+
+
+<!-- HTML Contents -->
+
+
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div id="JSmol">
+                <div class="jmol_title">
+                    <h3># {{ mol.SSU_CID }}  ({{ mol.MolFormular }}) [<a href="https://pubchem.ncbi.nlm.nih.gov/compound/{{ mol.PUB_CID }}" target="_blank">PubChem_{{ mol.PUB_CID }}</a>]</h3>
+                </div>
+                <div id="jmol_sync">
+                    <tr>
+                        <form id=info>
+                            <input type=checkbox id=drive onClick=sync(); accessKey="1">Synchronize
+                        </form>
+                    </tr>
+                </div>
+                <div id="JMolViewer">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th class="homo"><strong>HOMO</strong></th>
+                            <th class="lumo"><strong>LUMO</strong></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="homo" id="homo">
+                                <script>
+                                    var script_A = "load " + mol_data +"; cartoon on; color cartoon structure; MO HOMO;";
+                                    jmolApplet(420, script_A, "A")
+                                </script>
+                            </td>
+                            <td class="lumo" id="lumo">
+                                <script>
+                                    var script_B = "load " + mol_data +"; cartoon on; color cartoon structure; MO LUMO;";
+                                    jmolApplet(420, script_B, "B")
+                                </script>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+{% endblock %}

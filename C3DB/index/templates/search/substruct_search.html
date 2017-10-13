@@ -1,0 +1,195 @@
+{% extends "search/search.html" %}
+
+{% block title %}Substructure Search{% endblock %}
+
+{% block head %}
+{% load staticfiles %}
+{{ block.super }}
+    .filter {
+        width: 80px;
+    }
+    .max_result_box {
+        width: 150px;
+    }
+    .max_result {
+        width: 80px;
+    }
+{% endblock %}
+
+{% block search %}
+    <div class="container" style="margin-top: 8px;">
+        <div class="tab-content">
+            <div class="row">
+                <div class="col-sm-5">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <th>Enter Query</th>
+                            </thead>
+                            <tbody>
+                            <tr><td>
+                                Molecule Input: {{ form.Sub_Search }}<br/><br/>
+                                {{ form.Supersub }} Supersubstructure
+                            </td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="table-responsive max_result_box">
+                        <table class="table">
+                            <thead>
+                            <th>Maximum Result</th>
+                            </thead>
+                            <tbody>
+                            <tr><td>
+                                <input class="max_result" type="number" name="max_result" value="100">
+                            </td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="table-responsive" style="height: 400px; z-index:1;">
+                        <table class="table">
+                            <thead>
+                            <th>Physical
+                                <select class="selectpicker physical" multiple data-actions-box="true" title="choose filter options" style="width: 154px;" id="physical-select">
+                                    <optgroup label="Physical">
+                                        <option value="molecule_weight">Molecule Weight</option>
+                                        <option value="atom_number">Atom Number</option>
+                                        <option value="bond_number">Bond Number</option>
+                                    </optgroup>
+                                </select>
+                            </th>
+                            </thead>
+                            <tbody class="_physical"></tbody>
+                        </table>
+                        <table class="table">
+                            <thead>
+                            <th>Topology
+                                <select class="selectpicker topology" multiple data-actions-box="true" title="choose filter options" style="width: 154px;" id="topology-select">
+                                    <optgroup label="Topolocy">
+                                        <option value="ring_number">Ring Number</option>
+                                        <option value="rotate_bond">Rotatable Bond</option>
+                                    </optgroup>
+                                </select>
+                            </th>
+                            </thead>
+                            <tbody class="_topology"></tbody>
+                        </table>
+                        <table class="table">
+                            <thead>
+                            <th>Property
+                                <select class="selectpicker property" multiple data-actions-box="true" title="choose filter options" style="width: 154px;" id="property-select">
+                                    <optgroup label="Property">
+                                        <option value="LogP">LogP</option>
+                                        <option value="formalcharge">Formal Charges</option>
+                                        <option value="HBA">H-bond acceptor</option>
+                                        <option value="HBD">H-bond donor</option>
+                                    </optgroup>
+                                </select>
+                            </th>
+                            </thead>
+                            <tbody class="_property"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <button type="button" class="btn btn-default" id="reset">Reset</button>
+                        <button type="submit" class="btn btn-primary" style="width: 120px;">Search</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+{{ block.super }}
+<script type="text/javascript">
+    $(".physical").change(function(){
+        var tag = "";
+        $(".physical option:selected").each(function(){
+            var El = $(this).val();
+
+            if (El === "molecule_weight"){
+                tag += '<tr><td>{{ form.molweight_min2 }} Molecule Weight {{ form.molweight_max2 }}<div id="MW_slider2"></div></td></tr>';
+            } else if (El === "ring_number"){
+                tag += '<tr><td>{{ form.ringnum_min2 }} Ring Number {{ form.ringnum_max2 }}<div id="ringnum_slider2"></div></td></tr>';
+            } else if(El === "LogP"){
+                tag += '<tr><td>{{ form.LogP_min2 }} LogP {{ form.LogP_max2 }}<div id="logp_slider2"></div></td></tr>';
+            } else if (El === "atom_number"){
+                tag += '<tr><td>{{ form.AtomNum_min2 }} AtomNum {{ form.AtomNum_max2 }}</td></tr>'
+            } else if (El === "bond_number"){
+                tag += '<tr><td>{{ form.BondNum_min2 }} BondNum {{ form.BondNum_max2 }}</td></tr>'
+            } else if (El === "rotate_bond"){
+                tag += '<tr><td>{{ form.Rotate_min2 }} Rotatable bond {{ form.Rotate_max2 }}</td></tr>'
+            } else if (El === "formalcharge"){
+                tag += '<tr><td>{{ form.Formal_min2 }} Formal Charge {{ form.Formal_max2 }}</td></tr>'
+            } else if (El === "HBA"){
+                tag += '<tr><td>{{ form.HBA_min2 }} HBA {{ form.HBA_max2 }}</td></tr>'
+            } else if (El === "HBD"){
+                tag += '<tr><td>{{ form.HBD_min2 }} HBD {{ form.HBD_max2 }}</td></tr>'
+            }
+        });
+        $("._physical").html(tag);
+    }).change();
+
+    $(".topology").change(function(){
+        var tag = "";
+        $(".topology option:selected").each(function(){
+            var El = $(this).val();
+
+            if (El === "molecule_weight"){
+                tag += '<tr><td>{{ form.molweight_min2 }} Molecule Weight {{ form.molweight_max2 }}<div id="MW_slider2"></div></td></tr>';
+            } else if (El === "ring_number"){
+                tag += '<tr><td>{{ form.ringnum_min2 }} Ring Number {{ form.ringnum_max2 }}<div id="ringnum_slider2"></div></td></tr>';
+            } else if(El === "LogP"){
+                tag += '<tr><td>{{ form.LogP_min2 }} LogP {{ form.LogP_max2 }}<div id="logp_slider2"></div></td></tr>';
+            } else if (El === "atom_number"){
+                tag += '<tr><td>{{ form.AtomNum_min2 }} AtomNum {{ form.AtomNum_max2 }}</td></tr>'
+            } else if (El === "bond_number"){
+                tag += '<tr><td>{{ form.BondNum_min2 }} BondNum {{ form.BondNum_max2 }}</td></tr>'
+            } else if (El === "rotate_bond"){
+                tag += '<tr><td>{{ form.Rotate_min2 }} Rotatable bond {{ form.Rotate_max2 }}</td></tr>'
+            } else if (El === "formalcharge"){
+                tag += '<tr><td>{{ form.Formal_min2 }} Formal Charge {{ form.Formal_max2 }}</td></tr>'
+            } else if (El === "HBA"){
+                tag += '<tr><td>{{ form.HBA_min2 }} HBA {{ form.HBA_max2 }}</td></tr>'
+            } else if (El === "HBD"){
+                tag += '<tr><td>{{ form.HBD_min2 }} HBD {{ form.HBD_max2 }}</td></tr>'
+            }
+        });
+        $("._topology").html(tag);
+    }).change();
+
+    $(".property").change(function(){
+        var tag = "";
+        $(".property option:selected").each(function(){
+            var El = $(this).val();
+
+            if (El === "molecule_weight"){
+                tag += '<tr><td>{{ form.molweight_min2 }} Molecule Weight {{ form.molweight_max2 }}<div id="MW_slider2"></div></td></tr>';
+            } else if (El === "ring_number"){
+                tag += '<tr><td>{{ form.ringnum_min2 }} Ring Number {{ form.ringnum_max2 }}<div id="ringnum_slider2"></div></td></tr>';
+            } else if(El === "LogP"){
+                tag += '<tr><td>{{ form.LogP_min2 }} LogP {{ form.LogP_max2 }}<div id="logp_slider2"></div></td></tr>';
+            } else if (El === "atom_number"){
+                tag += '<tr><td>{{ form.AtomNum_min2 }} AtomNum {{ form.AtomNum_max2 }}</td></tr>'
+            } else if (El === "bond_number"){
+                tag += '<tr><td>{{ form.BondNum_min2 }} BondNum {{ form.BondNum_max2 }}</td></tr>'
+            } else if (El === "rotate_bond"){
+                tag += '<tr><td>{{ form.Rotate_min2 }} Rotatable bond {{ form.Rotate_max2 }}</td></tr>'
+            } else if (El === "formalcharge"){
+                tag += '<tr><td>{{ form.Formal_min2 }} Formal Charge {{ form.Formal_max2 }}</td></tr>'
+            } else if (El === "HBA"){
+                tag += '<tr><td>{{ form.HBA_min2 }} HBA {{ form.HBA_max2 }}</td></tr>'
+            } else if (El === "HBD"){
+                tag += '<tr><td>{{ form.HBD_min2 }} HBD {{ form.HBD_max2 }}</td></tr>'
+            }
+        });
+        $("._property").html(tag);
+    }).change();
+
+</script>
+{% endblock %}

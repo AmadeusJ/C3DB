@@ -1,0 +1,33 @@
+{% extends "user/user_db.html" %}
+
+{% load staticfiles %}
+
+{% block head %}
+{{ block.super }}
+    #user_db_create_form {
+        margin-top: 10px;
+    }
+{% endblock %}
+
+{% block user_db %}
+<form action="{% url 'chemdb:user_db_create' %}" method="post">
+    {% csrf_token %}
+    <div id="user_db_create_form">
+        <h3>{{ user.username }}! Make your database!</h3>
+        {% for field in form %}
+            <p>
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.help_text %}
+                    <small style="color:grey">{{ field.help_text }}</small>
+                {% endif %}
+                {% for error in field.errors %}
+                    <p style="color:red">{{ error }}</p>
+                {% endfor %}
+            </p>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary user_db_create_button">Create</button>
+    </div>
+</form>
+{% endblock %}
+

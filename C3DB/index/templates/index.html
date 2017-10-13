@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+
+{% block title %}Welcome to ChemDB{% endblock %}
+
+
+{% block head %}
+{% load staticfiles %}
+{{ block.super }}
+{% endblock %}
+
+
+{% block content %}
+
+    <section>
+        <!--1th-->
+        <article>
+            <div class="bg bg1" onclick="window.location='{% url 'chemdb:index' %}'">
+                <h1 class="welcome">C3DB</h1>
+                <div>
+                    <em>We are aiming to make the largest and non-redundant 3D Molecular Database in the world with easy search protocols.</em>
+                    <strong><span>51,335,324</span><p id="entries">entries</p></strong>
+                    <p id="up_date">Last updated on 8/25/2017</p>
+                </div>
+            </div>
+        </article>
+
+        <!--2th-->
+        <!--article>
+            <div class="txt">
+                <i class="fa fa-arrow-right"></i>
+                <p>
+                    <em><strong>The largest in the world</strong></em>
+                </p>
+            </div>
+        </article-->
+
+        <!--3th-->
+        <!--2th-->
+        <article>
+            <div class="txt" onclick="window.location='{% url 'chemdb:exact' %}'">
+                <i class="fa fa-search"></i>
+                <p>
+                    <strong>Exact Search</strong><br/>
+                    <em>You can find the exact structure<br/>
+                    with your query.</em>
+                </p>
+            </div>
+        </article>
+
+        <!--4th-->
+        <!--3th-->
+        <article>
+            <div class="txt" onclick="window.location='{% url 'chemdb:similar' %}'">
+                <i class="fa fa-search"></i>
+                <p>
+                    <strong>Similarity Search</strong><br/>
+                    <em>You can use the similarity search<br/>
+                    with many fingerprints.</em>
+                </p>
+            </div>
+        </article>
+
+        <!--5th-->
+        <!--article>
+            <div class="txt" onclick="window.location='{% url 'register' %}'">
+                <i class="fa fa-address-card-o"></i>
+                <p>
+                    <strong>Register,<br></strong>
+                    <em>to make your own DB.<br>
+                    You can collect data from our DB and<br> make your own DB for future use.</em>
+                </p>
+            </div>
+        </article-->
+
+        <!--6th-->
+        <!--article>
+            <div class="txt">
+                <i class="fa fa-database"></i>
+                <p>
+                    <em><strong>Contact us</strong></em>
+                </p>
+            </div>
+        </article-->
+
+        <!--7th-->
+        <!--4th-->
+        <article>
+            <div class="txt" onclick="window.location='{% url 'chemdb:substruct' %}'">
+                <i class="fa fa-search"></i>
+                <p>
+                    <strong>Substruct Search</strong><br/>
+                    <em>You can use the substructure search<br/>
+                    with your query.</em>
+                </p>
+            </div>
+        </article>
+
+        <!--8th-->
+        <!--5th-->
+        <article>
+            <div class="txt" onclick="window.location='{% url 'chemdb:functional' %}'">
+                <i class="fa fa-search"></i>
+                <p>
+                    <strong>Identification</strong><br>
+                    <em>We offer the functional search<br>
+                    using smarts-format.</em>
+                </p>
+            </div>
+        </article>
+
+    </section>
+{% endblock %}
+
+
+{% block body %}
+{% load staticfiles %}
+{{ block.super }}
+{% endblock %}

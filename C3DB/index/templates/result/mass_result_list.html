@@ -1,0 +1,598 @@
+{% extends "base.html" %}
+
+{% block title %}Mass Search{% endblock %}
+
+{% block head %}
+{% load staticfiles %}
+{{ block.super }}
+    h4{
+        font-size: 20px;
+        font-weight: bold;
+        color: #555;
+    }
+    .box0 {
+        float: left;
+        width: 100%;
+
+    }
+    .box0-1 {
+        #border: 2px solid;
+        float: left;
+        width: 100%;
+        margin-bottom: 5px;
+    }
+    #comment1 {
+        float: left;
+        margin-left: 15px;
+    }
+    #fc-mw-box1 {
+        float: left;
+        margin-left: 30px;
+        margin-rifht: 15px;
+    }
+    #fc-mw-box1 input {
+        width: 130px;
+    }
+    #fc-mw-box2 {
+        float: left;
+        margin-left: 20px;
+    }
+    #fc-mw-box2 input {
+        width: 130px;
+    }
+    .box0-2 {
+        margin-bottom: 10px;
+    }
+    /* MW query box */
+        #fc-mw-box {
+        margin-left: 22px;
+    }
+    #fc-mw {
+        width: 130px;
+    }
+    /* MF query box */
+        #fc-mf-box {
+        float: left;
+        margin-left: 22px;
+        margin-top: 5px;
+    }
+        #fc-mf-box input{
+        width: 250px;
+    }
+    .box1 {
+        margin-top: 5px;
+        float: left;
+    }
+    .box2 {
+        margin-top: 5px;
+        float: left;
+        width: 35%;
+        padding-left: 10px;
+        #border: 2px solid;
+    }
+
+    .sector {
+        padding-top: 10px;
+        margin-left: 3px;
+    }
+
+    .inboxA {
+        #border: 2px solid;
+    }
+
+    .inboxA-1 {
+        float: left;
+        width: 100%;
+    }
+
+    .inboxA-3 {
+        text-align: center;
+    }
+
+    .container1 {
+        position: relative;
+        width: 15%;
+        height: 69px;
+        border: 2px solid;
+        border-color: #00cccc;
+        float: left;
+        margin-left: 10px;
+    }
+
+    .image {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+
+    .overlay1 {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: #00b3b3;
+        overflow: hidden;
+        width: 100%;
+        height: 0;
+        transition: .5s ease;
+    }
+
+    .container1:hover .overlay1 {
+        height: 100%;
+    }
+
+    .text .fc_title {
+        white-space: nowrap;
+        color: white;
+        font-size: 20px;
+        position: absolute;
+        overflow: hidden;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+    }
+
+    .inner-addon {
+        position: relative;
+        //margin-top: 5px;
+    }
+    .inner-addon .glyphicon {
+        position: relative;
+        padding: 7px;
+        pointer-events: none;
+    }
+    .left-addon .glyphicon {
+        left: 6px;
+        top: 30px;
+        position: relative;
+    }
+    .left-addon input {
+        padding-left: 30px;
+    }
+
+    #fc-search {
+        //float: left;
+        width: 20%;
+    }
+
+    #fc-search #fc-search-query{
+        width: 100%;
+    }
+
+    #fc-smarts {
+        margin-left: 20px;
+        float: left;
+        width: 55%;
+        #border: 2px solid;
+    }
+
+    #fc-smarts #fc-smarts-query {
+        width: 74%;
+        height: 30px;
+        margin-left: 5px;
+    }
+    #smq {
+        float:left;
+        font-size: 18px;
+    }
+
+    .smarts-reset {
+        float: left;
+        margin-left: 5px;
+        width: 5%;
+        #border: 2px solid;
+    }
+
+    #fc-sketch {
+        resize: both;
+        overflow: auto;
+        #border: 2px solid;
+        border-color: #00cccc;
+        padding: 5px;
+        width: 100%;
+        height: 320px;
+    }
+    .search-submit {
+        float: left;
+        width: 13%;
+        #border: 2px solid;
+    }
+    .search-submit button {
+        margin-left: 10px;
+    }
+
+    #id_FC_Num {
+        width: 50px;
+    }
+    #pager {
+        margin-left: 450px;
+    }
+
+    .progress_box {
+        display: none;
+    }
+    .loading_box {
+        text-align: center;
+    }
+    .loading_img {
+        text-align: center;
+    }
+    #user_db {
+        float:left;
+        margin-left: 15px;
+    }
+{% endblock %}
+
+{% block content %}
+
+{% if task_id %}
+<div class="container" id="content-bar">
+    <h2>Searching...</h2>
+    <div class="loading_box">
+        <div class="table-responsive query">
+            <table class="table">
+                <thead>
+                <th>[Your Query]</th>
+                </thead>
+                <tbody>
+                <tr><td class="your_query_mw">MW: {{ query_mass }}</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="stop_search">
+            <button id="stop_button" type="button" class="btn btn-danger" onclick="location.href='{% url 'chemdb:kill_job' %}'">Stop</button>
+        </div>
+    </div>
+    <div class="loading_img">
+        <img src="{% static 'img/ajax-loading2.gif' %}" width="111" height="111" style="margin-top: 30px;">
+    </div>
+    <div class="progress_box">
+        <p>Your Task is <span id="user_count">Ready</span>!</p>
+        <div class="progress">
+            <div id="bar" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                0%
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="dd">
+    <form action="#" method="post" class="result">
+        {% csrf_token %}
+        <div class="container" style="margin-top: 8px;">
+            <ul class="nav nav-tabs">
+                <li>
+                    <div class="col-lg-3">
+                        {{ form.Category }}
+                    </div>
+                </li>
+                <li><a href="{% url 'chemdb:exact' %}">Search</a></li>
+                <li><a href="{% url 'chemdb:functional' %}">Identification</a></li>
+                <li><a href="{% url 'chemdb:mass' %}">Mass</a></li>
+            </ul>
+
+            <!-- Result : title -->
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-10">
+                    <h2>Results</h2>
+                </div>
+            </div>
+            <!-- Result : User query -->
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-10">
+                    <p id="search_time"></p>
+                    <p class="your_query_mw">MW: {{ query_mass }}</p>
+                </div>
+            </div>
+            <!-- Result : Options -->
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-10">
+                    <div class="boxA">
+                        <div class="box0">
+                            <div id="Total_result"></div>
+                        </div>
+                        <div class="box1">
+                            <input id="show_all" type="checkbox" autocomplete="off">Show Pic
+                        </div>
+                        <div class="box2">
+                            <input id="select_all" type="checkbox" autocomplete="off">Select all
+                        </div>
+                        {% if user.is_active %}
+                        <div id="user_db">
+                            <select name="user_db_list" data-style="btn-info" class="chzn-select selectpicker" id="user_db_list">
+                                {% for db in user_db %}
+                                <option value="{{ db.id }}">{{ db.user_db_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <button class="btn btn-success" type="submit" id="save">Save</button>
+                        {% endif %}
+                        <button class="btn btn-warning" type="submit" id="download">Download</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-10">
+                    <div id="Result_box">
+                        <table class="tablesorter" id="myTable">
+                            <thead>
+                            <tr>
+                                <th>
+                                </th>
+                                <th>SSU_CID</th>
+                                <th class="mol_img">Pic</th>
+                                <th>MW</th>
+                                <th>MF</th>
+                            </tr>
+                            </thead>
+                            <tbody id="contents"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+    <!-- Pager -->
+    <div id="pager" class="pager">
+        <form>
+            <img src="{% static 'jquery.tablesorter/addons/pager/icons/first.png' %}" class="first"/>
+            <img src="{% static 'jquery.tablesorter/addons/pager/icons/prev.png' %}" class="prev"/>
+            <input type="text" class="pagedisplay"/>
+            <img src="{% static 'jquery.tablesorter/addons/pager/icons/next.png' %}" class="next"/>
+            <img src="{% static 'jquery.tablesorter/addons/pager/icons/last.png' %}" class="last"/>
+            <select class="pagesize">
+                <option selected="selected" value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="40">40</option>
+            </select>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block body %}
+{{ block.super }}
+<script src="http://code.jquery.com/jquery-1.9.0.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
+<!-- table sorter _jquery library -->
+<script src="{% static 'jquery.tablesorter/jquery.tablesorter.js' %}"></script>
+<!-- tablesorter pager -->
+<link rel="stylesheet" href="{% static 'jquery.tablesorter/addons/pager/jquery.tablesorter.pager.css' %}">
+<script src="{% static 'jquery.tablesorter/addons/pager/jquery.tablesorter.pager.js' %}"></script>
+<script src="{% static 'js/imageLoader.js' %}"></script>
+<script src="{% static 'js/imageLoader.js' %}"></script>
+<script type="text/javascript">
+    //alert(document.getElementById("user_count").textContent);
+    $('.dd').hide();
+
+    /* Getting mol_img path according ssu_cid */
+    function getMoleculeimagePath(ssu_cid){
+        ssu_cid = Number(ssu_cid);
+        var path = "";
+        var maximum_dir = 60000000; // Change this value according your dir.
+        var ssu_cid_len = ssu_cid.toString().length;
+        var final_path;
+        /* <Directory>
+         * 000000001/
+         * 001000001/
+         * 002000001/
+         * 003000001/
+         * 004000001/
+         * ...
+         * 051000000
+         * ==> mol_001000000.png placed in 001000001/ !!
+         * */
+        for (var i = 1;i < maximum_dir; i += 1000000){
+            if ((ssu_cid >= i) && (ssu_cid < i + 1000000)){
+                if ((ssu_cid_len >=1) && (ssu_cid_len < 7)){
+                    for (var j = 0;path.length < 8; j++){
+                        path += "0";
+                    }
+                    path += i;
+                }
+                else if ((ssu_cid_len >=7) && (ssu_cid_len < 8)){
+                    for (var k = 0;path.length < 2;k++){
+                        path += "0";
+                    }
+                    path += i;
+                }
+                else if ((ssu_cid_len >=8) && (ssu_cid_len < 9)){
+                    for (var p = 0;path.length < 1;p++){
+                        path += "0";
+                    }
+                    path += i;
+                }
+            }
+        }
+
+        var ssu_cid_string = addZero(ssu_cid);
+
+        final_path = "{{ MEDIA_URL }}" + "mol_img/" + path + "/" + "mol_" + ssu_cid_string + ".png";
+        //final_path = "{% static 'mol_png/" + path + "/' %}mol_" + ssu_cid + ".png";
+//        console.log(ssu_cid);
+//        console.log(path);
+//        console.log(final_path);
+
+        return final_path;
+    }
+
+    /* Parsing search results for table show */
+    function resultAppend(mols){
+        var path = getMoleculeimagePath(mols[0]);
+        var o = "";
+        o += "<tr>";
+        o += "<td><div><label>";
+        o += "<input class='mol1' name='user_mol' type='checkbox' value='" + mols[0] + "'>";    // SSU_CID
+        o += "</label></div></td>";
+        o += "<td><a href='http://203.230.60.144:8000/chemdb/result/" + mols[0] + "' target='_blank'>" + mols[0] + "</a></td>";    // SSU_CID
+        o += "<td class='mol_img'>";
+        o += "<a href='"+ path + "' class='highslide' onclick='return hs.expand(this)'><img alt='HighslideJS' title='Click to enlarge' src="+ path +" width='120' height='107'></a>";
+        o += "</td>";
+        o += "<td>" + mols[1] + "</td>";    // MW
+        o += "<td>" + mols[2] + "</td>";    // MF
+        //o += "<td><a href='https://pubchem.ncbi.nlm.nih.gov/compound/" + mols[7] + "' target='_blank'>" + mols[7] + "</a></td>";
+        o += "</tr>";
+
+        return o;
+    }
+
+    /* AJAX : For sending & receiving data
+     * & Progress bar update */
+    (function(){
+        var poll = function(){
+            var json_dump = "{{ data }}";
+            var task_id = "{{ task_id }}";
+            console.log(task_id);
+
+            progress_xhr = $.ajax({
+                url: "{%  url 'chemdb:poll' %}",
+                type: 'POST',
+                timeout: 2000,
+                data: {
+                    task_id: task_id,
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                },
+
+                beforeSend: function(){
+
+                },
+                success: function(result){
+
+                    if (result.state=="SUCCESS") {
+                        willstop = 1;
+                        document.getElementById("user_count").textContent="DONE";
+                        $('#bar').css({'width': 100 + '%'});
+                        $('#bar').html(100 + '%');
+
+                        //alert(result.result_functional);     //  "result.result_functional" <-- This code show the task result as JSON format!
+
+                        /* Declare the result "CAUTION: WATCHOUT THE DELAY TIME" */
+                        function declare(){
+                            mols = result.data.result_mw_search;
+                            var search_time = result.data.time;  // (For Rendering) Search time
+                            //var Total_result = result.Total_result; // (For Rendering) Total result counts
+                            var q = "";
+                            if(mols.length >1){
+                                for (var i = 0; i < mols.length; i++){
+                                    q += resultAppend(mols[i]);
+                                }
+                                $('#contents').html(q);
+                            } else if (mols.length === 1) {
+                                q += resultAppend(mols[0]);
+                                $('#contents').html(q);
+                            } else if (mols.length === 0) {
+                                q += "<div class='no_result'><p>Sorry, No Match.</p></div>";
+                                $('#Result_box').html(q);
+                                $('.option').html("");
+                                $('.boxA').html("");
+                            }
+                            $('#search_time').html(search_time + 'S');
+                            //$('#Total_result').html("Total results: " + Total_result);
+                            //console.log(Total_result);
+                        }
+                        console.log(search_time);
+                        declare();
+
+                    } else if (result.state == "PROGRESS"){
+                        $('#bar').css({'width': result.process_percent + '%'});
+                        $('#bar').html(result.process_percent + '%');
+                        document.getElementById("user_count").textContent="PROGRESSING";
+                    };
+                },
+            });
+        };
+        /* Send an ajax call to server per 0.5s  */
+        var refreshIntervalId = setInterval(function(){
+            poll();
+            if(willstop === 1){
+                clearInterval(refreshIntervalId);
+                $('#content-bar').remove();
+                $('.dd').show();
+                //alert(mols[0])
+
+
+                /* Table sorting */
+                $("#myTable").tablesorter()
+                    .tablesorterPager({container: $("#pager")});
+
+            }
+        }, 500);
+    })();
+
+    /* Selecting all molecules */
+    $('#select_all').change(function(){
+        $('.mol1').prop('checked', $(this).prop("checked"));
+    });
+
+    $('.mol1').change(function(){
+        if (false == $(this).prop("checked")){
+            $('#select_all').prop('checked', false);
+        }
+        if ($('.mol1:checked').length == $('.mol1').length){
+            $('#select_all').prop('checked', true);
+        }
+    });
+
+
+    /* Show & Hiding Pics */
+    $('#show_all').change(function(){
+        var chk = $(this).is(":checked");
+        if(chk){
+            $('.mol_img').show();
+
+
+        }else{
+            $('.mol_img').hide();
+
+        }
+    });
+
+    // Save selected molecules to user database.
+    $('#save').click(function(e){
+        e.preventDefault();
+        /*
+         console.log($('input[name="user_mol"]:checked').serialize());
+         var checkedMolList = [];
+         $('input[name="user_mol"]:checked').each(function () {
+         checkedMolList.push(this.value);
+         console.log(this.value);
+         });
+         */
+        function checkedMolList(checkedList) {
+            var list = [];
+            checkedList.each(function () {
+                list.push(this.value);
+            });
+
+            return list;
+        }
+
+        $.post("{% url 'chemdb:mol_add' %}", {
+            mol_ids: checkedMolList($('input[name="user_mol"]:checked')),
+            user_db_id: $('#user_db_list option:selected').val(),
+            csrfmiddlewaretoken: "{{ csrf_token }}"
+        }, function(data){
+            if (data['status'] == 'ok') {
+                alert("Save success!");
+            } else if (data['status'] == 'None'){
+                alert("Please select molecule...");
+            } else if (data['status'] == 'duplicate') {
+                var dup_list = [];
+                for (var i = 0; i < data['duplicate'].length; ++i){
+                    dup_list.push(data['duplicate'][i]);
+                }
+                alert("Already exist " + dup_list + " db you selected.\nNot added these.");
+            }
+        });
+    });
+</script>
+{% endblock %}

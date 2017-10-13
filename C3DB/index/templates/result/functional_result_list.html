@@ -1,0 +1,476 @@
+{% extends "base.html" %}
+
+{% block title %}Functional Search{% endblock %}
+
+{% block head %}
+{% load staticfiles %}
+{{ block.super }}
+
+    .filter { width: 80px; }
+    .result{ padding-left: 5px; }
+
+    /* Results title part */
+    #search_time { float: left; }
+    .your_query_mw { margin-left: 50px; float: left; }
+    .your_query_mf { margin-left: 50px; float: left; }
+    .your_query_smarts { margin-left: 350px; }
+    .box0 { float: left; }
+    .box1 {
+        float: left;
+        margin-left: 13px;
+    }
+    .box2 {
+        float: left;
+    }
+    .box2 input {
+        margin-left: 10px;
+    }
+    #save {
+        float: left;
+        margin-left: 50px;
+    }
+    #download {
+        margin-left: 50px;
+    }
+
+    /* Search Loading page */
+    .loading_box {
+        margin-left: 200px;
+    }
+    .query {
+        float: left;
+        margin-left: 100px;
+    }
+    .stop_search {
+        margin-top: 50px;
+        margin-left: 130px;
+    }
+    .stop_search #stop_button{
+        margin-top: 30px;
+        margin-left: 50px;
+
+    }
+    .progress_box {
+        margin-top: 150px;
+
+    }
+    /* When there are no result */
+    .no_result p {
+        font-size: 40px;
+    }
+    #user_db {
+        float:left;
+        margin-left: 15px;
+    }
+
+    #pager {
+        margin-left: 450px;
+
+    }
+    #sm {
+        overflow:auto;
+        /*width: 100%;*/
+        height: 550px;
+    }
+    .progress_box {
+        display: none;
+    }
+{% endblock %}
+
+
+{% block content %}
+
+{% if task_id %}
+<div class="container" id="content-bar">
+    <h2>Searching...</h2>
+    <div class="loading_box">
+        <div class="table-responsive query">
+            <table class="table">
+                <thead>
+                <th>[Your Query]</th>
+                </thead>
+                <tbody>
+                    <tr><td class="your_query_mw">MW: {{ query_mw }}</td></tr>
+                    <tr><td class="your_query_mf">MF: {{ query_mf }}</td></tr>
+                    <tr><td class="your_query_smarts">SMARTs: {{ query_smarts }}</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="stop_search">
+            <button id="stop_button" type="button" class="btn btn-danger" onclick="location.href='{% url 'chemdb:kill_job' %}'">Stop</button>
+        </div>
+    </div>
+    <div class="loading_img">
+        <img src="{% static 'img/ajax-loading2.gif' %}" width="111" height="111" style="margin-top: 150px">
+    </div>
+    <div class="progress_box">
+        <p>Your Task is <span id="user_count">Ready</span>!</p>
+          <div class="progress">
+            <div id="bar" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+              0%
+            </div>
+          </div>
+    </div>
+</div>
+<!--div id="LoadingImage" style="display:none" >
+    <img src="{% static 'img/ajax-loading2.gif' %}">
+</div-->
+{% endif %}
+
+<div class="dd">
+    <form action="#" method="post" class="result">
+        {% csrf_token %}
+        <div class="container" style="margin-top: 8px;">
+            <ul class="nav nav-tabs">
+                <li>
+                    <div class="col-lg-3">
+                        {{ form.Category }}
+                    </div>
+                </li>
+                <li><a href="{% url 'chemdb:exact' %}">Search</a></li>
+                <li><a href="{% url 'chemdb:functional' %}">Identification</a></li>
+                <li><a href="{% url 'chemdb:mass' %}">Mass</a></li>
+            </ul>
+            <!-- Result : title -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2>Results</h2>
+                </div>
+            </div>
+            <!-- Result : User query -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <p id="search_time"></p>
+                    <p class="your_query_mw">MW: {{ query_mw }}</p>
+                    <p class="your_query_mf">MF: {{ query_mf }}</p>
+                    <p class="your_query_smarts">SMARTs: {{ query_smarts }}</p>
+                </div>
+            </div>
+            <!-- Result : Options -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="boxA">
+                        <div class="box0">
+                            <div id="Total_result"></div>
+                        </div>
+                        <div class="box1">
+                            <input id="show_all" type="checkbox" autocomplete="off">Show Pic
+                        </div>
+                        <div class="box2">
+                            <input id="select_all" type="checkbox" autocomplete="off">Select all
+                        </div>
+                        {% if user.is_active %}
+                        <div id="user_db">
+                            <select name="user_db_list" data-style="btn-info" class="chzn-select selectpicker" id="user_db_list">
+                                {% for db in user_db %}
+                                <option value="{{ db.id }}">{{ db.user_db_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <button class="btn btn-success" type="submit" id="save">Save</button>
+                        {% endif %}
+                        <button class="btn btn-warning" type="submit" id="download">Download</button>
+                        <!-- Modal Trigger -->
+                        <button class="btn btn-info" type="button" id="show_scatterPlot">ScatterPlot</button>
+                        <!-- Pager -->
+                        <div id="pager" class="pager">
+                            <form>
+                                <img src="{% static 'jquery.tablesorter/addons/pager/icons/first.png' %}" class="first"/>
+                                <img src="{% static 'jquery.tablesorter/addons/pager/icons/prev.png' %}" class="prev"/>
+                                <input type="text" class="pagedisplay"/>
+                                <img src="{% static 'jquery.tablesorter/addons/pager/icons/next.png' %}" class="next"/>
+                                <img src="{% static 'jquery.tablesorter/addons/pager/icons/last.png' %}" class="last"/>
+                                <select class="pagesize">
+                                    <option selected="selected" value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Result show selector -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <input class="des_mw" type="checkbox">MW
+                    <input class="des_atom" type="checkbox">Atom
+                    <input class="des_bond" type="checkbox">Bond
+                    <input class="des_ring" type="checkbox">Ring
+                    <input class="des_mf" type="checkbox">MF
+                    <input class="des_logP" type="checkbox">LogP
+                    <input class="des_fc" type="checkbox">FC
+                    <input class="des_pub" type="checkbox">PUB
+                    <input class="des_tpsa" type="checkbox">TPSA
+                    <input class="des_hba" type="checkbox">HBA
+                    <input class="des_hbd" type="checkbox">HBD
+                    <input class="des_rotate" type="checkbox">Rotate
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <!--div id="Total_result"></div-->
+                    <div id="Result_box">
+                        <table class="tablesorter" id="myTable">
+                            <thead>
+                            <tr>
+                                <th>
+                                </th>
+                                <th>SSU_CID</th>
+                                <th class="mol_img">Pic</th>
+                                <th class="result_mw">MW</th>
+                                <th class="result_atom">#ATOM</th>
+                                <th class="result_bond">#BOND</th>
+                                <th class="result_ring">#Ring</th>
+                                <th class="result_mf">MF</th>
+                                <th class="result_logP">logP</th>
+                                <th class="result_fc">FC</th>
+                                <th class="result_hba">HBA</th>
+                                <th class="result_hbd">HBD</th>
+                                <th class="result_rotate">Rotate</th>
+                                <th class="result_pub">PUB_CID</th>
+                            </tr>
+                            </thead>
+                            <tbody id="contents">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Modal Page -->
+<div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <!-- Modal header -->
+        <div class="modal-header">
+            <span class="modal-close">&times; Close</span>
+            <h3>ScatterPlot</h3>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body" id="sm">
+        </div>
+        <!-- Modal footer -->
+        <!--div class="modal-footer">
+            <h3>Footer</h3>
+        </div-->
+    </div>
+</div>
+{% endblock %}
+
+{% block body %}
+{{ block.super }}
+<script src="http://code.jquery.com/jquery-1.9.0.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
+<!-- table sorter _jquery library -->
+<script src="{% static 'jquery.tablesorter/jquery.tablesorter.js' %}"></script>
+<!-- tablesorter pager -->
+<link rel="stylesheet" href="{% static 'jquery.tablesorter/addons/pager/jquery.tablesorter.pager.css' %}">
+<script src="{% static 'jquery.tablesorter/addons/pager/jquery.tablesorter.pager.js' %}"></script>
+<!-- molecule image loader -->
+<script src="{% static 'js/imageLoader.js' %}"></script>
+<script type="text/javascript">
+
+    // For scatter Plot drawing : Get the 'mols' from ajax result
+    var _result = [];
+
+    //alert(document.getElementById("user_count").textContent);
+    $('.dd').hide();
+
+
+    /* Getting mol_img path according ssu_cid */
+    function getMoleculeFilePath(ssu_cid){
+        //ssu_cid = Number(ssu_cid);
+        var ssu_cid_len = ssu_cid.toString().length;
+        var ssu_cid_string = addZero(ssu_cid);  //
+        var dir = ssu_cid_string.slice(0, 4);
+        console.log(ssu_cid_string);
+
+        final_path_img = "{{ MEDIA_URL }}" + "C3DB/img/" + dir + "/" + ssu_cid_string + ".png";
+        final_path_file = "{{ MEDIA_URL }}" + "C3DB/mol/" + dir + "/" + ssu_cid_string + ".mol";
+        //final_path = "{% static 'mol_png/" + path + "/' %}mol_" + ssu_cid + ".png";
+        //        console.log(ssu_cid);
+        //        console.log(path);
+        //        console.log(final_path);
+
+        return [final_path_img, final_path_file];
+    }
+
+
+    /* Showing Progress-bar image */
+
+    var poll_xhr;
+    var willstop = 0;
+    var mols = 0;
+
+    /* Parsing search results for table show */
+    function resultAppend(mols){
+        var mol_img_path = getMoleculeFilePath(mols[1])[0];
+        var o = "";
+        o += "<tr>";
+        o += "<td><div><label>";
+        o += "<input class='mol1' name='user_mol' type='checkbox' value='" + mols[1] + "'>";    // SSU_CID
+        o += "</label></div></td>";
+        o += "<td><a href='http://203.230.60.144:8000/chemdb/result/" + mols[1] + "' target='_blank'>" + mols[1] + "</a></td>";    // SSU_CID
+        o += "<td class='mol_img'>";
+        o += "<a href='"+ mol_img_path + "' class='highslide' onclick='return hs.expand(this)'><img alt='HighslideJS' title='Click to enlarge' src="+ mol_img_path +" width='120' height='107'></a>";
+        o += "</td>";
+        o += "<td class='result_mw'>" + mols[16] + "</td>"; // RDKit_MW
+        o += "<td class='result_atom'>" + mols[3] + "</td>"; // #Atom
+        o += "<td class='result_bond'>" + mols[4] + "</td>"; // #Bond
+        o += "<td class='result_ring'>" + mols[5] + "</td>"; // #Ring
+        o += "<td class='result_mf'>" + mols[8] + "</td>"; // #MF
+        o += "<td class='result_logP'>" + mols[6] + "</td>"; // logP
+        o += "<td class='result_fc'>" + mols[12] + "</td>"; // FC
+        o += "<td class='result_hba'>" + mols[13] + "</td>"; // HBA
+        o += "<td class='result_hbd'>" + mols[14] + "</td>"; // HBD
+        o += "<td class='result_rotate'>" + mols[15] + "</td>"; // Rotate
+        o += "<td class='result_pub'><a href='https://pubchem.ncbi.nlm.nih.gov/compound/" + mols[7] + "' target='_blank'>" + mols[7] + "</a></td>";
+        o += "</tr>";
+
+        return o;
+    }
+
+
+    /* AJAX : For sending & receiving data
+     * & Progress bar update */
+    (function(){
+        var poll = function(){
+            var json_dump = "{{ data }}";
+            var task_id = "{{ task_id }}";
+            console.log(task_id);
+
+            progress_xhr = $.ajax({
+                url: "{%  url 'chemdb:poll' %}",
+                type: 'POST',
+                timeout: 2000,
+                data: {
+                    task_id: task_id,
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                },
+
+                beforeSend: function(){
+
+                },
+                success: function(result){
+
+                    if (result.state=="SUCCESS") {
+                        willstop = 1;
+                        document.getElementById("user_count").textContent="DONE";
+                        $('#bar').css({'width': 100 + '%'});
+                        $('#bar').html(100 + '%');
+
+                        //alert(result.result_functional);     //  "result.result_functional" <-- This code show the task result as JSON format!
+
+                        /* Declare the result "CAUTION: WATCHOUT THE DELAY TIME" */
+                        function declare(){
+                            mols = result.data.result_functional;
+                            var search_time = result.data.time;  // (For Rendering) Search time
+                            var Total_result = result.data.Total_result; // (For Rendering) Total result counts
+                            var q = "";
+                            if(mols.length >1){
+                                for (var i = 0; i < mols.length; i++){
+                                    q += resultAppend(mols[i]);
+                                    _result.push(mols[i]);
+                                    }
+                                $('#contents').html(q);
+                            } else if (mols.length === 1) {
+                                q += resultAppend(mols[0]);
+                                _result.push(mols[0]);
+                                $('#contents').html(q);
+                            } else if (mols.length === 0) {
+                                q += "<div class='no_result'><p>Sorry, No Match.</p></div>";
+                                $('#Result_box').html(q);
+                                $('.option').html("");
+                                $('.boxA').html("");
+                            }
+                            $('#search_time').html(search_time + 'S');
+                            $('#Total_result').html("Total results: " + Total_result);
+                        }
+                        // Show the result on page !
+                        declare();
+                        callingConfiguration(result.configure);
+
+                    } else if (result.state == "PROGRESS"){
+                        $('#bar').css({'width': result.process_percent + '%'});
+                        $('#bar').html(result.process_percent + '%');
+                        document.getElementById("user_count").textContent="PROGRESSING";
+                    };
+                },
+            });
+        };
+        /* Send an ajax call to server per 0.5s  */
+        var refreshIntervalId = setInterval(function(){
+            poll();
+            if(willstop === 1){
+                clearInterval(refreshIntervalId);
+                $('#content-bar').remove();
+                $('.dd').show();
+                //alert(mols[0])
+
+
+                /* Table sorting */
+                $("#myTable").tablesorter()
+                    .tablesorterPager({container: $("#pager")});
+
+                // Parse the result for drawing scatter plot
+                //console.log(_result);
+                var data = resultParserToScatter(_result);
+                var sm = new ScatterMatrix('none', data, 'sm');
+                sm.render();
+
+                userConfigurationChange();
+
+            }
+        }, 500);
+    })();
+
+
+    // Save selected molecules to user database.
+    $('#save').click(function(e){
+        e.preventDefault();
+        /*
+         console.log($('input[name="user_mol"]:checked').serialize());
+         var checkedMolList = [];
+         $('input[name="user_mol"]:checked').each(function () {
+         checkedMolList.push(this.value);
+         console.log(this.value);
+         });
+         */
+        function checkedMolList(checkedList) {
+            var list = [];
+            checkedList.each(function () {
+                list.push(this.value);
+            });
+
+            return list;
+        }
+
+        $.post("{% url 'chemdb:mol_add' %}", {
+            mol_ids: checkedMolList($('input[name="user_mol"]:checked')),
+            user_db_id: $('#user_db_list option:selected').val(),
+            csrfmiddlewaretoken: "{{ csrf_token }}"
+        }, function(data){
+            if (data['status'] == 'ok') {
+                alert("Save success!");
+            } else if (data['status'] == 'None'){
+                alert("Please select molecule...");
+            } else if (data['status'] == 'duplicate') {
+                var dup_list = [];
+                for (var i = 0; i < data['duplicate'].length; ++i){
+                    dup_list.push(data['duplicate'][i]);
+                }
+                alert("Already exist " + dup_list + " db you selected.\nNot added these.");
+            }
+        });
+    });
+
+    // Run modal running function !
+    modalRun();
+
+</script>
+{% endblock %}
