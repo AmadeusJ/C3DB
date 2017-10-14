@@ -25,7 +25,7 @@ SECRET_KEY = '4=@%bj-uz*25)^1hqixtbzp5m95_r@ttow=xf)e)l0$@90z_ko'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '203.230.60.156', '203.230.60.144', 'C3DB.com']
+ALLOWED_HOSTS = ['127.0.0.1', '203.230.60.156', '203.230.60.144']
 
 
 # Results from celery to AJAX formats
@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 ]
 
 MIDDLEWARE = [
