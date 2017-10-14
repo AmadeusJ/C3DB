@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block content %}
-<form {% if form.Exact_Search %} action="{% url 'chemdb:exact' %}" {% elif form.Sub_Search %} action="{% url 'chemdb:substruct' %}" {% elif form.Similar_Search %} action="{% url 'chemdb:similar' %}" {% endif %} xmlns="http://www.w3.org/1999/html">
+<form {% if form.Exact_Search %} action="{% url 'C3DB:exact' %}" {% elif form.Sub_Search %} action="{% url 'C3DB:substruct' %}" {% elif form.Similar_Search %} action="{% url 'C3DB:similar' %}" {% endif %} xmlns="http://www.w3.org/1999/html">
     {% csrf_token %}
     <div class="dd">
         <div class="container" style="margin-top: 8px;">
@@ -22,9 +22,9 @@
                         {{ form.Category }}
                     </div>
                 </li>
-                <li><a href="{% url 'chemdb:exact' %}">Search</a></li>
-                <li><a href="{% url 'chemdb:functional' %}">Identification</a></li>
-                <li><a href="{% url 'chemdb:mass' %}">Mass</a></li>
+                <li><a href="{% url 'C3DB:exact' %}">Search</a></li>
+                <li><a href="{% url 'C3DB:functional' %}">Identification</a></li>
+                <li><a href="{% url 'C3DB:mass' %}">Mass</a></li>
             </ul>
             <div class="tab-content">
                 <div class="row">
@@ -40,9 +40,9 @@
                     <!-- Search methods selector -->
                     <div class="col-sm-7" id="Search-select">
                         <select name="Search-Methods" data-style="btn-info" class="chzn-select selectpicker" id="id_Methods" onchange="location=this.value;">
-                            <option value="{% url 'chemdb:exact' %}" {% if form.Exact_Search %} selected="selected" {% endif %}>Exact Match</option>
-                            <option value="{% url 'chemdb:similar' %}"{% if form.Similar_Search %} selected="selected" {% endif %}>Similarity Match</option>
-                            <option value="{% url 'chemdb:substruct' %}"{% if form.Sub_Search %} selected="selected" {% endif %}>Substructure Match</option>
+                            <option value="{% url 'C3DB:exact' %}" {% if form.Exact_Search %} selected="selected" {% endif %}>Exact Match</option>
+                            <option value="{% url 'C3DB:similar' %}"{% if form.Similar_Search %} selected="selected" {% endif %}>Similarity Match</option>
+                            <option value="{% url 'C3DB:substruct' %}"{% if form.Sub_Search %} selected="selected" {% endif %}>Substructure Match</option>
                         </select>
                     </div>
                 </div>
@@ -92,7 +92,7 @@
             marvinSketcherInstance.exportStructure("mol").then(function(source){
                 $.ajax({
                     type: "POST",
-                    url: "{% url 'chemdb:marvinToSmiles' %}",
+                    url: "{% url 'C3DB:marvinToSmiles' %}",
                     timeout: 2000,
                     data: {
                         MarvinForSmiles: source,
@@ -132,7 +132,7 @@
             marvinSketcherInstance.exportStructure("mol").then(function (source) {
                 $.ajax({
                     type: "POST",
-                    url: "{% url 'chemdb:marvinToYachi' %}",
+                    url: "{% url 'C3DB:marvinToYachi' %}",
                     timeout: 2000,
                     data: {
                         MarvinForYachi: source,
@@ -172,7 +172,7 @@
             marvinSketcherInstance.exportStructure("mol").then(function (source) {
                 $.ajax({
                     type: "POST",
-                    url: "{% url 'chemdb:marvinToInchi' %}",
+                    url: "{% url 'C3DB:marvinToInchi' %}",
                     timeout: 2000,
                     data: {
                         MarvinForInchi: source,

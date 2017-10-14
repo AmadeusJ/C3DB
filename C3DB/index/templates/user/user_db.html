@@ -37,9 +37,9 @@
                         {{ form.Category }}
                     </div>
                 </li>
-                <li><a href="{% url 'chemdb:exact' %}">Search</a></li>
-                <li><a href="{% url 'chemdb:functional' %}">Identification</a></li>
-                <li><a href="{% url 'chemdb:mass' %}">Mass</a></li>
+                <li><a href="{% url 'C3DB:exact' %}">Search</a></li>
+                <li><a href="{% url 'C3DB:functional' %}">Identification</a></li>
+                <li><a href="{% url 'C3DB:mass' %}">Mass</a></li>
             </ul>
         </div>
         <div class="tab-content">
@@ -48,7 +48,7 @@
                 <div class="col-sm-2">
                     <div>
                         [ DB List ]<br/>
-                        <button class="btn btn-info" onclick="location.href='{% url 'chemdb:user_db_create' %}'">Add</button>
+                        <button class="btn btn-info" onclick="location.href='{% url 'C3DB:user_db_create' %}'">Add</button>
                         <button class="btn btn-default" id="delete_db">Delete</button>
                         <button class="btn btn-default" id="mol_show">Show</button>
                     </div>
@@ -109,63 +109,30 @@
 <script type="text/javascript">
 
     /* Getting mol_img path according ssu_cid */
-    function getMoleculeimagePath(ssu_cid){
-        ssu_cid = Number(ssu_cid);
-        var path = "";
-        var maximum_dir = 60000000; // Change this value according your dir.
+    function getMoleculeFilePath(ssu_cid){
+        //ssu_cid = Number(ssu_cid);
         var ssu_cid_len = ssu_cid.toString().length;
-        var final_path;
-        /* <Directory>
-         * 000000001/
-         * 001000001/
-         * 002000001/
-         * 003000001/
-         * 004000001/
-         * ...
-         * 051000000
-         * ==> mol_001000000.png placed in 001000001/ !!
-         * */
-        for (var i = 1;i < maximum_dir; i += 1000000){
-            if ((ssu_cid >= i) && (ssu_cid < i + 1000000)){
-                if ((ssu_cid_len >=1) && (ssu_cid_len < 7)){
-                    for (var j = 0;path.length < 8; j++){
-                        path += "0";
-                    }
-                    path += i;
-                }
-                else if ((ssu_cid_len >=7) && (ssu_cid_len < 8)){
-                    for (var k = 0;path.length < 2;k++){
-                        path += "0";
-                    }
-                    path += i;
-                }
-                else if ((ssu_cid_len >=8) && (ssu_cid_len < 9)){
-                    for (var p = 0;path.length < 1;p++){
-                        path += "0";
-                    }
-                    path += i;
-                }
-            }
-        }
+        var ssu_cid_string = addZero(ssu_cid);  //
+        var dir = ssu_cid_string.slice(0, 4);
+        console.log(ssu_cid_string);
 
-        var ssu_cid_string = addZero(ssu_cid);
-
-        final_path = "{{ MEDIA_URL }}" + "mol_img/" + path + "/" + "mol_" + ssu_cid_string + ".png";
+        final_path_img = "{{ MEDIA_URL }}" + "C3DB/img/" + dir + "/" + ssu_cid_string + ".png";
+        final_path_file = "{{ MEDIA_URL }}" + "C3DB/mol/" + dir + "/" + ssu_cid_string + ".mol";
         //final_path = "{% static 'mol_png/" + path + "/' %}mol_" + ssu_cid + ".png";
-//        console.log(ssu_cid);
-//        console.log(path);
-//        console.log(final_path);
+        //        console.log(ssu_cid);
+        //        console.log(path);
+        //        console.log(final_path);
 
-        return final_path;
+        return [final_path_img, final_path_file];
     }
 
     /* Delete selected database */
     $('#delete_db').click(function(e){
         e.preventDefault();
-        $.post("{% url 'chemdb:user_db_delete' %}", {user_db_id: $('#user_db_list option:selected').val()}, function(data){
+        $.post("{% url 'C3DB:user_db_delete' %}", {user_db_id: $('#user_db_list option:selected').val()}, function(data){
             if (data['status'] == 'ok') {
                 alert("Delete success!");
-                window.location.replace("{% url 'chemdb:user_db' %}");
+                window.location.replace("{% url 'C3DB:user_db' %}");
 
             } else if (data['status'] == 'None'){
                 alert("Delete fail...");
@@ -185,14 +152,14 @@
     /* Delete selected molecules */
     $('#mol_delete').click(function(e){
         e.preventDefault();
-        $.post("{% url 'chemdb:mol_delete' %}", {
+        $.post("{% url 'C3DB:mol_delete' %}", {
             user_mols: checkedMolList($('input[name="user_mol"]:checked')),
             user_db_id: $('#user_db_list option:selected').val(),
             csrfmiddlewaretoken: "{{ csrf_token }}"
         }, function(data){
             if (data['status'] == 'ok'){
                 alert("Delete success!");
-                window.location.replace("{% url 'chemdb:user_db' %}");
+                window.location.replace("{% url 'C3DB:user_db' %}");
 
             }
         });
@@ -200,13 +167,13 @@
 
     /* Parsing search results for table show */
     function resultAppend(mols){
-        var path = getMoleculeimagePath(mols.SSU_CID);
+        var path = getMoleculeFilePath(mols.SSU_CID)[0];
         var o = "";
         o += "<tr>";
         o += "<td><div><label>";
         o += "<input class='mol1' name='user_mol' type='checkbox' value='" + mols.SSU_CID + "'>";    // SSU_CID
         o += "</label></div></td>";
-        o += "<td><a href='http://203.230.60.144:8000/chemdb/result/" + mols.SSU_CID + "' target='_blank'>" + mols.SSU_CID + "</a></td>"; // SSU_CID
+        o += "<td><a href='http://203.230.60.144:8000/C3DB/result/" + mols.SSU_CID + "' target='_blank'>" + mols.SSU_CID + "</a></td>"; // SSU_CID
         o += "<td class='mol_img'>";
         o += "<a href='"+ path + "' class='highslide' onclick='return hs.expand(this)'><img alt='HighslideJS' title='Click to enlarge' src="+ path +" width='120' height='107'></a>";
         o += "</td>";
@@ -223,7 +190,7 @@
     /* Show molecules from user's db. */
     $('#mol_show').click(function(e){
         e.preventDefault();
-        $.post("{% url 'chemdb:mol_show' %}", {user_db_id: $('#user_db_list option:selected').val()}, function(data){
+        $.post("{% url 'C3DB:mol_show' %}", {user_db_id: $('#user_db_list option:selected').val()}, function(data){
             if (data['status'] == 'ok') {
                 //alert("TEST SUCCESS!");
                 /* Check the JSON format and Parse it */

@@ -26,7 +26,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 
     # - index app
-    url(r'^chemdb/', include('index.urls', namespace='C3DB', app_name='index')),
+    url(r'^C3DB/', include('index.urls', namespace='C3DB', app_name='index')),
 
     # - Django: user login page
     url('^accounts/login/$', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),

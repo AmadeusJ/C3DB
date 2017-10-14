@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block user_db %}
-<form action="{% url 'chemdb:user_db_create' %}" method="post">
+<form action="{% url 'C3DB:user_db_create' %}" method="post">
     {% csrf_token %}
     <div id="user_db_create_form">
         <h3>{{ user.username }}! Make your database!</h3>

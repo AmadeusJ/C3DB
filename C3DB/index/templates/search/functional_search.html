@@ -214,7 +214,7 @@
 {% endblock %}
 
 {% block content %}
-<form action="{% url 'chemdb:functional' %}" xmlns="http://www.w3.org/1999/html">
+<form action="{% url 'C3DB:functional' %}" xmlns="http://www.w3.org/1999/html">
     {% csrf_token %}
     <div class="dd">
         <div class="container" style="margin-top: 8px;">
@@ -224,9 +224,9 @@
                         {{ form.Category }}
                     </div>
                 </li>
-                <li><a href="{% url 'chemdb:exact' %}">Search</a></li>
-                <li><a href="{% url 'chemdb:functional' %}">Identification</a></li>
-                <li><a href="{% url 'chemdb:mass' %}">Mass</a></li>
+                <li><a href="{% url 'C3DB:exact' %}">Search</a></li>
+                <li><a href="{% url 'C3DB:functional' %}">Identification</a></li>
+                <li><a href="{% url 'C3DB:mass' %}">Mass</a></li>
             </ul>
 
             <div class="tab-content" id="mol-gallery">
@@ -665,7 +665,7 @@ function initControl () {
             // Send 'source(mol drawn by user)' to server
             $.ajax({
                 type: "POST",
-                url: "{% url 'chemdb:converter' %}",
+                url: "{% url 'C3DB:converter' %}",
                 timeout: 2000,
                 data: {
                     MolForSmarts: source,

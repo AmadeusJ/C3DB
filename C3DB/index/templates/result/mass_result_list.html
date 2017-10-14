@@ -241,7 +241,7 @@
             </table>
         </div>
         <div class="stop_search">
-            <button id="stop_button" type="button" class="btn btn-danger" onclick="location.href='{% url 'chemdb:kill_job' %}'">Stop</button>
+            <button id="stop_button" type="button" class="btn btn-danger" onclick="location.href='{% url 'C3DB:kill_job' %}'">Stop</button>
         </div>
     </div>
     <div class="loading_img">
@@ -268,9 +268,9 @@
                         {{ form.Category }}
                     </div>
                 </li>
-                <li><a href="{% url 'chemdb:exact' %}">Search</a></li>
-                <li><a href="{% url 'chemdb:functional' %}">Identification</a></li>
-                <li><a href="{% url 'chemdb:mass' %}">Mass</a></li>
+                <li><a href="{% url 'C3DB:exact' %}">Search</a></li>
+                <li><a href="{% url 'C3DB:functional' %}">Identification</a></li>
+                <li><a href="{% url 'C3DB:mass' %}">Mass</a></li>
             </ul>
 
             <!-- Result : title -->
@@ -375,65 +375,32 @@
     $('.dd').hide();
 
     /* Getting mol_img path according ssu_cid */
-    function getMoleculeimagePath(ssu_cid){
-        ssu_cid = Number(ssu_cid);
-        var path = "";
-        var maximum_dir = 60000000; // Change this value according your dir.
+    function getMoleculeFilePath(ssu_cid){
+        //ssu_cid = Number(ssu_cid);
         var ssu_cid_len = ssu_cid.toString().length;
-        var final_path;
-        /* <Directory>
-         * 000000001/
-         * 001000001/
-         * 002000001/
-         * 003000001/
-         * 004000001/
-         * ...
-         * 051000000
-         * ==> mol_001000000.png placed in 001000001/ !!
-         * */
-        for (var i = 1;i < maximum_dir; i += 1000000){
-            if ((ssu_cid >= i) && (ssu_cid < i + 1000000)){
-                if ((ssu_cid_len >=1) && (ssu_cid_len < 7)){
-                    for (var j = 0;path.length < 8; j++){
-                        path += "0";
-                    }
-                    path += i;
-                }
-                else if ((ssu_cid_len >=7) && (ssu_cid_len < 8)){
-                    for (var k = 0;path.length < 2;k++){
-                        path += "0";
-                    }
-                    path += i;
-                }
-                else if ((ssu_cid_len >=8) && (ssu_cid_len < 9)){
-                    for (var p = 0;path.length < 1;p++){
-                        path += "0";
-                    }
-                    path += i;
-                }
-            }
-        }
+        var ssu_cid_string = addZero(ssu_cid);  //
+        var dir = ssu_cid_string.slice(0, 4);
+        console.log(ssu_cid_string);
 
-        var ssu_cid_string = addZero(ssu_cid);
-
-        final_path = "{{ MEDIA_URL }}" + "mol_img/" + path + "/" + "mol_" + ssu_cid_string + ".png";
+        final_path_img = "{{ MEDIA_URL }}" + "C3DB/img/" + dir + "/" + ssu_cid_string + ".png";
+        final_path_file = "{{ MEDIA_URL }}" + "C3DB/mol/" + dir + "/" + ssu_cid_string + ".mol";
         //final_path = "{% static 'mol_png/" + path + "/' %}mol_" + ssu_cid + ".png";
-//        console.log(ssu_cid);
-//        console.log(path);
-//        console.log(final_path);
+        //        console.log(ssu_cid);
+        //        console.log(path);
+        //        console.log(final_path);
 
-        return final_path;
+        return [final_path_img, final_path_file];
     }
 
     /* Parsing search results for table show */
     function resultAppend(mols){
-        var path = getMoleculeimagePath(mols[0]);
+        var path = getMoleculeFilePath(mols[0])[0];
         var o = "";
         o += "<tr>";
         o += "<td><div><label>";
         o += "<input class='mol1' name='user_mol' type='checkbox' value='" + mols[0] + "'>";    // SSU_CID
         o += "</label></div></td>";
-        o += "<td><a href='http://203.230.60.144:8000/chemdb/result/" + mols[0] + "' target='_blank'>" + mols[0] + "</a></td>";    // SSU_CID
+        o += "<td><a href='http://203.230.60.144:8000/C3DB/result/" + mols[0] + "' target='_blank'>" + mols[0] + "</a></td>";    // SSU_CID
         o += "<td class='mol_img'>";
         o += "<a href='"+ path + "' class='highslide' onclick='return hs.expand(this)'><img alt='HighslideJS' title='Click to enlarge' src="+ path +" width='120' height='107'></a>";
         o += "</td>";
@@ -454,7 +421,7 @@
             console.log(task_id);
 
             progress_xhr = $.ajax({
-                url: "{%  url 'chemdb:poll' %}",
+                url: "{%  url 'C3DB:poll' %}",
                 type: 'POST',
                 timeout: 2000,
                 data: {
@@ -576,7 +543,7 @@
             return list;
         }
 
-        $.post("{% url 'chemdb:mol_add' %}", {
+        $.post("{% url 'C3DB:mol_add' %}", {
             mol_ids: checkedMolList($('input[name="user_mol"]:checked')),
             user_db_id: $('#user_db_list option:selected').val(),
             csrfmiddlewaretoken: "{{ csrf_token }}"

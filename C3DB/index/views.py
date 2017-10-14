@@ -27,5 +27,4 @@ def index(request):
     except KeyError as err:
         pass
 
-
     return render(request, 'index.html', {'a': a})

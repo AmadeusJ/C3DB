@@ -97,7 +97,7 @@
             </table>
         </div>
         <div class="stop_search">
-            <button id="stop_button" type="button" class="btn btn-danger" onclick="location.href='{% url 'chemdb:kill_job' %}'">Stop</button>
+            <button id="stop_button" type="button" class="btn btn-danger" onclick="location.href='{% url 'C3DB:kill_job' %}'">Stop</button>
         </div>
     </div>
     <div class="loading_img">
@@ -127,9 +127,9 @@
                         {{ form.Category }}
                     </div>
                 </li>
-                <li><a href="{% url 'chemdb:exact' %}">Search</a></li>
-                <li><a href="{% url 'chemdb:functional' %}">Identification</a></li>
-                <li><a href="{% url 'chemdb:mass' %}">Mass</a></li>
+                <li><a href="{% url 'C3DB:exact' %}">Search</a></li>
+                <li><a href="{% url 'C3DB:functional' %}">Identification</a></li>
+                <li><a href="{% url 'C3DB:mass' %}">Mass</a></li>
             </ul>
             <!-- Result : title -->
             <div class="row">
@@ -195,9 +195,9 @@
             <div class="row">
                 <div class="col-sm-12">
                     <input class="des_mw" type="checkbox">MW
-                    <input class="des_atom" type="checkbox">Atom
-                    <input class="des_bond" type="checkbox">Bond
-                    <input class="des_ring" type="checkbox">Ring
+                    <input class="des_atom" type="checkbox">Atoms
+                    <input class="des_bond" type="checkbox">Bonds
+                    <input class="des_ring" type="checkbox">Rings
                     <input class="des_mf" type="checkbox">MF
                     <input class="des_logP" type="checkbox">LogP
                     <input class="des_fc" type="checkbox">FC
@@ -205,7 +205,7 @@
                     <input class="des_tpsa" type="checkbox">TPSA
                     <input class="des_hba" type="checkbox">HBA
                     <input class="des_hbd" type="checkbox">HBD
-                    <input class="des_rotate" type="checkbox">Rotate
+                    <input class="des_rotate" type="checkbox">rBonds
                 </div>
             </div>
             <div class="row">
@@ -220,15 +220,15 @@
                                 <th>SSU_CID</th>
                                 <th class="mol_img">Pic</th>
                                 <th class="result_mw">MW</th>
-                                <th class="result_atom">#ATOM</th>
-                                <th class="result_bond">#BOND</th>
-                                <th class="result_ring">#Ring</th>
+                                <th class="result_atom">Atoms</th>
+                                <th class="result_bond">Bonds</th>
+                                <th class="result_ring">Rings</th>
                                 <th class="result_mf">MF</th>
                                 <th class="result_logP">logP</th>
                                 <th class="result_fc">FC</th>
                                 <th class="result_hba">HBA</th>
                                 <th class="result_hbd">HBD</th>
-                                <th class="result_rotate">Rotate</th>
+                                <th class="result_rotate">rBonds</th>
                                 <th class="result_pub">PUB_CID</th>
                             </tr>
                             </thead>
@@ -315,7 +315,7 @@
         o += "<td><div><label>";
         o += "<input class='mol1' name='user_mol' type='checkbox' value='" + mols[1] + "'>";    // SSU_CID
         o += "</label></div></td>";
-        o += "<td><a href='http://203.230.60.144:8000/chemdb/result/" + mols[1] + "' target='_blank'>" + mols[1] + "</a></td>";    // SSU_CID
+        o += "<td><a href='http://203.230.60.144:8000/C3DB/result/" + mols[1] + "' target='_blank'>" + mols[1] + "</a></td>";    // SSU_CID
         o += "<td class='mol_img'>";
         o += "<a href='"+ mol_img_path + "' class='highslide' onclick='return hs.expand(this)'><img alt='HighslideJS' title='Click to enlarge' src="+ mol_img_path +" width='120' height='107'></a>";
         o += "</td>";
@@ -345,7 +345,7 @@
             console.log(task_id);
 
             progress_xhr = $.ajax({
-                url: "{%  url 'chemdb:poll' %}",
+                url: "{%  url 'C3DB:poll' %}",
                 type: 'POST',
                 timeout: 2000,
                 data: {
@@ -450,7 +450,7 @@
             return list;
         }
 
-        $.post("{% url 'chemdb:mol_add' %}", {
+        $.post("{% url 'C3DB:mol_add' %}", {
             mol_ids: checkedMolList($('input[name="user_mol"]:checked')),
             user_db_id: $('#user_db_list option:selected').val(),
             csrfmiddlewaretoken: "{{ csrf_token }}"

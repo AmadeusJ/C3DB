@@ -470,9 +470,9 @@
                 {% if user.is_active %}
                 <li><p id="welcome_msg">Welcome, {{ user.username }}!</p></li>
                 {% endif %}
-                <li><a href="{% url 'chemdb:index' %}"><span class="glyphicon glyphicon-home"></span>Home</a></li>
+                <li><a href="{% url 'C3DB:index' %}"><span class="glyphicon glyphicon-home"></span>Home</a></li>
                 {% if user.is_active %}
-                    <li><a href="{% url 'chemdb:user_db' %}"><span class="	glyphicon glyphicon-hdd"></span>MyDB</a></li>
+                    <li><a href="{% url 'C3DB:user_db' %}"><span class="	glyphicon glyphicon-hdd"></span>MyDB</a></li>
                     <li><a href="{% url 'logout' %}"><span class="	glyphicon glyphicon-log-out"></span>Logout</a></li>
                 {% else %}
                     <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>

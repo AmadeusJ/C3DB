@@ -220,7 +220,7 @@
                         </div>
                     </div>
                     <div>
-                        {% url 'chemdb:JMolViewer' mol.SSU_CID as the_url %}
+                        {% url 'C3DB:JMolViewer' mol.SSU_CID as the_url %}
                         <a href="{{ the_url }}">JSMol</a>
                     </div>
                 </div>
@@ -318,7 +318,7 @@
     // Save a molecule to user_db
     $('.save').click(function (e) {
         e.preventDefault();
-        $.post("{% url 'chemdb:mol_add' %}", {mol_ids: '{{ mol.SSU_CID }}', user_db_id: $('#user_db_list option:selected').val(), csrfmiddlewaretoken: "{{ csrf_token }}"}, function (data) {
+        $.post("{% url 'C3DB:mol_add' %}", {mol_ids: '{{ mol.SSU_CID }}', user_db_id: $('#user_db_list option:selected').val(), csrfmiddlewaretoken: "{{ csrf_token }}"}, function (data) {
             if (data['status'] == 'ok'){
                 alert("Save success!");
             } else if (data['status'] == 'None'){
