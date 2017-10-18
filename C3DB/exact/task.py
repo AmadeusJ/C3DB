@@ -23,7 +23,7 @@ def exact_search(category, query):
         mol = list(curs.fetchall())
 
     else:
-        curs.execute("""select * from "DB_Data" where "Formular"='%s' OR "SMILES"='%s' """ % (query, query))
+        curs.execute("""select * from "DB_Data" where "Formula"='%s' OR "SMILES"='%s' """ % (query, query))
 
 
     # Get the result as list to make as JSON format.

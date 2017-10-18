@@ -114,7 +114,7 @@
             </table>
         </div>
         <div class="stop_search">
-            <button id="stop_button" type="button" class="btn btn-danger" onclick="location.href='{% url 'chemdb:kill_job' %}'">Stop</button>
+            <button id="stop_button" type="button" class="btn btn-danger" onclick="location.href='{% url 'C3DB:kill_job' %}'">Stop</button>
         </div>
     </div>
     <div class="loading_img">
@@ -141,9 +141,9 @@
                         {{ form.Category }}
                     </div>
                 </li>
-                <li><a href="{% url 'chemdb:exact' %}">Search</a></li>
-                <li><a href="{% url 'chemdb:functional' %}">Identification</a></li>
-                <li><a href="{% url 'chemdb:mass' %}">Mass</a></li>
+                <li><a href="{% url 'C3DB:exact' %}">Search</a></li>
+                <li><a href="{% url 'C3DB:functional' %}">Identification</a></li>
+                <li><a href="{% url 'C3DB:mass' %}">Mass</a></li>
             </ul>
             <!-- Result : title -->
             <div class="row">
@@ -330,7 +330,7 @@
         o += "<td><div><label>";
         o += "<input class='mol1' name='user_mol' type='checkbox' value='" + mols[1] + "'>";    // SSU_CID
         o += "</label></div></td>";
-        o += "<td><a href='http://203.230.60.144:8000/chemdb/result/" + mols[1] + "' target='_blank'>" + mols[1] + "</a></td>"; // SSU_CID
+        o += "<td><a href='http://203.230.60.144:8000/C3DB/result/" + mols[1] + "' target='_blank'>" + mols[1] + "</a></td>"; // SSU_CID
         o += "<td class='mol_img'>";
         o += "<a href='"+ path + "' class='highslide' onclick='return hs.expand(this)'><img alt='HighslideJS' title='Click to enlarge' src="+ path +" width='120' height='107'></a>"; // Pic
         o += "</td>";
@@ -360,7 +360,7 @@
             console.log(task_id);
 
             $.ajax({
-                url: "{%  url 'chemdb:poll' %}",
+                url: "{%  url 'C3DB:poll' %}",
                 type: 'POST',
                 timeout: 2000,
                 data: {
@@ -497,7 +497,7 @@
             return list;
         }
 
-        $.post("{% url 'chemdb:mol_add' %}", {
+        $.post("{% url 'C3DB:mol_add' %}", {
             mol_ids: checkedMolList($('input[name="user_mol"]:checked')),
             user_db_id: $('#user_db_list option:selected').val(),
             csrfmiddlewaretoken: "{{ csrf_token }}"
