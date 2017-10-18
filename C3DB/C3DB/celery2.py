@@ -4,9 +4,9 @@ from celery import Celery
 from django.conf import settings
 
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'chemdb.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'C3DB.settings')
 
-app = Celery('chemdb', broker='redis://')
+app = Celery('C3DB', broker='redis://')
 
 app.config_from_object('django.conf:settings')
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
