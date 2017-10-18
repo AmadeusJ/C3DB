@@ -104,7 +104,7 @@ def functional_search(category, query, mw, molFormula):
         sql = """ SELECT * FROM "DB_Data" db 
          WHERE db.id IN (
          SELECT mols.id FROM mols WHERE mols.id IN (
-         SELECT db.id FROM "DB_Data" db WHERE db."MolFormular"='%s' LIMIT %d) 
+         SELECT db.id FROM "DB_Data" db WHERE db."Formula"='%s' LIMIT %d) 
          AND m@>'%s'::qmol); """ % (molFormula, LIMIT, query)
         curs.execute(sql)
 
@@ -112,7 +112,7 @@ def functional_search(category, query, mw, molFormula):
     # When query has only 'MF'
     elif (molFormula is not u"") and (mw is u"") and (query is u""):
         sql = """ SELECT * FROM "DB_Data" db 
-        WHERE db."MolFormular"='%s' LIMIT %d; """ % (molFormula, LIMIT)
+        WHERE db."Formula"='%s' LIMIT %d; """ % (molFormula, LIMIT)
         curs.execute(sql)
 
     # Case 3

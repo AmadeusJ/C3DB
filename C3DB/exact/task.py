@@ -19,11 +19,11 @@ def exact_search(category, query):
         curs.execute('select * from "DB_Data" where "SSU_CID"=%s' % query)
 
     elif inchi:
-        curs.execute("""select * from "DB_Data" where "MolInchi"='%s'""" % query)
+        curs.execute("""select * from "DB_Data" where "InChI"='%s'""" % query)
         mol = list(curs.fetchall())
 
     else:
-        curs.execute("""select * from "DB_Data" where "MolFormular"='%s' OR "MolSmiles"='%s' """ % (query, query))
+        curs.execute("""select * from "DB_Data" where "Formular"='%s' OR "SMILES"='%s' """ % (query, query))
 
 
     # Get the result as list to make as JSON format.
