@@ -11,7 +11,7 @@ if os == 'Windows':
     conf_path = "C:\Users\JDW\Documents\GitHub\C3DB\C3DB\progress\C3DB_Result.conf"
 
 elif os == 'Linux':
-    conf_path = "/home/ssu/GitHub/C3DB/C3DB/progress/C3DB_Result.conf"
+    conf_path = "/C3DB/GitHub/C3DB/C3DB/progress/C3DB_Result.conf"
 
 
 def calling_result_configure():
