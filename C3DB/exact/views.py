@@ -46,7 +46,7 @@ def exact_search_form(request):
         query_session = SearchSession(request)
         query_session.get_exact_search_query(job.id, query)
 
-        return HttpResponseRedirect(reverse('chemdb:exact') + '?job=' + job.id)
+        return HttpResponseRedirect(reverse('C3DB:exact') + '?job=' + job.id)
 
     else:
         # Reset the Session
@@ -58,7 +58,7 @@ def exact_search_form(request):
             if query_stored['task_id']:
                 app.control.revoke(str(query_stored['task_id']), terminate=True) # => This line only works on UINX type OS !!!
                 query_session.clear()
-                return HttpResponseRedirect(reverse('chemdb:exact'))
+                return HttpResponseRedirect(reverse('C3DB:exact'))
 
         except KeyError as err:
             print err
