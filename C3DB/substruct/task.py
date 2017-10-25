@@ -124,6 +124,7 @@ def substructure_search(category, super_sub, max_result, query, **kwargs):
                 sql = """ SELECT * from "DB_Data" db WHERE db.id 
                 IN (SELECT mols.id FROM mols WHERE m@>'%s' LIMIT %d) %s; """ % (query_mol, results_limit, sql_where)
 
+    print sql
     curs.execute(sql)
 
     # Get the result as list to make as JSON format.
