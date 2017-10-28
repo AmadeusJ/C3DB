@@ -14,12 +14,17 @@ def exact_search(category, query):
 
     cid = re.match(r'^[0-9]', query)
     inchi = re.match(r'InChI=', query)
+    yachi = re.match(r'yaChI=', query)
 
     if cid:
         curs.execute('select * from "DB_Data" where "SSU_CID"=%s' % query)
 
     elif inchi:
         curs.execute("""select * from "DB_Data" where "InChI"='%s'""" % query)
+        mol = list(curs.fetchall())
+
+    elif yachi:
+        curs.execute("""select * from "DB_Data" where "yaChI"='%s'""" % query)
         mol = list(curs.fetchall())
 
     else:

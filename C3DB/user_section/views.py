@@ -22,7 +22,7 @@ def user_db(request):
 
     # Redirect if user has db nothing.
     if len(user_db) == 0:
-        return redirect('chemdb:user_db_create')
+        return redirect('C3DB:user_db_create')
 
     else:
 
@@ -44,7 +44,7 @@ def user_db_create_ui(request):
             user_db_name = form.cleaned_data['user_db_name']
             UserDataBase.objects.create(user_db_name=str(user_db_name), user_id=int(current_user.id))
 
-            return redirect('chemdb:user_db')
+            return redirect('C3DB:user_db')
 
     else:
         form = MakingUserDB()

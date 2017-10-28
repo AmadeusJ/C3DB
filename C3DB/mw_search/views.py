@@ -49,7 +49,7 @@ def MassSearch_form(request):
         query_session = SearchSession(request)
         query_session.get_mass_search_query(job.id, mass)
 
-        return HttpResponseRedirect(reverse('chemdb:mass') + '?job=' + job.id)
+        return HttpResponseRedirect(reverse('C3DB:mass') + '?job=' + job.id)
 
     else:
         query_session = SearchSession(request)
@@ -60,7 +60,7 @@ def MassSearch_form(request):
             if query_stored['task_id']:
                 app.control.revoke(str(query_stored['task_id']), terminate=True) # => This line only works on UINX type OS !!!
                 query_session.clear()
-                return HttpResponseRedirect(reverse('chemdb:mass'))
+                return HttpResponseRedirect(reverse('C3DB:mass'))
 
         except KeyError as err:
             print err

@@ -186,7 +186,7 @@ def substruct_search_form(request):
         query_session = SearchSession(request)
         query_session.get_substruct_search_query(job.id, query)
 
-        return HttpResponseRedirect(reverse('chemdb:substruct') + '?job=' + job.id)
+        return HttpResponseRedirect(reverse('C3DB:substruct') + '?job=' + job.id)
 
     else:
         # Reset the Session
@@ -198,7 +198,7 @@ def substruct_search_form(request):
             if query_stored['task_id']:
                 app.control.revoke(str(query_stored['task_id']), terminate=True) # => This line only works on UINX type OS !!!
                 query_session.clear()
-                return HttpResponseRedirect(reverse('chemdb:substruct'))
+                return HttpResponseRedirect(reverse('C3DB:substruct'))
 
         except KeyError as err:
             print err

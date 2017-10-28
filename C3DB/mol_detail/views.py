@@ -60,7 +60,7 @@ def getMolFilePath(ssu_cid):
     ssu_cid_string = addZero(ssu_cid)
     dir = ssu_cid_string[:4]
 
-    final_path = "/DATABASE/C3DB/mol/{}/{}.mol".format(dir, ssu_cid_string)
+    final_path = "/C3DB/mol/{}/{}.mol".format(dir, ssu_cid_string)
 
     return final_path
 

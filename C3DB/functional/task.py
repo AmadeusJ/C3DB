@@ -124,7 +124,7 @@ def functional_search(category, query, mw, molFormula):
         sql = """ SELECT * FROM "DB_Data" db 
          WHERE db.id IN (
          SELECT mols.id FROM mols WHERE mols.id IN (
-         SELECT db.id FROM "DB_Data" db WHERE db."MolFormular" LIKE '%%%s%%' AND db."RDKit_MW">='%.4f' AND db."RDKit_MW"<='%.4f' LIMIT %d)
+         SELECT db.id FROM "DB_Data" db WHERE db."Formula" LIKE '%%%s%%' AND db."RDKit_MW">='%.4f' AND db."RDKit_MW"<='%.4f' LIMIT %d)
          AND m@>'%s'::qmol); """ % (molFormula, mw_min, mw_max, LIMIT, query)
         #        print sql
         curs.execute(sql)
@@ -135,7 +135,7 @@ def functional_search(category, query, mw, molFormula):
         mw_min = mw_range['MIN']
         mw_max = mw_range['MAX']
         sql = """ SELECT * FROM "DB_Data" db 
-        WHERE db."MolFormular" LIKE '%%%s%%' 
+        WHERE db."Formula" LIKE '%%%s%%' 
         AND db."RDKit_MW">='%.4f' 
         AND db."RDKit_MW"<='%.4f' LIMIT %d; """ % (molFormula, mw_min, mw_max, LIMIT)
         #        print sql

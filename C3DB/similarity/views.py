@@ -188,7 +188,7 @@ def similar_search_form(request):
         query_session = SearchSession(request)
         query_session.get_similarity_search_query(job.id, query, tanimoto)
 
-        return HttpResponseRedirect(reverse('chemdb:similar') + '?job=' + job.id)
+        return HttpResponseRedirect(reverse('C3DB:similar') + '?job=' + job.id)
 
     else:
         # Reset the Session
@@ -200,7 +200,7 @@ def similar_search_form(request):
             if query_stored['task_id']:
                 app.control.revoke(str(query_stored['task_id']), terminate=True) # => This line only works on UINX type OS !!!
                 query_session.clear()
-                return HttpResponseRedirect(reverse('chemdb:similar'))
+                return HttpResponseRedirect(reverse('C3DB:similar'))
 
         except KeyError as err:
             print err
