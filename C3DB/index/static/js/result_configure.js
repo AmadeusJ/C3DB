@@ -8,21 +8,21 @@ function callingConfiguration(setting) {
         $('.result_mw').hide();
     }
 
-    if (setting['Atom'] == 1){
+    if (setting['Atoms'] == 1){
         $('.des_atom').prop('checked', true);
     } else {
         $('.des_atom').prop('checked', false);
         $('.result_atom').hide();
     }
 
-    if (setting['Bond'] == 1){
+    if (setting['Bonds'] == 1){
         $('.des_bond').prop('checked', true);
     } else {
         $('.des_bond').prop('checked', false);
         $('.result_bond').hide();
     }
 
-    if (setting['Ring'] == 1){
+    if (setting['Rings'] == 1){
         $('.des_ring').prop('checked', true);
     } else {
         $('.des_ring').prop('checked', false);
@@ -36,14 +36,14 @@ function callingConfiguration(setting) {
         $('.result_logP').hide();
     }
 
-    if (setting['FC'] == 1){
+    if (setting['Charge'] == 1){
         $('.des_fc').prop('checked', true);
     } else {
         $('.des_fc').prop('checked', false);
         $('.result_fc').hide();
     }
 
-    if (setting['PUB'] == 1){
+    if (setting['Origin'] == 1){
         $('.des_pub').prop('checked', true);
     } else {
         $('.des_pub').prop('checked', true);
@@ -71,7 +71,14 @@ function callingConfiguration(setting) {
         $('.result_rotate').hide();
     }
 
-    if (setting['MF'] == 1){
+    if (setting['Formula'] == 1){
+        $('.des_mf').prop('checked', true);
+    } else {
+        $('.des_mf').prop('checked', false);
+        $('.result_mf').hide();
+    }
+
+    if (setting['QM'] == 1){
         $('.des_mf').prop('checked', true);
     } else {
         $('.des_mf').prop('checked', false);
@@ -191,4 +198,15 @@ function userConfigurationChange() {
             $('.result_pub').hide();
         }
     });
+
+    $('.des_qm').change(function (e) {
+        e.preventDefault();
+        var chk = $(this).is(':checked');
+        if (chk){
+            $('.result_qm').show();
+        } else {
+            $('.result_qm').hide();
+        }
+    });
+
 }
