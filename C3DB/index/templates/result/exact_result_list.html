@@ -348,7 +348,7 @@
         var origins = "";
         for (i = 0; i < pub_id.length; i++){
             var origin_id = pub_id[i].split("_")[1];
-            var origin_name = pub_id[i];
+            var origin_name =" " + pub_id[i];
             origins += "<a href='https://pubchem.ncbi.nlm.nih.gov/compound/" + origin_id + "' target='_blank'>" + origin_name + "</a>";
         }
         o += "<td class='result_pub'>" + origins +"</td>"; // PUB
