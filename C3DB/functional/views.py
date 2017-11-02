@@ -59,7 +59,7 @@ def functional_search_form(request):
         query_session.get_functioinal_search_query(job.id, Smartsquery, mw, Formularquery)
 
 #        print "This is the job_id [3]", job.id
-        return HttpResponseRedirect(reverse('chemdb:functional') + '?job=' + job.id)
+        return HttpResponseRedirect(reverse('C3DB:functional') + '?job=' + job.id)
 
     else:
         # Reset the Session
@@ -71,7 +71,7 @@ def functional_search_form(request):
             if query_stored['task_id']:
                 app.control.revoke(str(query_stored['task_id']), terminate=True) # => This line only works on UINX type OS !!!
                 query_session.clear()
-                return HttpResponseRedirect(reverse('chemdb:functional'))
+                return HttpResponseRedirect(reverse('C3DB:functional'))
 
         except KeyError as err:
             print err
@@ -107,4 +107,4 @@ def kill_job(request):
     except KeyError as err:
         pass
 
-    return HttpResponseRedirect(reverse('chemdb:functional'))
+    return HttpResponseRedirect(reverse('C3DB:functional'))
