@@ -79,10 +79,10 @@ function callingConfiguration(setting) {
     }
 
     if (setting['QM'] == 1){
-        $('.des_mf').prop('checked', true);
+        $('.des_qm').prop('checked', true);
     } else {
-        $('.des_mf').prop('checked', false);
-        $('.result_mf').hide();
+        $('.des_qm').prop('checked', false);
+        $('.result_qm').hide();
     }
 
 }
