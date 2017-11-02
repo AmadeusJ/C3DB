@@ -354,6 +354,7 @@
             origins += "<a href='https://pubchem.ncbi.nlm.nih.gov/compound/" + origin_id + "' target='_blank'>" + origin_name + "</a>";
         }
         o += "<td class='result_pub'>" + origins +"</td>"; // PUB
+        o += "<td class='result_qm'><a href='/C3DB/result_JSMol/" + mols[1] +"' target='_blank'>" + PM7 + "</a></td>";
         o += "</tr>";
 
         return o;
