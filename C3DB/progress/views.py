@@ -21,7 +21,7 @@ def calling_result_configure():
     for line in file:
         lines = line.strip().split()
         column = lines[1]
-        value = lines[2]
+        value = int(lines[2])
         result_conf[column] = value
 
     file.close()
