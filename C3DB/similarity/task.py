@@ -99,14 +99,14 @@ def similar_search(category, fp_category, taminoto_min, max_result, query, exclu
                 sql = """ SELECT db.id, "SSU_CID", similarity, "Formula", "RDKit_MW", "AtomNumber", "BondNumber", 
                 "RingNumber", "LogP", "PUB_CID", "FormalCharge", "HBA", "HBD", "RotateBond" 
                 FROM "DB_Data" AS db
-                INNER JOIN (SELECT * from get_mfp2_neighbors('%s') WHERE similarity >= %.1f) AS fps 
+                INNER JOIN (SELECT * from get_mfp_neighbors('%s') WHERE similarity >= %.1f) AS fps 
                 ON db.id=fps.id; """ % (query_mol, taminoto_min)
             else:
                 # SQL Query for similarity search with morgan fingerprint.
                 sql = """ SELECT db.id, "SSU_CID", similarity, "Formula", "RDKit_MW", "AtomNumber", "BondNumber", 
                 "RingNumber", "LogP", "PUB_CID", "FormalCharge", "HBA", "HBD", "RotateBond" 
                 FROM "DB_Data" AS db
-                INNER JOIN (SELECT * from get_mfp2_neighbors('%s') WHERE similarity >= %.1f LIMIT %d) AS fps 
+                INNER JOIN (SELECT * from get_mfp_neighbors('%s') WHERE similarity >= %.1f LIMIT %d) AS fps 
                 ON db.id=fps.id; """ % (query_mol, taminoto_min, results_limit)
 
         else:
@@ -114,14 +114,14 @@ def similar_search(category, fp_category, taminoto_min, max_result, query, exclu
                 sql = """ SELECT db.id, "SSU_CID", similarity, "Formula", "RDKit_MW", "AtomNumber", "BondNumber", 
                 "RingNumber", "LogP", "PUB_CID", "FormalCharge", "HBA", "HBD", "RotateBond" 
                 FROM "DB_Data" AS db
-                INNER JOIN (SELECT * from get_mfp2_neighbors('%s') WHERE similarity >= %.1f) AS fps 
+                INNER JOIN (SELECT * from get_mfp_neighbors('%s') WHERE similarity >= %.1f) AS fps 
                 ON db.id=fps.id %s; """ % (query_mol, taminoto_min, sql_where)
 
             else:
                 sql = """ SELECT db.id, "SSU_CID", similarity, "Formula", "RDKit_MW", "AtomNumber", "BondNumber", 
                 "RingNumber", "LogP", "PUB_CID", "FormalCharge", "HBA", "HBD", "RotateBond" 
                 FROM "DB_Data" AS db
-                INNER JOIN (SELECT * from get_mfp2_neighbors('%s') WHERE similarity >= %.1f LIMIT %d) AS fps 
+                INNER JOIN (SELECT * from get_mfp_neighbors('%s') WHERE similarity >= %.1f LIMIT %d) AS fps 
                 ON db.id=fps.id %s; """ % (query_mol, taminoto_min, results_limit, sql_where)
 
         print sql
