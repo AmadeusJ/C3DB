@@ -19,9 +19,9 @@ def calling_result_configure():
     result_conf = {}
     file = open(conf_path, 'r')
     for line in file:
-        lines = line.split()
-        column = lines[0]
-        value = lines[1]
+        lines = line.strip().split()
+        column = lines[1]
+        value = lines[2]
         result_conf[column] = value
 
     file.close()
