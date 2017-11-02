@@ -71,14 +71,14 @@ function callingConfiguration(setting) {
         $('.result_rotate').hide();
     }
 
-    if (setting['Formula'] == '1'){
+    if (setting['Formula'] == 1){
         $('.des_mf').prop('checked', true);
     } else {
         $('.des_mf').prop('checked', false);
         $('.result_mf').hide();
     }
 
-    if (setting['QM'] == '1'){
+    if (setting['QM'] == 1){
         $('.des_qm').prop('checked', true);
     } else {
         $('.des_qm').prop('checked', false);

@@ -406,6 +406,7 @@
                         // Show the result on page !
                         declare();
                         callingConfiguration(result.configure);
+                        console.log(result.configure);
 
                     } else if (result.state == "PROGRESS") {
                         $('#bar').css({'width': result.process_percent + '%'});
