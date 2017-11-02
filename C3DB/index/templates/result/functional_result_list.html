@@ -329,7 +329,14 @@
         o += "<td class='result_hba'>" + mols[13] + "</td>"; // HBA
         o += "<td class='result_hbd'>" + mols[14] + "</td>"; // HBD
         o += "<td class='result_rotate'>" + mols[15] + "</td>"; // Rotate
-        o += "<td class='result_pub'><a href='https://pubchem.ncbi.nlm.nih.gov/compound/" + mols[7] + "' target='_blank'>" + mols[7] + "</a></td>";
+        var pub_id = mols[7].split(",");
+        var origins = "";
+        for (i = 0; i < pub_id.length; i++){
+            var origin_id = pub_id[i].split("_")[1];
+            var origin_name =" " + pub_id[i];
+            origins += "<a href='https://pubchem.ncbi.nlm.nih.gov/compound/" + origin_id + "' target='_blank'>" + origin_name + "</a>";
+        }
+        o += "<td class='result_pub'>" + origins +"</td>"; // PUB
         o += "</tr>";
 
         return o;
