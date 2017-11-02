@@ -194,10 +194,10 @@
                     <input class="des des_atom" type="checkbox">Atom
                     <input class="des des_bond" type="checkbox">Bond
                     <input class="des des_ring" type="checkbox">Ring
-                    <input class="des des_mf" type="checkbox">MF
+                    <input class="des des_mf" type="checkbox">Formula
                     <input class="des des_logP" type="checkbox">LogP
-                    <input class="des des_fc" type="checkbox">FC
-                    <input class="des des_pub" type="checkbox">PUB
+                    <input class="des des_fc" type="checkbox">Charge
+                    <input class="des des_pub" type="checkbox">Origin
                     <input class="des des_tpsa" type="checkbox">TPSA
                     <input class="des des_hba" type="checkbox">HBA
                     <input class="des des_hbd" type="checkbox">HBD
@@ -219,13 +219,13 @@
                                 <th class="result_atom">#ATOM</th>
                                 <th class="result_bond">#BOND</th>
                                 <th class="result_ring">#Ring</th>
-                                <th class="result_mf">MF</th>
+                                <th class="result_mf">Formula</th>
                                 <th class="result_logP">logP</th>
-                                <th class="result_fc">FC</th>
+                                <th class="result_fc">Charge</th>
                                 <th class="result_hba">HBA</th>
                                 <th class="result_hbd">HBD</th>
                                 <th class="result_rotate">Rotate</th>
-                                <th class="result_pub">PUB_CID</th>
+                                <th class="result_pub">Origin</th>
                             </tr>
                             </thead>
                             <tbody id="contents">
@@ -344,7 +344,14 @@
         o += "<td class='result_hba'>" + mols[13] + "</td>"; // HBA
         o += "<td class='result_hbd'>" + mols[14] + "</td>"; // HBD
         o += "<td class='result_rotate'>" + mols[15] + "</td>"; // Rotate
-        o += "<td class='result_pub'><a href='https://pubchem.ncbi.nlm.nih.gov/compound/" + mols[7] + "' target='_blank'>" + mols[7] + "</a></td>"; // PUB
+        var pub_id = mols[7].split(",");
+        var origins = "";
+        for (i = 0; i < pub_id.length; i++){
+            var origin_id = pub_id[i].split("_")[1];
+            var origin_name = pub_id[i];
+            origins += "<a href='https://pubchem.ncbi.nlm.nih.gov/compound/" + origin_id + "' target='_blank'>" + origin_name + "</a>";
+        }
+        o += "<td class='result_pub'>" + origins +"</td>"; // PUB
         o += "</tr>";
 
         return o;
