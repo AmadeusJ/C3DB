@@ -65,6 +65,16 @@ def getMolFilePath(ssu_cid):
     return final_path
 
 
+def getMgfFilePath(ssu_cid):
+    ssu_cid = int(ssu_cid)
+    ssu_cid_string = addZero(ssu_cid)
+    dir = ssu_cid_string[:4]
+
+    final_path = "/C3DB/mgf/{}/{}.mgf".format(dir, ssu_cid_string)
+
+    return final_path
+
+
 def result_detail(request, SSU_CID):
     """ Result Detail Page """
     user_db = None
@@ -124,3 +134,4 @@ def JMol3DViewer(request, SSU_CID):
         print mol_content
 
     return render(request, 'result/result_jsmol.html', {'mol': molecule, 'mol_file': mol_content, 'user_db': user_db})
+
