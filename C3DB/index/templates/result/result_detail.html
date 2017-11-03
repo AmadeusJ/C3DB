@@ -93,7 +93,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="TitleBox">
-                        <h3># {{ mol.SSU_CID }}  ({{ mol.Formula }}) [<a href="https://pubchem.ncbi.nlm.nih.gov/compound/{{ mol.PUB_CID }}" target="_blank">{{ mol.PUB_CID }}</a>]</h3>
+                        <h3 class="pub_link"></h3>
                     </div>
                 </div>
             </div>
@@ -331,6 +331,19 @@
             }
         });
     });
+
+    var pub_id = "{{ mol.PUB_CID }}".split(",");
+    var origins = "";
+    for (i = 0; i < pub_id.length; i++){
+        var origin_id = pub_id[i].split("_")[1];
+        var origin_name = " " + pub_id[i];
+        origins += "<a href='https://pubchem.ncbi.nlm.nih.gov/compound/"+ origin_id +"' target='_blank'>" + origin_name +"</a>";
+    }
+    #console.log("origins ==> " + origins);
+
+    var pub_link = origins ;
+
+    $('.pub_link').html(pub_link);
 
 </script>
 {% endblock %}
