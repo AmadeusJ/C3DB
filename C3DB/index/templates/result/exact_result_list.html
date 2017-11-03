@@ -310,12 +310,14 @@
 
         final_path_img = "{{ MEDIA_URL }}" + "img/" + dir + "/" + ssu_cid_string + ".png";
         final_path_file = "{{ MEDIA_URL }}" + "mol/" + dir + "/" + ssu_cid_string + ".mol";
+        final_path_mgf = "{{ MEDIA_URL }}" + "mgf/" + dir + "/" + ssu_cid_string + ".mgf";
         //final_path = "{% static 'mol_png/" + path + "/' %}mol_" + ssu_cid + ".png";
         //        console.log(ssu_cid);
         //        console.log(path);
-        //        console.log(final_path);
+        //       console.log(final_path);
+        console.log(final_path_mgf);
 
-        return [final_path_img, final_path_file];
+        return [final_path_img, final_path_file, final_path_mgf];
     }
 
     /* Showing Progress-bar image */
@@ -354,7 +356,9 @@
             origins += "<a href='https://pubchem.ncbi.nlm.nih.gov/compound/" + origin_id + "' target='_blank'>" + origin_name + "</a>";
         }
         o += "<td class='result_pub'>" + origins +"</td>"; // PUB
-        o += "<td class='result_qm'><a href='/C3DB/result_JSMol/" + mols[1] +"' target='_blank'>" + "PM7" + "</a></td>";
+
+
+        o += "<td class='result_qm'><a href='/C3DB/result_JSMol/" + mols[1] +"' target='_blank'>" + "PM7" + "</a></td>";    // QM
         o += "</tr>";
 
         return o;
