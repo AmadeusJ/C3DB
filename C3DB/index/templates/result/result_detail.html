@@ -339,11 +339,12 @@
         var origin_name = " " + pub_id[i];
         origins += "<a href='https://pubchem.ncbi.nlm.nih.gov/compound/"+ origin_id +"' target='_blank'>" + origin_name +"</a>";
     }
-    #console.log("origins ==> " + origins);
+    console.log("origins ==> " + origins);
 
-    var pub_link = origins ;
+    var pub_link = "# {{ mol.SSU_CID }}  ({{ mol.Formula }}) [" + origins +"]";
 
     $('.pub_link').html(pub_link);
+
 
 </script>
 {% endblock %}
