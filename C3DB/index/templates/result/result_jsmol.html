@@ -98,7 +98,7 @@
         <div class="col-sm-12">
             <div id="JSmol">
                 <div class="jmol_title">
-                    <h3># {{ mol.SSU_CID }}  ({{ mol.Formula }})</h3><p class="pub_link"></p>
+                    <h3 class="pub_link"></h3>
                 </div>
                 <div id="jmol_sync">
                     <tr>
@@ -145,9 +145,12 @@
     for (i = 0; i < pub_id.length; i++){
         var origin_id = pub_id[i].split("_")[1];
         var origin_name = " " + pub_id[i];
-        origins += "<h3 href='https://pubchem.ncbi.nlm.nih.gov/compound/"+ origin_id +"' target='_blank'>" + origin_name +"</h3>";
+        origins += "<a href='https://pubchem.ncbi.nlm.nih.gov/compound/"+ origin_id +"' target='_blank'>" + origin_name +"</a>";
     }
     console.log("origins ==> " + origins);
+
+    var pub_link = "# {{ mol.SSU_CID }}  ({{ mol.Formula }} [" + origins +"]";
+
     $('.pub_link').html(origins);
 </script>
 {% endblock %}
