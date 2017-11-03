@@ -85,6 +85,13 @@ function callingConfiguration(setting) {
         $('.result_qm').hide();
     }
 
+    if (setting['TPSA'] == 1){
+        $('.des_tpsa').prop('checked', true);
+    } else {
+        $('.des_tpsa').prop('checked', false);
+        $('.result_tpsa').hide();
+    }
+
 }
 
 
@@ -206,6 +213,16 @@ function userConfigurationChange() {
             $('.result_qm').show();
         } else {
             $('.result_qm').hide();
+        }
+    });
+
+    $('.des_tpsa').change(function (e) {
+        e.preventDefault();
+        var chk = $(this).is(':checked');
+        if (chk){
+            $('.result_tpsa').show();
+        } else {
+            $('.result_tpsa').hide();
         }
     });
 
