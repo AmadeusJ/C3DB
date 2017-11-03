@@ -128,6 +128,24 @@
                             </thead>
                             <tbody class="_property"></tbody>
                         </table>
+                        <table class="table">
+                            <thead>
+                            <th>QM
+                                <select class="selectpicker QM" multiple data-actions-box="true" title="choose filter options" style="width: 154px;" id="property-select">
+                                    <optgroup label="QM">
+                                        <option value="COSMO_Area">COSMO_Area</option>
+                                        <option value="COSMO_Volume">COSMO_Volume</option>
+                                        <option value="Dimensions">Dimensions</option>
+                                        <option value="Elec_Energy">Elec_Energy</option>
+                                        <option value="HOMO">HOMO</option>
+                                        <option value="LUMO">LUMO</option>
+                                        <option value="Total_Energy">Total_Energy</option>
+                                    </optgroup>
+                                </select>
+                            </th>
+                            </thead>
+                            <tbody class="_QM"></tbody>
+                        </table>
                     </div>
                 </div>
                 <div class="col-sm-2">
@@ -229,6 +247,19 @@
         });
         $("._property").html(tag);
     }).change();
+
+    $(".QM").change(function () {
+        var tag = "";
+        $(".QM option:selected").each(function () {
+            var El = $(this).val();
+
+            if (El === "COSMO_Area"){
+                tag += ''
+            }
+        })
+
+    }).change();
+
 
     $("#reset").on( 'click', function(e){
         $(".test").html("");
