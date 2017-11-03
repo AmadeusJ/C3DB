@@ -145,7 +145,7 @@
     for (i = 0; i < pub_id.length; i++){
         var origin_id = pub_id[i].split("_")[1];
         var origin_name = " " + pub_id[i];
-        origins += "<a href='https://pubchem.ncbi.nlm.nih.gov/compound/"+ origin_id +"' target='_blank'>" + origin_name +"</a>";
+        origins += "<h3 href='https://pubchem.ncbi.nlm.nih.gov/compound/"+ origin_id +"' target='_blank'>" + origin_name +"</h3>";
     }
     console.log("origins ==> " + origins);
     $('.pub_link').html(origins);
