@@ -33,7 +33,7 @@ def exact_search(category, query):
     else:
         curs.execute("""SELECT db.*,mp.* FROM "DB_Data" AS db, "DB_Mopac_1" AS mp WHERE 
         mp."SSU_CID" IN (SELECT db."SSU_CID" FROM "DB_Data" as db WHERE db."Formula"='%s' OR db."SMILES"='%s') 
-        AND mp."SSU_CID"=db."SSU_CID"; """ % (query, query))
+        AND mp."SSU_CID"=db."SSU_CID" ORDER BY db."SSU_CID"; """ % (query, query))
 
 
     # Get the result as list to make as JSON format.
