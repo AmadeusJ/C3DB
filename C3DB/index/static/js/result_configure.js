@@ -361,6 +361,12 @@ function userConfigurationChange() {
         }
     });
 
+    if ($('.des_COSMO_Volume').is(':checked')){
+        $('.result_COSMO_Volume').show();
+    } else {
+        $('.result_COSMO_Volume').hide();
+    }
+
     $('.des_Ion_Potential').change(function (e) {
         e.preventDefault();
         var chk = $(this).is(':checked');
