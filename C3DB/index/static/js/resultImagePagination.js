@@ -33,6 +33,7 @@ $('.first').on('click', function () {
 
     $('#show_all').attr("checked", false);
     $('#select_all').prop('checked', false);
+
 });
 
 $('.prev').on('click', function () {

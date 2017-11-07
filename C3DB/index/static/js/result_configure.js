@@ -185,6 +185,12 @@ function userConfigurationChange() {
         }
     });
 
+    if ($('.des_atom').is(':checked')){
+        $('.result_atom').show();
+    } else {
+        $('.result_atom').hide();
+    }
+
     $('.des_bond').change(function (e) {
         e.preventDefault();
         var chk = $(this).is(':checked');
