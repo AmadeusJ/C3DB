@@ -350,7 +350,7 @@ function userConfigurationChange() {
             $('.result_COSMO_Area').hide();
         }
     });
-
+    /*
     $('.des_COSMO_Volume').change(function (e) {
         e.preventDefault();
         var chk = $(this).is(':checked');
@@ -360,7 +360,7 @@ function userConfigurationChange() {
             $('.result_COSMO_Volume').hide();
         }
     });
-
+    */
     if ($('.des_COSMO_Volume').is(':checked')){
         $('.result_COSMO_Volume').show();
     } else {
