@@ -17,18 +17,22 @@ def exact_search(category, query):
     yachi = re.match(r'yaChI=', query)
 
     if cid:
-        curs.execute('select * from "DB_Data" where "SSU_CID"=%s' % query)
+        curs.execute("""SELECT db.*, mp.* FROM "DB_Data" AS db, "DB_Mopac_1" AS mp 
+        WHERE "SSU_CID"=%s AND db."SSU_CID"=mp."SSU_CID";""" % query)
 
     elif inchi:
-        curs.execute("""select * from "DB_Data" where "InChI"='%s'""" % query)
+        curs.execute("""SELECT db.*, mp.*FROM "DB_Data" AS db, "DB_Mopac_1" AS mp 
+        WHERE db."InChI"='%s' AND db."SSU_CID"=mp."SSU_CID"; """ % query)
         mol = list(curs.fetchall())
 
     elif yachi:
-        curs.execute("""select * from "DB_Data" where "yaChI"='%s'""" % query)
+        curs.execute("""SELECT db.*, mp.*FROM "DB_Data" AS db, "DB_Mopac_1" AS mp 
+        WHERE db."yaChI"='%s' AND db."SSU_CID"=mp."SSU_CID";""" % query)
         mol = list(curs.fetchall())
 
     else:
-        curs.execute("""select * from "DB_Data" where "Formula"='%s' OR "SMILES"='%s' """ % (query, query))
+        curs.execute("""SELECT * FROM "DB_Data" 
+        WHERE db."Formula"='%s' OR db."SMILES"='%s' AND db."SSU_CID"=mp."SSU_CID"; """ % (query, query))
 
 
     # Get the result as list to make as JSON format.

@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'substruct',
     'functional',
     'mw_search',
+    'mol_detail',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -80,6 +81,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.media',         ### IMPORTANT ! ###
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -149,8 +151,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 # MEDIA
-MEDIA_URL = '/upload_files/'
-MEDIA_ROOT = os.path.join("/DATABASE/")
+MEDIA_URL = '/upload_files2/'
+MEDIA_ROOT = os.path.join("/C3DB/")
 
 
 # ============================================================================================

@@ -85,7 +85,7 @@ class MopacData(models.Model):
     Heat = models.FloatField(null=True)
     Total_Energy = models.FloatField(null=True)
     Elec_Energy = models.FloatField(null=True)
-    Point_Group = models.FloatField(null=True)
+    Point_Group = models.TextField(null=True)
     COSMO_Area = models.FloatField(null=True)
     COSMO_Volume = models.FloatField(null=True)
     Ion_Potential = models.FloatField(null=True)

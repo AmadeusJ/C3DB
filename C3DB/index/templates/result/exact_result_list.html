@@ -202,6 +202,16 @@
                     <input class="des des_hba" type="checkbox">HBA
                     <input class="des des_hbd" type="checkbox">HBD
                     <input class="des des_rotate" type="checkbox">Rotate
+                    <input class="des des_heat" type="checkbox">Heat
+                    <input class="des des_tt_energy" type="checkbox">Total_Energy
+                    <input class="des des_elc_energy" type="checkbox">Elec_Energy
+                    <input class="des des_point_group" type="checkbox">Point_Group
+                    <input class="des des_COSMO_Area" type="checkbox">COSMO_Area
+                    <input class="des des_COSMO_Volume" type="checkbox">COSMO_Volume
+                    <input class="des des_Ion_Potential" type="checkbox">Ion_Potential
+                    <input class="des des_HOMO" type="checkbox">HOMO
+                    <input class="des des_LUMO" type="checkbox">LUMO
+                    <input class="des des_dimensions" type="checkbox">Dimension
                     <input class="des des_qm" type="checkbox">QM
                 </div>
             </div>
@@ -227,6 +237,16 @@
                                 <th class="result_hba">HBA</th>
                                 <th class="result_hbd">HBD</th>
                                 <th class="result_rotate">Rotate</th>
+                                <th class="result_heat">Heat</th>
+                                <th class="result_tt_energy">Total_Energy</th>
+                                <th class="result_elc_energy">Elec_Energy</th>
+                                <th class="result_point_group">Point_Group</th>
+                                <th class="result_COSMO_Area">COSMO_Area</th>
+                                <th class="result_COSMO_Volume">COSMO_Volume</th>
+                                <th class="result_Ion_Potential">Ion_Potential</th>
+                                <th class="result_HOMO">HOMO</th>
+                                <th class="result_LUMO">LUMO</th>
+                                <th class="result_dimensions">Dimension</th>
                                 <th class="result_pub">Origin</th>
                                 <th class="result_qm">QM</th>
                             </tr>
@@ -350,6 +370,16 @@
         o += "<td class='result_hba'>" + mols[13] + "</td>"; // HBA
         o += "<td class='result_hbd'>" + mols[14] + "</td>"; // HBD
         o += "<td class='result_rotate'>" + mols[15] + "</td>"; // Rotate
+        o += "<td class='result_heat'>" + mols[23] + "</td>"; // Head
+        o += "<td class='result_tt_energy'>" + mols[24] + "</td>";  // Total_Energy
+        o += "<td class='result_elc_energy'>" + mols[25] + "</td>"; // Elec_Energy
+        o += "<td class='result_point_group'>" + mols[26] + "</td>";    // Point_Group
+        o += "<td class='result_COSMO_Area'>" + mols[27] + "</td>"; // COSMO_Area
+        o += "<td class='result_COSMO_Volume'>" + mols[28] + "</td>";   // COSMO_Volume
+        o += "<td class='result_Ion_Potential'>" + mols[29] + "</td>";  // Ion_Potential
+        o += "<td class='result_HOMO'>" + mols[30] + "</td>";   // HOMO
+        o += "<td class='result_LUMO'>" + mols[31] + "</td>";   // LUMO
+        o += "<td class='result_dimensions'>" + mols[32] + "</td>";     // Dimension
         var pub_id = mols[7].split(",");
         var origins = "";
         for (i = 0; i < pub_id.length; i++){
@@ -359,8 +389,11 @@
         }
         o += "<td class='result_pub'>" + origins +"</td>"; // PUB
 
-
-        o += "<td class='result_qm'><a href='/C3DB/result_JSMol/" + mols[1] +"' target='_blank'>" + "PM7" + "</a></td>";    // QM
+        var PM7_link = "<a href='/C3DB/result_JSMol/" + mols[1] +"' target='_blank'>" + "PM7" + "</a>";
+        if (mols[30] === ""){
+            PM7_link = "N/A";
+        } 
+        o += "<td class='result_qm'>" + PM7_link + "</td>";    // QM
         o += "</tr>";
 
         return o;
