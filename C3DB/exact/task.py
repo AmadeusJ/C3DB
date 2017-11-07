@@ -31,7 +31,7 @@ def exact_search(category, query):
         mol = list(curs.fetchall())
 
     else:
-        curs.execute("""SELECT * FROM "DB_Data" 
+        curs.execute("""SELECT * FROM "DB_Data" AS db, "DB_Mopac_1" AS mp 
         WHERE db."Formula"='%s' OR db."SMILES"='%s' AND db."SSU_CID"=mp."SSU_CID"; """ % (query, query))
 
 
