@@ -31,8 +31,9 @@ def exact_search(category, query):
         mol = list(curs.fetchall())
 
     else:
-        curs.execute("""SELECT * FROM "DB_Data" AS db, "DB_Mopac_1" AS mp 
-        WHERE db."Formula"='%s' OR db."SMILES"='%s' AND db."SSU_CID"=mp."SSU_CID"; """ % (query, query))
+        curs.execute("""SELECT db.*,mp.* FROM "DB_Data" AS db, "DB_Mopac_1" AS mp WHERE 
+        mp."SSU_CID" IN (SELECT db."SSU_CID" FROM "DB_Data" as db WHERE db."Formula"='%s' OR db."SMILES"='%s') 
+        AND mp."SSU_CID"=db."SSU_CID"; """ % (query, query))
 
 
     # Get the result as list to make as JSON format.
