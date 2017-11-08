@@ -23,7 +23,7 @@
     display: block;
 }
 .columnSelector {
-    width: 240px;
+    width: 480px;
     position: absolute;
     top: 30px;
     padding: 10px;
@@ -34,6 +34,7 @@
 .columnSelector label {
     display: block;
     float: left;
+    margin-left: 10px;
 }
 .columnSelector label:nth-child(1) {
     border-bottom: #99bfe6 solid 1px;
