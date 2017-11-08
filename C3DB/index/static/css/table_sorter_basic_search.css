@@ -1,6 +1,7 @@
 /*** custom css only popup ***/
 .columnSelectorWrapper {
     position: relative;
+    z-index: 99999;
     margin: 10px 0;
     display: inline-block;
 }
