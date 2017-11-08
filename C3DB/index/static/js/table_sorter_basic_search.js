@@ -29,7 +29,7 @@ function RenderingTableSorter(setting) {
             // enable/disable mediaquery breakpoints
             columnSelector_mediaquery: true,
             // toggle checkbox name
-            columnSelector_mediaqueryName: 'Default: ',
+            columnSelector_mediaqueryName: 'All: ',
             // breakpoints checkbox initial setting
             columnSelector_mediaqueryState: true,
             // hide columnSelector false columns while in auto mode
@@ -221,7 +221,7 @@ function RenderingTableSorter(setting) {
         default_column.push(25)
     }
     //$('#myTable').trigger('refreshColumnSelector', ['Default', true]);
-    $('#myTable').trigger('refreshColumnSelector', ['Default', default_column]);
+    $('#myTable').trigger('refreshColumnSelector', ['All', default_column]);
 
 
 }
