@@ -120,7 +120,6 @@ $(function() {
 
         }
     }).tablesorterPager({container: $("#pager")});
-    
-    $("#myTable").trigger('refreshColumnSelector', [2, 3, 4]);
+
 
 });
