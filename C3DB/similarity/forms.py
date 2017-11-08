@@ -45,3 +45,4 @@ class SimilaritySearchForm(forms.Form):
 
     HBD_min2 = forms.CharField(widget=forms.NumberInput(attrs={'class': 'filter'}), required=False)
     HBD_max2 = forms.CharField(widget=forms.NumberInput(attrs={'class': 'filter'}), required=False)
+

@@ -22,8 +22,6 @@
     <script type="text/javascript" src="{% static 'ChemDoodleWeb/install/uis/ChemDoodleWeb-uis.js' %}" ></script>
     <script src="{% static 'js/bootstrap-table.js' %}"></script>
     <script src="{% static 'js/prefixfree.jquery.js' %}"></script>
-    <!-- table sorter _jquery library -->
-    <script src="{% static 'jquery.tablesorter/jquery.tablesorter.js' %}"></script>
     <!-- MarvinJS -->
     <link type="text/css" rel="stylesheet" href="{% static 'MarvinJS/js/lib/rainbow/github.css' %}">
     <script src="{% static 'MarvinJS/js/lib/rainbow/rainbow-custom.min.js' %}"></script>
@@ -31,9 +29,14 @@
     <script src="{% static 'MarvinJS/js/marvinjslauncher.js' %}"></script>
     <!-- Highslide CSS -->
     <link rel="stylesheet" href="{% static 'highslide/highslide.css' %}">
+    <!-- table sorter _jquery library -->
+    <script src="{% static 'tablesorter-master/js/jquery.tablesorter.js' %}"></script>
     <!-- tablesorter pager -->
-    <link rel="stylesheet" href="{% static 'jquery.tablesorter/addons/pager/jquery.tablesorter.pager.css' %}">
-    <script src="{% static 'jquery.tablesorter/addons/pager/jquery.tablesorter.pager.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'tablesorter-master/addons/pager/jquery.tablesorter.pager.css' %}">
+    <script src="{% static 'tablesorter-master/addons/pager/jquery.tablesorter.pager.js' %}"></script>
+    <script src="{% static 'tablesorter-master/js/jquery.tablesorter.widgets.js' %}"></script>
+    <script src="{% static 'tablesorter-master/js/widgets/widget-columnSelector.js' %}"></script>
+    <script src="{% static 'tablesorter-master/js/widgets/widget-pager.js' %}"></script>
     <!-- d3 -->
     <script type="text/javascript" src="{% static 'd3_lib/js/d3.js' %}"></script>
     <!-- ModalLoader -->
@@ -42,7 +45,7 @@
     <!-- resultParserToScatter -->
     <script type="text/javascript" src="{% static 'js/resultParserToScatter.js' %}"></script>
     <!-- Result configuration  -->
-    <script type="text/javascript" src="{% static 'js/result_configure.js' %}"></script>
+    <!--script type="text/javascript" src="{% static 'js/result_configure.js' %}"></script-->
 
     <!-- 'base.html' css -->
     <style>
