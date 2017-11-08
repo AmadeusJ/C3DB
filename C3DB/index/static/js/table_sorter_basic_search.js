@@ -21,7 +21,7 @@ $(function() {
     $(".bootstrap-popup").tablesorter({
         theme: 'blue',
         widgets: ['zebra', 'columnSelector', 'stickyHeaders']
-    });
+    }).tablesorterPager({container: $("#pager")});
 
 
 });
