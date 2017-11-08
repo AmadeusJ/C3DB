@@ -190,11 +190,6 @@
             <!-- Result show selector -->
             <div class="row">
                 <div class="col-sm-12">
-                    <div>
-                        <button id="popover" type="button" class="btn btn-default">
-                            Select Column
-                        </button>
-                    </div>
                     <div class="columnSelectorWrapper">
                         <input id="colSelect1" type="checkbox" class="hidden">
                         <label class="columnSelectorButton" for="colSelect1">Column</label>
@@ -231,7 +226,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div id="Result_box">
-                        <table class="tablesorter bootstrap-popover" id="myTable" cellspacing="1">
+                        <table class="tablesorter custom-popup" id="myTable" cellspacing="1">
                             <thead>
                             <tr>
                                 <th>
@@ -576,14 +571,5 @@
     modalRun();
 
 </script>
-<!-- table sorter _jquery library -->
-<script src="{% static 'tablesorter-master/js/jquery.tablesorter.js' %}"></script>
-<!-- tablesorter pager -->
-<link rel="stylesheet" href="{% static 'tablesorter-master/addons/pager/jquery.tablesorter.pager.css' %}">
-<script src="{% static 'tablesorter-master/addons/pager/jquery.tablesorter.pager.js' %}"></script>
-<script src="{% static 'tablesorter-master/js/jquery.tablesorter.widgets.js' %}"></script>
-<script src="{% static 'tablesorter-master/js/widgets/widget-columnSelector.js' %}"></script>
-<script src="{% static 'tablesorter-master/js/widgets/widget-pager.js' %}"></script>
-<link rel="stylesheet" href="{% static 'tablesorter-master/css/theme.blue.css' %}">
-<link rel="stylesheet" href="{% static 'css/table_sorter_basic_search.css' %}">
+
 {% endblock %}
