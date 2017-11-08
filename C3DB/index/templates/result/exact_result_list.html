@@ -230,10 +230,10 @@
                         <table class="tablesorter custom-popup" id="myTable">
                             <thead>
                             <tr>
-                                <th></th>
+                                <th data-priority="critical"></th>
                                 <th data-priority="critical">SSU_CID</th>
                                 <th class="columnSelector-disable mol_img">Pic</th>
-                                <th class="columnSelector-false" data-priority="6" data-selector-name="MW">MW</th>
+                                <th class="columnSelector-true" data-priority="6" data-selector-name="MW">MW</th>
                                 <th data-priority="2">Atoms</th>
                                 <th data-priority="3">Bonds</th>
                                 <th data-priority="4">Rings</th>
@@ -311,6 +311,8 @@
 {{ block.super }}
 <!--script src="http://code.jquery.com/jquery-1.9.0.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script-->
+<script src="{% static 'js/table_sorter_basic_search.js' %}"></script>
+
 <!-- Image loader -->
 <script src="{% static 'js/imageLoader.js' %}"></script>
 
@@ -479,8 +481,8 @@
                 //alert(mols[0])
 
                 /* Table sorting */
-                $("#myTable").tablesorter()
-                    .tablesorterPager({container: $("#pager")});
+                //$("#myTable").tablesorter()
+                //    .tablesorterPager({container: $("#pager")});
 
                 // Parse the result for drawing scatter plot
                 //console.log(_result);
