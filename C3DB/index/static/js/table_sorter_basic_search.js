@@ -13,7 +13,8 @@ $(function() {
             // column status, true = display, false = hide
             // disable = do not display on list
             columnSelector_columns : {
-                0: 'disable' /* set to disabled; not allowed to unselect it */
+                0: 'disable', /* set to disabled; not allowed to unselect it */
+                1: true,
             },
             // remember selected columns (requires $.tablesorter.storage)
             columnSelector_saveColumns: true,
