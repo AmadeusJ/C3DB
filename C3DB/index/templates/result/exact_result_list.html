@@ -434,6 +434,7 @@
                         // Show the result on page !
                         declare();
                         callingConfiguration(result.configure);
+                        RenderingTableSorter();
 
                     } else if (result.state == "PROGRESS") {
                         //$("#LoadingImage").show();
@@ -458,7 +459,9 @@
                 /* Table sorting */
                 //$("#myTable").tablesorter()
                 //    .tablesorterPager({container: $("#pager")});
-                RenderingTableSorter();
+
+                //RenderingTableSorter();
+
                 // Parse the result for drawing scatter plot
                 //console.log(_result);
                 var data = resultParserToScatter(_result);

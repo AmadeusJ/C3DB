@@ -29,7 +29,7 @@ function RenderingTableSorter() {
             // enable/disable mediaquery breakpoints
             columnSelector_mediaquery: true,
             // toggle checkbox name
-            columnSelector_mediaqueryName: 'Auto: ',
+            columnSelector_mediaqueryName: 'Default: ',
             // breakpoints checkbox initial setting
             columnSelector_mediaqueryState: true,
             // hide columnSelector false columns while in auto mode
