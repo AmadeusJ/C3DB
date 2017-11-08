@@ -233,7 +233,7 @@
                                 </th>
                                 <th data-priority="critical">SSU_CID</th>
                                 <th class="columnSelector-disable mol_img">Pic</th>
-                                <th class="columnSelector-false result_mw" data-priority="1">MW</th>
+                                <th class="columnSelector-false" data-priority="1" data-selector-name="MW">MW</th>
                                 <th data-priority="2">Atoms</th>
                                 <th data-priority="3">Bonds</th>
                                 <th data-priority="4">Rings</th>
@@ -338,7 +338,7 @@
         //        console.log(ssu_cid);
         //        console.log(path);
         //       console.log(final_path);
-        console.log(final_path_mgf);
+        //console.log(final_path_mgf);
 
         return [final_path_img, final_path_file, final_path_mgf];
     }
@@ -408,7 +408,7 @@
        var poll = function(){
             var json_dump = "{{ data }}";
             var task_id = "{{ task_id }}";
-            console.log(task_id);
+            //console.log(task_id);
 
             $.ajax({
                 url: "{%  url 'C3DB:poll' %}",
