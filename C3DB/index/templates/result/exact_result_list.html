@@ -96,7 +96,6 @@
     .des_selector {
         float: left;
         margin-left: 10px;
-        margin-bottom: 30px;
     }
 {% endblock %}
 
@@ -310,7 +309,7 @@
         var ssu_cid_len = ssu_cid.toString().length;
         var ssu_cid_string = addZero(ssu_cid);  //
         var dir = ssu_cid_string.slice(0, 4);
-        console.log(ssu_cid_string);
+        //console.log(ssu_cid_string);
 
         final_path_img = "{{ MEDIA_URL }}" + "img/" + dir + "/" + ssu_cid_string + ".png";
         final_path_file = "{{ MEDIA_URL }}" + "mol/" + dir + "/" + ssu_cid_string + ".mol";

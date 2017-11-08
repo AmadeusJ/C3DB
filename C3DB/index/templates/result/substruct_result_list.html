@@ -88,6 +88,10 @@
     .progress_box {
         display: none;
     }
+    .des_selector {
+        float: left;
+        margin-left: 10px;
+    }
 
 {% endblock %}
 
@@ -166,6 +170,18 @@
                         <div class="box2">
                             <input id="select_all" type="checkbox" autocomplete="off">Select all
                         </div>
+                        <!-- Result show selector -->
+                        <div class="des_selector">
+                            <div>
+                                <div class="columnSelectorWrapper">
+                                    <input id="colSelect1" type="checkbox" class="hidden">
+                                    <label class="columnSelectorButton" for="colSelect1">Column</label>
+                                    <div id="columnSelector" class="columnSelector">
+                                        <!-- this div is where the column selector is added -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         {% if user.is_active %}
                         <div id="user_db">
                             <select name="user_db_list" data-style="btn-info" class="chzn-select selectpicker" id="user_db_list">
@@ -182,45 +198,39 @@
                     </div>
                 </div>
             </div>
-            <!-- Result show selector -->
-            <div class="row">
-                <div class="col-sm-12">
-                    <input class="des_mw" type="checkbox">MW
-                    <input class="des_atom" type="checkbox">Atoms
-                    <input class="des_bond" type="checkbox">Bonds
-                    <input class="des_ring" type="checkbox">Rings
-                    <input class="des_mf" type="checkbox">MF
-                    <input class="des_logP" type="checkbox">LogP
-                    <input class="des_fc" type="checkbox">FC
-                    <input class="des_pub" type="checkbox">PUB
-                    <input class="des_tpsa" type="checkbox">TPSA
-                    <input class="des_hba" type="checkbox">HBA
-                    <input class="des_hbd" type="checkbox">HBD
-                    <input class="des_rotate" type="checkbox">rBonds
-                </div>
-            </div>
 
             <div class="row">
                 <div class="col-sm-12">
                     <div id="Result_box">
-                        <table class="tablesorter" id="myTable">
+                        <table class="tablesorter custom-popup" id="myTable">
                             <thead>
                             <tr>
-                                <th>
-                                </th>
-                                <th>SSU_CID</th>
-                                <th class="mol_img">Pic</th>
-                                <th class="result_mw">MW</th>
-                                <th class="result_atom">Atoms</th>
-                                <th class="result_bond">Bonds</th>
-                                <th class="result_ring">Rings</th>
-                                <th class="result_mf">MF</th>
-                                <th class="result_logP">logP</th>
-                                <th class="result_fc">FC</th>
-                                <th class="result_hba">HBA</th>
-                                <th class="result_hbd">HBD</th>
-                                <th class="result_rotate">rBonds</th>
-                                <th class="result_pub">PUB_CID</th>
+                                <th data-priority="critical"></th>
+                                <th data-priority="critical">SSU_CID</th>
+                                <th class="columnSelector-disable mol_img">Pic</th>
+                                <th class="columnSelector-false" data-priority="1" data-selector-name="MW">MW</th>
+                                <th data-priority="2">Atoms</th>
+                                <th data-priority="3">Bonds</th>
+                                <th data-priority="4">Rings</th>
+                                <th data-priority="5">Formula</th>
+                                <th data-priority="6">logP</th>
+                                <th data-priority="7">Charge</th>
+                                <th data-priority="8">TPSA</th>
+                                <th data-priority="9">HBA</th>
+                                <th data-priority="10">HBD</th>
+                                <th data-priority="11">Rotate</th>
+                                <th data-priority="12">Heat</th>
+                                <th data-priority="13">Total_Energy</th>
+                                <th data-priority="14">Elec_Energy</th>
+                                <th data-priority="15">Point_Group</th>
+                                <th data-priority="16">COSMO_Area</th>
+                                <th data-priority="17">COSMO_Volume</th>
+                                <th data-priority="18">Ion_Potential</th>
+                                <th data-priority="19">HOMO</th>
+                                <th data-priority="20">LUMO</th>
+                                <th data-priority="21">Dimension</th>
+                                <th data-priority="22">Origin</th>
+                                <th data-priority="23">QM</th>
                             </tr>
                             </thead>
                             <tbody id="contents">
@@ -234,11 +244,11 @@
     <!-- Pager -->
     <div id="pager" class="pager">
         <form>
-            <img src="{% static 'jquery.tablesorter/addons/pager/icons/first.png' %}" class="first"/>
-            <img src="{% static 'jquery.tablesorter/addons/pager/icons/prev.png' %}" class="prev"/>
+            <img src="{% static 'tablesorter-master/addons/pager/icons/first.png' %}" class="first"/>
+            <img src="{% static 'tablesorter-master/addons/pager/icons/prev.png' %}" class="prev"/>
             <input type="text" class="pagedisplay"/>
-            <img src="{% static 'jquery.tablesorter/addons/pager/icons/next.png' %}" class="next"/>
-            <img src="{% static 'jquery.tablesorter/addons/pager/icons/last.png' %}" class="last"/>
+            <img src="{% static 'tablesorter-master/addons/pager/icons/next.png' %}" class="next"/>
+            <img src="{% static 'tablesorter-master/addons/pager/icons/last.png' %}" class="last"/>
             <select class="pagesize">
                 <option selected="selected" value="10">10</option>
                 <option value="20">20</option>
@@ -272,13 +282,8 @@
 
 {% block body %}
 {{ block.super }}
-<script src="http://code.jquery.com/jquery-1.9.0.js"></script>
-<script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
-<!-- table sorter _jquery library -->
-<script src="{% static 'jquery.tablesorter/jquery.tablesorter.js' %}"></script>
-<!-- tablesorter pager -->
-<link rel="stylesheet" href="{% static 'jquery.tablesorter/addons/pager/jquery.tablesorter.pager.css' %}">
-<script src="{% static 'jquery.tablesorter/addons/pager/jquery.tablesorter.pager.js' %}"></script>
+<script src="{% static 'js/table_sorter_basic_search.js' %}"></script>
+
 <!-- molecule image loader -->
 <script src="{% static 'js/imageLoader.js' %}"></script>
 <script type="text/javascript">
@@ -295,16 +300,17 @@
         var ssu_cid_len = ssu_cid.toString().length;
         var ssu_cid_string = addZero(ssu_cid);  //
         var dir = ssu_cid_string.slice(0, 4);
-        console.log(ssu_cid_string);
+        //console.log(ssu_cid_string);
 
         final_path_img = "{{ MEDIA_URL }}" + "img/" + dir + "/" + ssu_cid_string + ".png";
         final_path_file = "{{ MEDIA_URL }}" + "mol/" + dir + "/" + ssu_cid_string + ".mol";
+        final_path_mgf = "{{ MEDIA_URL }}" + "mgf/" + dir + "/" + ssu_cid_string + ".mgf";
         //final_path = "{% static 'mol_png/" + path + "/' %}mol_" + ssu_cid + ".png";
         //        console.log(ssu_cid);
         //        console.log(path);
         //        console.log(final_path);
 
-        return [final_path_img, final_path_file];
+        return [final_path_img, final_path_file, final_path_mgf];
     }
 
     /* Showing Progress-bar image */
@@ -325,16 +331,27 @@
         o += "<td class='mol_img'>";
         o += "<a href='"+ path + "' class='highslide' onclick='return hs.expand(this)'><img alt='HighslideJS' title='Click to enlarge' src="+ path +" width='120' height='107'></a>"; // Pic
         o += "</td>";
-        o += "<td class='result_mw'>" + mols[16] + "</td>"; // RDKit_MW
-        o += "<td class='result_atom'>" + mols[3] + "</td>"; // #Atom
-        o += "<td class='result_bond'>" + mols[4] + "</td>"; // #Bond
-        o += "<td class='result_ring'>" + mols[5] + "</td>"; // #Ring
-        o += "<td class='result_mf'>" + mols[8] + "</td>"; // #MF
-        o += "<td class='result_logP'>" + mols[6] + "</td>"; // logP
-        o += "<td class='result_fc'>" + mols[12] + "</td>"; // FC
-        o += "<td class='result_hba'>" + mols[13] + "</td>"; // HBA
-        o += "<td class='result_hbd'>" + mols[14] + "</td>"; // HBD
-        o += "<td class='result_rotate'>" + mols[15] + "</td>"; // Rotate
+        o += "<td>" + mols[16] + "</td>"; // RDKit_MW
+        o += "<td>" + mols[3] + "</td>"; // #Atom
+        o += "<td>" + mols[4] + "</td>"; // #Bond
+        o += "<td>" + mols[5] + "</td>"; // #Ring
+        o += "<td>" + mols[8] + "</td>"; // #MF
+        o += "<td>" + mols[6] + "</td>"; // logP
+        o += "<td>" + mols[12] + "</td>"; // FC
+        o += "<td>" + mols[18] +  "</td>"; // TPSA
+        o += "<td>" + mols[13] + "</td>"; // HBA
+        o += "<td>" + mols[14] + "</td>"; // HBD
+        o += "<td>" + mols[15] + "</td>"; // Rotate
+        o += "<td>" + mols[23] + "</td>"; // Head
+        o += "<td>" + mols[24] + "</td>";  // Total_Energy
+        o += "<td>" + mols[25] + "</td>"; // Elec_Energy
+        o += "<td>" + mols[26] + "</td>";    // Point_Group
+        o += "<td>" + mols[27] + "</td>"; // COSMO_Area
+        o += "<td>" + mols[28] + "</td>";   // COSMO_Volume
+        o += "<td>" + mols[29] + "</td>";  // Ion_Potential
+        o += "<td>" + mols[30] + "</td>";   // HOMO
+        o += "<td>" + mols[31] + "</td>";   // LUMO
+        o += "<td>" + mols[32] + "</td>";     // Dimension
         var pub_id = mols[7].split(",");
         var origins = "";
         for (i = 0; i < pub_id.length; i++){
@@ -342,7 +359,13 @@
             var origin_name =" " + pub_id[i];
             origins += "<a href='https://pubchem.ncbi.nlm.nih.gov/compound/" + origin_id + "' target='_blank'>" + origin_name + "</a>";
         }
-        o += "<td class='result_pub'>" + origins +"</td>"; // PUB
+        o += "<td>" + origins +"</td>"; // PUB
+
+        var PM7_link = "<a href='/C3DB/result_JSMol/" + mols[1] +"' target='_blank'>" + "PM7" + "</a>";
+        if (mols[30] === ""){
+            PM7_link = "N/A";
+        }
+        o += "<td>" + PM7_link + "</td>";    // QM
         o += "</tr>";
 
         return o;
@@ -405,8 +428,8 @@
                         }
                         // Show the result on page !
                         declare();
-                        callingConfiguration(result.configure);
-                        console.log(result.configure);
+                        RenderingTableSorter(result.configure);
+                        //console.log(result.configure);
 
                     } else if (result.state == "PROGRESS") {
                         $('#bar').css({'width': result.process_percent + '%'});
@@ -424,11 +447,6 @@
                 $('#content-bar').remove();
                 $('.dd').show();
                 //alert(mols[0])
-
-
-                /* Table sorting */
-                $("#myTable").tablesorter()
-                    .tablesorterPager({container: $("#pager")});
 
                 // Parse the result for drawing scatter plot
                 //console.log(_result);
