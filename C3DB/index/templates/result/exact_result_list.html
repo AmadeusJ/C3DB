@@ -93,7 +93,9 @@
     #myTable {
         overflow: auto;
     }
-
+    .des_selector {
+        float: left;
+    }
 {% endblock %}
 
 
@@ -171,6 +173,18 @@
                         <div class="box2">
                             <input id="select_all" type="checkbox" autocomplete="off">Select all
                         </div>
+                        <!-- Result show selector -->
+                        <div class="des_selector">
+                            <div>
+                                <div class="columnSelectorWrapper">
+                                    <input id="colSelect1" type="checkbox" class="hidden">
+                                    <label class="columnSelectorButton" for="colSelect1">Column</label>
+                                    <div id="columnSelector" class="columnSelector">
+                                        <!-- this div is where the column selector is added -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         {% if user.is_active %}
                         <div id="user_db">
                             <select name="user_db_list" data-style="btn-info" class="chzn-select selectpicker" id="user_db_list">
@@ -188,18 +202,6 @@
                 </div>
             </div>
 
-            <!-- Result show selector -->
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="columnSelectorWrapper">
-                        <input id="colSelect1" type="checkbox" class="hidden">
-                        <label class="columnSelectorButton" for="colSelect1">Column</label>
-                        <div id="columnSelector" class="columnSelector">
-                            <!-- this div is where the column selector is added -->
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <div class="row">
                 <div class="col-sm-12">
