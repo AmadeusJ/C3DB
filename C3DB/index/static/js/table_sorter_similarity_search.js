@@ -121,33 +121,33 @@ function RenderingTableSorter(setting) {
     }).tablesorterPager({container: $("#pager")});
 
     /*
-    * 0: mol select column
-    * 1: img select column
-    * 2: SSU_CID
-    * 3: MW
-    * 4: Atoms
-    * 5: Bonds
-    * 6: Rings
-    * 7: Formula
-    * 8: logP
-    * 9: Charge
-    * 10: TPSA
-    * 11: HBA
-    * 12: HBD
-    * 13: Rotate
-    * 14: Heat
-    * 15: Total_Energy
-    * 16: Elec_Energy
-    * 17: Point_Group
-    * 18: COSMO_Area
-    * 19: COSMO_Volume
-    * 20: Ion_Potential
-    * 21: HOMO
-    * 22: LUMO
-    * 23: Dimension
-    * 24: Origin
-    * 25: QM
-    * */
+     * 0: mol select column
+     * 1: img select column
+     * 2: SSU_CID
+     * 3: MW
+     * 4: Atoms
+     * 5: Bonds
+     * 6: Rings
+     * 7: Formula
+     * 8: logP
+     * 9: Charge
+     * 10: TPSA
+     * 11: HBA
+     * 12: HBD
+     * 13: Rotate
+     * 14: Heat
+     * 15: Total_Energy
+     * 16: Elec_Energy
+     * 17: Point_Group
+     * 18: COSMO_Area
+     * 19: COSMO_Volume
+     * 20: Ion_Potential
+     * 21: HOMO
+     * 22: LUMO
+     * 23: Dimension
+     * 24: Origin
+     * 25: QM
+     * */
     var mw, atoms, bonds, rings, formula, logP, charge, tpsa, hba, hbd, rotate, heat, total_energy, elec_energy,
         point_group, cosmo_area, cosmo_volume, ion_potential, homo, lumo, dimension, origin, qm;
     var default_column = [0, 1, 2];

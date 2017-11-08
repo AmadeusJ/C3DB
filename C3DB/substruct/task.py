@@ -109,20 +109,20 @@ def substructure_search(category, super_sub, max_result, query, **kwargs):
     else:
         if len(sql_where) == 0:
             if results_limit is None:
-                sql = """ SELECT * from "DB_Data" db WHERE db.id 
-                IN (SELECT mols.id FROM mols WHERE m@>'%s'); """ % (query_mol)
+                sql = """ SELECT db.*, mp.* from "DB_Data" db, "DB_Mopac_1" mp 
+                WHERE db.id IN (SELECT mols.id FROM mols WHERE m@>'%s') AND db.id=mp.id; """ % (query_mol)
 
             else:
-                sql = """ SELECT * from "DB_Data" db WHERE db.id 
-                IN (SELECT mols.id FROM mols WHERE m@>'%s' LIMIT %d); """ % (query_mol, results_limit)
+                sql = """ SELECT db.*, mp.* from "DB_Data" db, "DB_Mopac_1" mp 
+                WHERE db.id IN (SELECT mols.id FROM mols WHERE m@>'%s' limit %d) AND db.id=mp.id; """ % (query_mol, results_limit)
 
         else:
             if results_limit is None:
-                sql = """ SELECT * from "DB_Data" db WHERE db.id 
-                IN (SELECT mols.id FROM mols WHERE m@>'%s') %s; """ % (query_mol, sql_where)
+                sql = """ SELECT db.*, mp.* from "DB_Data" db, "DB_Mopac_1" mp 
+                WHERE db.id IN (SELECT mols.id FROM mols WHERE m@>'%s') AND db.id=mp.id %s; """ % (query_mol, sql_where)
             else:
-                sql = """ SELECT * from "DB_Data" db WHERE db.id 
-                IN (SELECT mols.id FROM mols WHERE m@>'%s' LIMIT %d) %s; """ % (query_mol, results_limit, sql_where)
+                sql = """ SELECT db.*, mp.* from "DB_Data" db, "DB_Mopac_1" mp 
+                WHERE db.id IN (SELECT mols.id FROM mols WHERE m@>'%s' limit %d) AND db.id=mp.id %s; """ % (query_mol, results_limit, sql_where)
 
     print sql
     curs.execute(sql)
