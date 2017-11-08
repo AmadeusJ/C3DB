@@ -23,5 +23,4 @@ $(function() {
         widgets: ['zebra', 'columnSelector', 'stickyHeaders']
     }).tablesorterPager({container: $("#pager")});
 
-
 });
