@@ -120,13 +120,108 @@ function RenderingTableSorter(setting) {
         }
     }).tablesorterPager({container: $("#pager")});
 
+    /*
+    * 0: mol select column
+    * 1: img select column
+    * 2: SSU_CID
+    * 3: MW
+    * 4: Atoms
+    * 5: Bonds
+    * 6: Rings
+    * 7: Formula
+    * 8: logP
+    * 9: Charge
+    * 10: TPSA
+    * 11: HBA
+    * 12: HBD
+    * 13: Rotate
+    * 14: Heat
+    * 15: Total_Energy
+    * 16: Elec_Energy
+    * 17: Point_Group
+    * 18: COSMO_Area
+    * 19: COSMO_Volume
+    * 20: Ion_Potential
+    * 21: HOMO
+    * 22: LUMO
+    * 23: Dimension
+    * 24: Origin
+    * 25: QM
+    * */
     var mw, atoms, bonds, rings, formula, logP, charge, tpsa, hba, hbd, rotate, heat, total_energy, elec_energy,
         point_group, cosmo_area, cosmo_volume, ion_potential, homo, lumo, dimension, origin, qm;
-
-
-
+    var default_column = [0, 1, 2];
+    if (setting['MW'] == 1){
+        default_column.push(3)
+    }
+    if (setting['Atoms'] == 1){
+        default_column.push(4)
+    }
+    if (setting['Bonds'] == 1){
+        default_column.push(5)
+    }
+    if (setting['Rings'] == 1){
+        default_column.push(6)
+    }
+    if (setting['Formula'] == 1){
+        default_column.push(7)
+    }
+    if (setting['LogP'] == 1){
+        default_column.push(8)
+    }
+    if (setting['Charge'] == 1){
+        default_column.push(9)
+    }
+    if (setting['TPSA'] == 1){
+        default_column.push(10)
+    }
+    if (setting['HBA'] == 1){
+        default_column.push(11)
+    }
+    if (setting['HBD'] == 1){
+        default_column.push(12)
+    }
+    if (setting['Rotate'] == 1){
+        default_column.push(13)
+    }
+    if (setting['Heat'] == 1){
+        default_column.push(14)
+    }
+    if (setting['Total_Energy'] == 1){
+        default_column.push(15)
+    }
+    if (setting['Elec_Energy'] == 1){
+        default_column.push(16)
+    }
+    if (setting['Point_Group'] == 1){
+        default_column.push(17)
+    }
+    if (setting['COSMO_Area'] == 1){
+        default_column.push(18)
+    }
+    if (setting['COSMO_Volume'] == 1){
+        default_column.push(19)
+    }
+    if (setting['Ion_Potential'] == 1){
+        default_column.push(20)
+    }
+    if (setting['HOMO'] == 1){
+        default_column.push(21)
+    }
+    if (setting['LUMO'] == 1){
+        default_column.push(22)
+    }
+    if (setting['Dimension'] == 1){
+        default_column.push(23)
+    }
+    if (setting['Origin'] == 1){
+        default_column.push(24)
+    }
+    if (setting['QM'] == 1){
+        default_column.push(25)
+    }
     //$('#myTable').trigger('refreshColumnSelector', ['Default', true]);
-    $('#myTable').trigger('refreshColumnSelector', ['Default', [0,1,2,3]]);
+    $('#myTable').trigger('refreshColumnSelector', ['Default', default_column]);
 
 
 }
