@@ -150,75 +150,75 @@ function RenderingTableSorter(setting) {
      * */
     var mw, atoms, bonds, rings, formula, logP, charge, tpsa, hba, hbd, rotate, heat, total_energy, elec_energy,
         point_group, cosmo_area, cosmo_volume, ion_potential, homo, lumo, dimension, origin, qm;
-    var default_column = [0, 1, 2];
+    var default_column = [0, 1, 3];
     if (setting['MW'] == 1){
-        default_column.push(3)
-    }
-    if (setting['Atoms'] == 1){
         default_column.push(4)
     }
-    if (setting['Bonds'] == 1){
+    if (setting['Atoms'] == 1){
         default_column.push(5)
     }
-    if (setting['Rings'] == 1){
+    if (setting['Bonds'] == 1){
         default_column.push(6)
     }
-    if (setting['Formula'] == 1){
+    if (setting['Rings'] == 1){
         default_column.push(7)
     }
-    if (setting['LogP'] == 1){
+    if (setting['Formula'] == 1){
         default_column.push(8)
     }
-    if (setting['Charge'] == 1){
+    if (setting['LogP'] == 1){
         default_column.push(9)
     }
-    if (setting['TPSA'] == 1){
+    if (setting['Charge'] == 1){
         default_column.push(10)
     }
-    if (setting['HBA'] == 1){
+    if (setting['TPSA'] == 1){
         default_column.push(11)
     }
-    if (setting['HBD'] == 1){
+    if (setting['HBA'] == 1){
         default_column.push(12)
     }
-    if (setting['Rotate'] == 1){
+    if (setting['HBD'] == 1){
         default_column.push(13)
     }
-    if (setting['Heat'] == 1){
+    if (setting['Rotate'] == 1){
         default_column.push(14)
     }
-    if (setting['Total_Energy'] == 1){
+    if (setting['Heat'] == 1){
         default_column.push(15)
     }
-    if (setting['Elec_Energy'] == 1){
+    if (setting['Total_Energy'] == 1){
         default_column.push(16)
     }
-    if (setting['Point_Group'] == 1){
+    if (setting['Elec_Energy'] == 1){
         default_column.push(17)
     }
-    if (setting['COSMO_Area'] == 1){
+    if (setting['Point_Group'] == 1){
         default_column.push(18)
     }
-    if (setting['COSMO_Volume'] == 1){
+    if (setting['COSMO_Area'] == 1){
         default_column.push(19)
     }
-    if (setting['Ion_Potential'] == 1){
+    if (setting['COSMO_Volume'] == 1){
         default_column.push(20)
     }
-    if (setting['HOMO'] == 1){
+    if (setting['Ion_Potential'] == 1){
         default_column.push(21)
     }
-    if (setting['LUMO'] == 1){
+    if (setting['HOMO'] == 1){
         default_column.push(22)
     }
-    if (setting['Dimension'] == 1){
+    if (setting['LUMO'] == 1){
         default_column.push(23)
     }
-    if (setting['Origin'] == 1){
+    if (setting['Dimension'] == 1){
         default_column.push(24)
     }
-    if (setting['QM'] == 1){
+    if (setting['Origin'] == 1){
         default_column.push(25)
+    }
+    if (setting['QM'] == 1){
+        default_column.push(26)
     }
     //$('#myTable').trigger('refreshColumnSelector', ['Default', true]);
     $('#myTable').trigger('refreshColumnSelector', ['All', default_column]);
