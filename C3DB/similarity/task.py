@@ -99,26 +99,26 @@ def similar_search(category, fp_category, taminoto_min, max_result, query, exclu
                 sql = """ SELECT db.*, mp.*, fps.similarity FROM "DB_Data" AS db, "DB_Mopac_1" as mp, 
                 (SELECT db.id, similarity FROM "DB_Data" AS db INNER JOIN (SELECT * from get_mfp_neighbors('%s') 
                 WHERE similarity >= %.1f) AS fps ON db.id=fps.id) as fps 
-                WHERE fps.id=db.id AND db."SSU_CID"=mp."SSU_CID"; """ % (query_mol, taminoto_min)
+                WHERE fps.id=db.id AND db."SSU_CID"=mp."SSU_CID" ORDER BY db."SSU_CID"; """ % (query_mol, taminoto_min)
             else:
                 # SQL Query for similarity search with morgan fingerprint.
                 sql = """ SELECT db.*, mp.*, fps.similarity FROM "DB_Data" AS db, "DB_Mopac_1" as mp, 
                 (SELECT db.id, similarity FROM "DB_Data" AS db INNER JOIN (SELECT * from get_mfp_neighbors('%s') 
                 WHERE similarity >= %.1f LIMIT %d) AS fps ON db.id=fps.id) as fps 
-                WHERE fps.id=db.id AND db."SSU_CID"=mp."SSU_CID"; """ % (query_mol, taminoto_min, results_limit)
+                WHERE fps.id=db.id AND db."SSU_CID"=mp."SSU_CID" ORDER BY db."SSU_CID"; """ % (query_mol, taminoto_min, results_limit)
 
         else:
             if results_limit is None:
                 sql = """ SELECT db.*, mp.*, fps.similarity FROM "DB_Data" AS db, "DB_Mopac_1" as mp, 
                 (SELECT db.id, similarity FROM "DB_Data" AS db INNER JOIN (SELECT * from get_mfp_neighbors('%s') 
                 WHERE similarity >= %.1f) AS fps ON db.id=fps.id) as fps 
-                WHERE fps.id=db.id AND db."SSU_CID"=mp."SSU_CID" %s; """ % (query_mol, taminoto_min, sql_where)
+                WHERE fps.id=db.id AND db."SSU_CID"=mp."SSU_CID" %s ORDER BY db."SSU_CID"; """ % (query_mol, taminoto_min, sql_where)
 
             else:
                 sql = """ SELECT db.*, mp.*, fps.similarity FROM "DB_Data" AS db, "DB_Mopac_1" as mp, 
                 (SELECT db.id, similarity FROM "DB_Data" AS db INNER JOIN (SELECT * from get_mfp_neighbors('%s') 
                 WHERE similarity >= %.1f LIMIT %d) AS fps ON db.id=fps.id) as fps 
-                WHERE fps.id=db.id AND db."SSU_CID"=mp."SSU_CID" %s; """ % (query_mol, taminoto_min, results_limit, sql_where)
+                WHERE fps.id=db.id AND db."SSU_CID"=mp."SSU_CID" %s ORDER BY db."SSU_CID"; """ % (query_mol, taminoto_min, results_limit, sql_where)
 
         print sql
         curs.execute(sql)
