@@ -5,7 +5,7 @@ $(function() {
 
 
     /*** custom css only button popup ***/
-    $(".custom-popup").tablesorter({
+    $(".custom-popup2").tablesorter({
         theme: 'blue',
         widgets: ['zebra', 'columnSelector', 'stickyHeaders'],
         widgetOptions : {
