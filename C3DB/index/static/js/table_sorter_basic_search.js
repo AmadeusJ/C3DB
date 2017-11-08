@@ -1,9 +1,7 @@
 /**
  * Created by JDW on 2017-11-08.
  */
-$(function() {
-
-
+function RenderingTableSorter() {
     /*** custom css only button popup ***/
     $(".custom-popup").tablesorter({
         theme: 'blue',
@@ -123,4 +121,4 @@ $(function() {
     }).tablesorterPager({container: $("#pager")});
 
 
-});
+}
