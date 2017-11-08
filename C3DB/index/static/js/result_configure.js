@@ -350,7 +350,7 @@ function userConfigurationChange() {
             $('.result_COSMO_Area').hide();
         }
     });
-    /*
+
     $('.des_COSMO_Volume').change(function (e) {
         e.preventDefault();
         var chk = $(this).is(':checked');
@@ -360,12 +360,7 @@ function userConfigurationChange() {
             $('.result_COSMO_Volume').hide();
         }
     });
-    */
-    if ($('.des_COSMO_Volume').is(':checked')){
-        $('.result_COSMO_Volume').show();
-    } else {
-        $('.result_COSMO_Volume').hide();
-    }
+
 
     $('.des_Ion_Potential').change(function (e) {
         e.preventDefault();
@@ -386,6 +381,12 @@ function userConfigurationChange() {
             $('.result_HOMO').hide();
         }
     });
+
+    if ($('.des_LUMO').is(':checked')){
+        $('.result_LUMO').show();
+    } else {
+        $('.result_LUMO').hide();
+    }
 
     $('.des_LUMO').change(function (e) {
         e.preventDefault();
