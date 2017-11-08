@@ -122,11 +122,11 @@ function RenderingTableSorter(setting) {
 
     var mw, atoms, bonds, rings, formula, logP, charge, tpsa, hba, hbd, rotate, heat, total_energy, elec_energy,
         point_group, cosmo_area, cosmo_volume, ion_potential, homo, lumo, dimension, origin, qm;
-        
+
 
 
     //$('#myTable').trigger('refreshColumnSelector', ['Default', true]);
-    $('#myTable').trigger('refreshColumnSelector', ['Default', [0,1,2]]);
+    $('#myTable').trigger('refreshColumnSelector', ['Default', [0,1,2,3]]);
 
 
 }
