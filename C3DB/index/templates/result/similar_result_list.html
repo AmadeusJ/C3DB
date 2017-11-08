@@ -208,33 +208,33 @@
                         <table class="tablesorter custom-popup" id="myTable" cellspacing="1">
                             <thead>
                             <tr>
-                                <th data-priority="critical"></th>
-                                <th data-priority="critical">SSU_CID</th>
-                                <th class="mol_img">Pic</th>
-                                <th class="result_score">Score</th>
-                                <th class="columnSelector-false" data-priority="1" data-selector-name="MW">MW</th>
-                                <th data-priority="2">Atoms</th>
-                                <th data-priority="3">Bonds</th>
-                                <th data-priority="4">Rings</th>
-                                <th data-priority="5">Formula</th>
-                                <th data-priority="6">logP</th>
-                                <th data-priority="7">Charge</th>
-                                <th data-priority="8">TPSA</th>
-                                <th data-priority="9">HBA</th>
-                                <th data-priority="10">HBD</th>
-                                <th data-priority="11">Rotate</th>
-                                <th data-priority="12">Heat</th>
-                                <th data-priority="13">Total_Energy</th>
-                                <th data-priority="14">Elec_Energy</th>
-                                <th data-priority="15">Point_Group</th>
-                                <th data-priority="16">COSMO_Area</th>
-                                <th data-priority="17">COSMO_Volume</th>
-                                <th data-priority="18">Ion_Potential</th>
-                                <th data-priority="19">HOMO</th>
-                                <th data-priority="20">LUMO</th>
-                                <th data-priority="21">Dimension</th>
-                                <th data-priority="22">Origin</th>
-                                <th data-priority="23">QM</th>
+                                <th data-priority="critical"></th>  <!-- 0 -->
+                                <th data-priority="critical">SSU_CID</th> <!-- 1 -->
+                                <th class="mol_img">Pic</th>    <!-- 2 -->
+                                <th class="result_score">Score</th> <!-- 3 -->
+                                <th class="columnSelector-false" data-priority="1" data-selector-name="MW">MW</th>  <!-- 4 -->
+                                <th data-priority="2">Atoms</th>    <!-- 5 -->
+                                <th data-priority="3">Bonds</th>    <!-- 6 -->
+                                <th data-priority="4">Rings</th>    <!-- 7 -->
+                                <th data-priority="5">Formula</th>  <!-- 8 -->
+                                <th data-priority="6">logP</th> <!-- 9 -->
+                                <th data-priority="7">Charge</th>   <!-- 10 -->
+                                <th data-priority="8">TPSA</th> <!-- 11 -->
+                                <th data-priority="9">HBA</th>  <!-- 12 -->
+                                <th data-priority="10">HBD</th> <!-- 13 -->
+                                <th data-priority="11">Rotate</th>  <!-- 14 -->
+                                <th data-priority="12">Heat</th>    <!-- 15 -->
+                                <th data-priority="13">Total_Energy</th>    <!-- 16 -->
+                                <th data-priority="14">Elec_Energy</th>     <!-- 17 -->
+                                <th data-priority="15">Point_Group</th>     <!-- 18 -->
+                                <th data-priority="16">COSMO_Area</th>      <!-- 19 -->
+                                <th data-priority="17">COSMO_Volume</th>    <!-- 20 -->
+                                <th data-priority="18">Ion_Potential</th>   <!-- 21 -->
+                                <th data-priority="19">HOMO</th>    <!-- 22 -->
+                                <th data-priority="20">LUMO</th>    <!-- 23 -->
+                                <th data-priority="21">Dimension</th>   <!-- 24 -->
+                                <th data-priority="22">Origin</th>  <!-- 25 -->
+                                <th data-priority="23">QM</th>  <!-- 26 -->
                             </tr>
                             </thead>
                             <tbody id="contents">
@@ -337,7 +337,7 @@
         o += "<td class='mol_img'>";
         o += "<a href='"+ path + "' class='highslide' onclick='return hs.expand(this)'><img alt='HighslideJS' title='Click to enlarge' src="+ path +" width='120' height='107'></a>"; // Pic
         o += "</td>";
-        o += "<td>" + mols[2].toFixed(3) + "</td>";      // sml
+        o += "<td>" + mols[34].toFixed(3) + "</td>";      // sml
         o += "<td>" + mols[16] + "</td>"; // RDKit_MW
         o += "<td>" + mols[3] + "</td>"; // #Atom
         o += "<td>" + mols[4] + "</td>"; // #Bond
