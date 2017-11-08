@@ -1,7 +1,11 @@
 /**
  * Created by JDW on 2017-11-08.
  */
-function RenderingTableSorter() {
+function RenderingTableSorter(setting) {
+    var mw, atoms, bonds, rings, formula, logP, charge, tpsa, hba, hbd, rotate, heat, total_energy, elec_energy,
+    point_group, cosmo_area, cosmo_volume, ion_potential, homo, lumo, dimension, origin, qm;
+
+
     /*** custom css only button popup ***/
     $(".custom-popup").tablesorter({
         theme: 'blue',
@@ -12,7 +16,7 @@ function RenderingTableSorter() {
             // column status, true = display, false = hide
             // disable = do not display on list
             columnSelector_columns : {
-                0: 'disable' /* set to disabled; not allowed to unselect it */
+                0: 'able' /* set to disabled; not allowed to unselect it */
             },
             // remember selected columns (requires $.tablesorter.storage)
             columnSelector_saveColumns: true,

@@ -433,8 +433,8 @@
                         }
                         // Show the result on page !
                         declare();
-                        callingConfiguration(result.configure);
-                        RenderingTableSorter();
+                        //callingConfiguration(result.configure);
+                        RenderingTableSorter(result.configure);
 
                     } else if (result.state == "PROGRESS") {
                         //$("#LoadingImage").show();
@@ -455,12 +455,6 @@
                 $("#LoadingImage").hide();
                 $('.dd').show();
                 //alert(mols[0])
-
-                /* Table sorting */
-                //$("#myTable").tablesorter()
-                //    .tablesorterPager({container: $("#pager")});
-
-                //RenderingTableSorter();
 
                 // Parse the result for drawing scatter plot
                 //console.log(_result);
