@@ -106,7 +106,7 @@ def similar_search(category, fp_category, taminoto_min, max_result, query, exclu
     if kwargs[u'total_energy_min'] is not None:
         sql_where += """mp."Total_Energy" >= %f AND """ % float(kwargs[u'total_energy_min'])
 
-    if kwargs[u'toatl_energy_max'] is not None:
+    if kwargs[u'total_energy_max'] is not None:
         sql_where += """mp."Total_Energy" <= %f AND """ % float(kwargs[u'total_energy_max'])
 
 
