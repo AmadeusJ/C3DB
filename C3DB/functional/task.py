@@ -112,7 +112,7 @@ def functional_search(category, query, mw, molFormula):
     # When query has only 'MF'
     elif (molFormula is not u"") and (mw is u"") and (query is u""):
         sql = """ SELECT db.*, mp.* FROM "DB_Data" db, "DB_Mopac_1" mp 
-        WHERE db."Formula"='%s' AND db."SSU_CID"=mp."SSU_CID" LIMIT %d; """ % (molFormula, LIMIT)
+        WHERE db."Formula"='%s' AND db."SSU_CID"=mp."SSU_CID" ORDER BY db."SSU_CID" LIMIT %d; """ % (molFormula, LIMIT)
         curs.execute(sql)
 
     # Case 3
@@ -137,7 +137,7 @@ def functional_search(category, query, mw, molFormula):
         sql = """ SELECT db.*, mp.* FROM "DB_Data" db, "DB_Mopac_1" mp 
         WHERE db."Formula" LIKE '%%%s%%' 
         AND db."RDKit_MW">='%.4f' 
-        AND db."RDKit_MW"<='%.4f' AND db."SSU_CID"=mp."SSU_CID" LIMIT %d ORDER BY db."SSU_CID"; """ % (molFormula, mw_min, mw_max, LIMIT)
+        AND db."RDKit_MW"<='%.4f' AND db."SSU_CID"=mp."SSU_CID" ORDER BY db."SSU_CID" LIMIT %d; """ % (molFormula, mw_min, mw_max, LIMIT)
         #        print sql
         curs.execute(sql)
 
@@ -164,7 +164,7 @@ def functional_search(category, query, mw, molFormula):
 
         sql = """ SELECT db.*, mp.* FROM "DB_Data" db, "DB_Mopac_1" mp 
         WHERE db."RDKit_MW">='%.4f' 
-        AND db."RDKit_MW"<='%.4f' AND db."SSU_CID"=mp."SSU_CID" LIMIT %d ORDER BY db."SSU_CID"; """ % (mw_min, mw_max, LIMIT)
+        AND db."RDKit_MW"<='%.4f' AND db."SSU_CID"=mp."SSU_CID" ORDER BY db."SSU_CID" LIMIT %d; """ % (mw_min, mw_max, LIMIT)
         curs.execute(sql)
 
     try:
