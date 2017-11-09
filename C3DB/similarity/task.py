@@ -14,58 +14,101 @@ def similar_search(category, fp_category, taminoto_min, max_result, query, exclu
 
     sql_where = """"""
     if kwargs[u'mw_min'] is not None:
-        sql_where += """"RDKit_MW" >= %.f AND """ % float(kwargs[u'mw_min'])
+        sql_where += """db."RDKit_MW" >= %.f AND """ % float(kwargs[u'mw_min'])
 
     if kwargs[u'mw_max'] is not None:
-        sql_where += """"RDKit_MW" <= %.f AND """ % float(kwargs[u'mw_min'])
+        sql_where += """db."RDKit_MW" <= %.f AND """ % float(kwargs[u'mw_min'])
 
     if kwargs[u'atom_min'] is not None:
-        sql_where += """"AtomNumber" >= %d AND """ % int(kwargs[u'atom_min'])
+        sql_where += """db."AtomNumber" >= %d AND """ % int(kwargs[u'atom_min'])
 
     if kwargs[u'atom_max'] is not None:
-        sql_where += """"AtomNumber" <= %d AND """ % int(kwargs[u'atom_max'])
+        sql_where += """db."AtomNumber" <= %d AND """ % int(kwargs[u'atom_max'])
 
     if kwargs[u'bond_min'] is not None:
-        sql_where += """"BondNumber" >= %d AND """ % int(kwargs[u'bond_min'])
+        sql_where += """db."BondNumber" >= %d AND """ % int(kwargs[u'bond_min'])
 
     if kwargs[u'bond_max'] is not None:
-        sql_where += """"BondNumber" <= %d AND """ % int(kwargs[u'bond_max'])
+        sql_where += """db."BondNumber" <= %d AND """ % int(kwargs[u'bond_max'])
 
     if kwargs[u'ring_min'] is not None:
-        sql_where += """"RingNumber" >= %d AND """ % int(kwargs[u'ring_min'])
+        sql_where += """db."RingNumber" >= %d AND """ % int(kwargs[u'ring_min'])
 
     if kwargs[u'ring_max'] is not None:
-        sql_where += """"RingNumber" <= %d AND """ % int(kwargs[u'ring_max'])
+        sql_where += """db."RingNumber" <= %d AND """ % int(kwargs[u'ring_max'])
 
     if kwargs[u'logP_min'] is not None:
-        sql_where += """"LogP" >= %f AND """ % float(kwargs[u'logP_min'])
+        sql_where += """db."LogP" >= %f AND """ % float(kwargs[u'logP_min'])
 
     if kwargs[u'logP_max'] is not None:
-        sql_where += """"LogP" <= %f AND """ % float(kwargs[u'logP_max'])
+        sql_where += """db."LogP" <= %f AND """ % float(kwargs[u'logP_max'])
 
     if kwargs[u'rotate_min'] is not None:
-        sql_where += """"RotateBond" >= %d AND """ % int(kwargs[u'rotate_min'])
+        sql_where += """db."RotateBond" >= %d AND """ % int(kwargs[u'rotate_min'])
 
     if kwargs[u'rotate_max'] is not None:
-        sql_where += """"RotateBond" <= %d AND """ % int(kwargs[u'rotate_max'])
+        sql_where += """db."RotateBond" <= %d AND """ % int(kwargs[u'rotate_max'])
 
     if kwargs[u'formal_min'] is not None:
-        sql_where += """FormalCharge" >= %d AND """ % int(kwargs[u'formal_min'])
+        sql_where += """db."FormalCharge" >= %d AND """ % int(kwargs[u'formal_min'])
 
     if kwargs[u'formal_max'] is not None:
-        sql_where += """"FormalCharge" <= %d AND """ % int(kwargs[u'formal_max'])
+        sql_where += """db."FormalCharge" <= %d AND """ % int(kwargs[u'formal_max'])
 
     if kwargs[u'hba_min'] is not None:
-        sql_where += """"HBA" >= %d AND """ % int(kwargs[u'hba_min'])
+        sql_where += """db."HBA" >= %d AND """ % int(kwargs[u'hba_min'])
 
     if kwargs[u'hba_max'] is not None:
-        sql_where += """"HBA" <= %d AND """ % int(kwargs[u'hba_max'])
+        sql_where += """db."HBA" <= %d AND """ % int(kwargs[u'hba_max'])
 
     if kwargs[u'hbd_min'] is not None:
-        sql_where += """"HBD" >= %d AND """ % int(kwargs[u'hbd_min'])
+        sql_where += """db."HBD" >= %d AND """ % int(kwargs[u'hbd_min'])
 
     if kwargs[u'hbd_max'] is not None:
-        sql_where += """"HBD" <= %d AND """ % int(kwargs[u'hbd_max'])
+        sql_where += """db."HBD" <= %d AND """ % int(kwargs[u'hbd_max'])
+
+    if kwargs[u'cosmo_area_min'] is not None:
+        sql_where += """mp."COSMO_Area" >= %f AND """ % float(kwargs[u'cosmo_area_min'])
+
+    if kwargs[u'cosmo_area_max'] is not None:
+        sql_where += """mp."COSMO_Area" =< %f AND """ % float(kwargs[u'cosmo_area_max'])
+
+    if kwargs[u'cosmo_volume_min'] is not None:
+        sql_where += """mp."COSMO_Volume" >= %f AND """ % float(kwargs[u'cosmo_volume_min'])
+
+    if kwargs[u'cosmo_volume_max'] is not None:
+        sql_where += """mp."COSMO_Volume" =< %f AND """ % float(kwargs[u'cosmo_volume_max'])
+
+    if kwargs[u'dimensions_min'] is not None:
+        sql_where += """mp."Dimensions" >= %f AND """ % float(kwargs[u'dimensions_min'])
+
+    if kwargs[u'dimensions_max'] is not None:
+        sql_where += """mp."Dimensions" <= %f AND """ % float(kwargs[u'dimensions_max'])
+
+    if kwargs[u'elec_energy_min'] is not None:
+        sql_where += """mp."Elec_Energy" >= %f AND """ % float(kwargs[u'elec_energy_min'])
+
+    if kwargs[u'elec_energy_max'] is not None:
+        sql_where += """mp."Elec_Energy" <= %f AND """ % float(kwargs[u'elec_energy_max'])
+
+    if kwargs[u'homo_min'] is not None:
+        sql_where += """mp."HOMO" >= %f AND """ % float(kwargs[u'homo_min'])
+
+    if kwargs[u'homo_max'] is not None:
+        sql_where += """mp."HOMO" <= %f AND """ % float(kwargs[u'homo_max'])
+
+    if kwargs[u'lumo_min'] is not None:
+        sql_where += """mp."LUMO" >= %f AND """ % float(kwargs[u'lumo_min'])
+
+    if kwargs[u'lumo_max'] is not None:
+        sql_where += """mp."LUMO" <= %f AND """ % float(kwargs[u'lumo_max'])
+
+    if kwargs[u'total_energy_min'] is not None:
+        sql_where += """mp."Total_Energy" >= %f AND """ % float(kwargs[u'total_energy_min'])
+
+    if kwargs[u'toatl_energy_max'] is not None:
+        sql_where += """mp."Total_Energy" <= %f AND """ % float(kwargs[u'total_energy_max'])
+
 
     if exclude_atoms is not u"":
         exclude_atoms_list = str(exclude_atoms).split(',')
