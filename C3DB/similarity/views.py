@@ -35,6 +35,20 @@ def similar_search_form(request):
     flt_hbd_max = None
     flt_logP_min = None
     flt_logP_max = None
+    cosmo_area_min = None
+    cosmo_area_max = None
+    cosmo_volume_min = None
+    cosmo_volume_max = None
+    dimensions_min = None
+    dimensions_max = None
+    elec_energy_min = None
+    elec_energy_max = None
+    homo_min = None
+    homo_max = None
+    lumo_min = None
+    lumo_max = None
+    total_energy_min = None
+    total_energy_max = None
 
     if 'job' in request.GET:
         job_id = request.GET['job']
@@ -173,6 +187,90 @@ def similar_search_form(request):
         except KeyError:
             pass
 
+        try:
+            if request.GET['cosmo_area_min']:
+                cosmo_area_min = request.GET['cosmo_area_min']
+        except KeyError:
+            pass
+
+        try:
+            if request.GET['cosmo_area_max']:
+                cosmo_area_max = request.GET['cosmo_area_max']
+        except KeyError:
+            pass
+
+        try:
+            if request.GET['cosmo_volume_min']:
+                cosmo_volume_min = request.GET['cosmo_volume_min']
+        except KeyError:
+            pass
+
+        try:
+            if request.GET['cosmo_volume_max']:
+                cosmo_volume_max = request.GET['cosmo_volume_max']
+        except KeyError:
+            pass
+
+        try:
+            if request.GET['dimensions_min']:
+                dimensions_min = request.GET['dimensions_min']
+        except KeyError:
+            pass
+
+        try:
+            if request.GET['dimensions_max']:
+                dimensions_max = request.GET['dimensions_max']
+        except KeyError:
+            pass
+
+        try:
+            if request.GET['elec_energy_min']:
+                elec_energy_min = request.GET['elec_energy_min']
+        except KeyError:
+            pass
+
+        try:
+            if request.GET['elec_energy_max']:
+                elec_energy_max = request.GET['elec_energy_max']
+        except KeyError:
+            pass
+
+        try:
+            if request.GET['homo_min']:
+                homo_min = request.GET['homo_min']
+        except KeyError:
+            pass
+
+        try:
+            if request.GET['homo_max']:
+                homo_max = request.GET['homo_max']
+        except KeyError:
+            pass
+
+        try:
+            if request.GET['lumo_min']:
+                lumo_min = request.GET['lumo_min']
+        except KeyError:
+            pass
+
+        try:
+            if request.GET['lumo_max']:
+                lumo_max = request.GET['lumo_max']
+        except KeyError:
+            pass
+
+        try:
+            if request.GET['total_energy_min']:
+                total_energy_min = request.GET['total_energy_min']
+        except KeyError:
+            pass
+
+        try:
+            if request.GET['total_energy_max']:
+                total_energy_max = request.GET['total_energy_max']
+        except KeyError:
+            pass
+
         job = similar_search.delay(category, fp_category, tanimoto, max_result, query, exclude_atoms,
                                    mw_min=flt_mw_min, mw_max=flt_mw_max,
                                    atom_min=flt_atom_num_min, atom_max=flt_atom_num_max,
@@ -182,7 +280,14 @@ def similar_search_form(request):
                                    formal_min=flt_formal_min, formal_max=flt_formal_max,
                                    hba_min=flt_hba_min, hba_max=flt_hba_max,
                                    hbd_min=flt_hbd_min, hbd_max=flt_hbd_max,
-                                   logP_min=flt_logP_min, logP_max=flt_logP_max)
+                                   logP_min=flt_logP_min, logP_max=flt_logP_max,
+                                   cosmo_area_min=cosmo_area_min, cosmo_area_max=cosmo_area_max,
+                                   cosmo_volume_min=cosmo_volume_min, cosmo_volume_max=cosmo_volume_max,
+                                   dimensions_min=dimensions_min, dimensions_max=dimensions_max,
+                                   elec_energy_min=elec_energy_min, elec_energy_max=elec_energy_max,
+                                   homo_min=homo_min, homo_max=homo_max,
+                                   lumo_min=lumo_min, lumo_max=lumo_max,
+                                   total_energy_min=total_energy_min, total_energy_max=total_energy_max)
 
         # Store query to session
         query_session = SearchSession(request)
