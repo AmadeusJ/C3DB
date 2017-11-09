@@ -116,7 +116,7 @@ def similar_search(category, fp_category, taminoto_min, max_result, query, exclu
             sql_where += """"MolFormular" NOT LIKE '%%%s%%' AND """ % atom
 
     if len(sql_where) != 0:
-        sql_where = """WHERE """ + sql_where[:-5]
+        sql_where = """AND """ + sql_where[:-5]
         # print sql_where
 
     inchi = re.match(r'^InChI=', query)
