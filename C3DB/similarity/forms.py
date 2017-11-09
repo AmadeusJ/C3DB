@@ -46,3 +46,23 @@ class SimilaritySearchForm(forms.Form):
     HBD_min2 = forms.CharField(widget=forms.NumberInput(attrs={'class': 'filter'}), required=False)
     HBD_max2 = forms.CharField(widget=forms.NumberInput(attrs={'class': 'filter'}), required=False)
 
+    cosmo_area_min = forms.FloatField(widget=forms.NumberInput(attrs={'class': 'filter'}), required=False)
+    cosmo_area_max = forms.FloatField(widget=forms.NumberInput(attrs={'class': 'filter'}), required=False)
+
+    cosmo_volume_min = forms.FloatField(widget=forms.NumberInput(attrs={'class': 'filter'}), required=False)
+    cosmo_volume_max = forms.FloatField(widget=forms.NumberInput(attrs={'class': 'filter'}), required=False)
+
+    dimensions_min = forms.FloatField(widget=forms.NumberInput(attrs={'class': 'filter'}), required=False)
+    dimensions_max = forms.FloatField(widget=forms.NumberInput(attrs={'class': 'filter'}), required=False)
+
+    elec_energy_min = forms.FloatField(widget=forms.NumberInput(attrs={'class': 'filter'}), required=False)
+    elec_energy_max = forms.FloatField(widget=forms.NumberInput(attrs={'class': 'filter'}), required=False)
+
+    homo_min = forms.FloatField(widget=forms.NumberInput(attrs={'class': 'filter'}), required=False)
+    homo_maX = forms.FloatField(widget=forms.NumberInput(attrs={'class': 'filter'}), required=False)
+
+    lumo_min = forms.FloatField(widget=forms.NumberInput(attrs={'class': 'filter'}), required=False)
+    lumo_max = forms.FloatField(widget=forms.NumberInput(attrs={'class': 'filter'}), required=False)
+
+    total_energy_min = forms.FloatField(widget=forms.NumberInput(attrs={'class': 'filter'}), required=False)
+    total_energy_max = forms.FloatField(widget=forms.NumberInput(attrs={'class': 'filter'}), required=False)
