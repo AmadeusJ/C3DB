@@ -21,9 +21,7 @@
         width: 100%;
     }
 
-    .QM {
-        z-index: 9999;
-    }
+
 {% endblock %}
 
 
@@ -258,10 +256,22 @@
             var El = $(this).val();
 
             if (El === "COSMO_Area"){
-                tag += ''
+                tag += '<tr><td>{{ form.cosmo_area_min }} COSMO_Area {{ form.cosmo_area_max }}</td></tr>';
+            } else if (El === "COSMO_Volume"){
+                tag += '<tr><td>{{ form.cosmo_volume_min }} COSMO_Volume {{ form.cosmo_volume_max }} </td></tr>';
+            } else if (El === "Dimensions"){
+                tag += '<tr><td>{{ form.dimensions_min }} Dimensions {{ form.dimensions_max }}</td></tr>';
+            } else if (El === "Elec_Energy"){
+                tag += '<tr><td>{{ form.elec_energy_min }} Elec_Energy {{ form.elec_energy_max }}</td></tr>';
+            } else if (El === "HOMO"){
+                tag += '<tr><td>{{ form.homo_min }} HOMO {{ form.homo_max }} </td></tr>';
+            } else if (El === "LUMO"){
+                tag += '<tr><td>{{ form.lumo_min }} LUMO {{ form.lumo_max }}</td></tr>';
+            } else if (El === "Total_Energy"){
+                tag += '<tr><td>{{ form.total_energy_min }} Total_Energy {{ form.total_energy_max }}</td></tr>';
             }
-        })
-
+        });
+        $('._QM').html(tag);
     }).change();
 
 
