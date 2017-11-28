@@ -148,11 +148,14 @@ USE_TZ = True
 
 # STATIC_ROOT = ''
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+    os.path.join("/C3DB/"),
+)
 
 # MEDIA
 MEDIA_URL = '/upload_files2/'
-MEDIA_ROOT = os.path.join("/C3DB/")
+MEDIA_ROOT = os.path.join("/DATABASE/C3DB/")
 
 
 # ============================================================================================
