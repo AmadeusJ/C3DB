@@ -18,7 +18,7 @@ def exact_search(category, query):
 
     if cid:
         curs.execute("""SELECT db.*, mp.* FROM "DB_Data" AS db, "DB_Mopac_1" AS mp 
-        WHERE "SSU_CID"=%s AND db."SSU_CID"=mp."SSU_CID";""" % query)
+        WHERE db."SSU_CID"=%s AND db."SSU_CID"=mp."SSU_CID";""" % query)
 
     elif inchi:
         curs.execute("""SELECT db.*, mp.*FROM "DB_Data" AS db, "DB_Mopac_1" AS mp 
