@@ -339,7 +339,7 @@
         o += "</label></div></td>";
         o += "<td><a href='http://203.230.60.144:8000/C3DB/result/" + mols[1] + "' target='_blank'>" + mols[1] + "</a></td>"; // SSU_CID
         o += "<td class='mol_img'>";
-        o += "<a href='"+ path + "' class='highslide' onclick='return hs.expand(this)'><img alt='HighslideJS' title='Click to enlarge' src="+ path +" width='120' height='107'></a>"; // Pic
+        o += "<a href='"+ path + "' class='highslide' onclick='return hs.expand(this)'><img alt='HighslideJS' title='Click to enlarge' src='{% static "img/0000/000000000.png" %}' width='120' height='107'></a>"; // Pic
         o += "</td>";
         o += "<td>" + mols[16] + "</td>"; // RDKit_MW
         o += "<td>" + mols[3] + "</td>"; // #Atom
