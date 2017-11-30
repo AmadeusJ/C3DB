@@ -132,7 +132,7 @@
                                 var dir = ssu_cid_string.slice(0, 4);
                                 console.log(ssu_cid_string);
 
-                                final_path_img = "{{ MEDIA_URL }}" + "img/" + dir + "/" + ssu_cid_string + ".png";
+                                final_path_img = "/static/img/" + dir + "/" + ssu_cid_string + ".png";
                                 final_path_file = "{{ MEDIA_URL }}" + "mol/" + dir + "/" + ssu_cid_string + ".mol";
                                 final_path_mgf = "{{ MEDIA_URL }}" + "mgf/" + dir + "/" + ssu_cid_string + ".mgf";
                                 //final_path = "{% static 'mol_png/" + path + "/' %}mol_" + ssu_cid + ".png";

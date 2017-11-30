@@ -106,7 +106,7 @@
         </div>
     </div>
     <div class="loading_img">
-        <img src="{% static 'img/ajax-loading2.gif' %}" width="111" height="111" style="margin-top: 150px">
+        <img src="{% static 'imgs/ajax-loading2.gif' %}" width="111" height="111" style="margin-top: 150px">
     </div>
     <div class="progress_box">
         <p>Your Task is <span id="user_count">Ready</span>!</p>
@@ -297,7 +297,7 @@
         var dir = ssu_cid_string.slice(0, 4);
         console.log(ssu_cid_string);
 
-        final_path_img = "{{ MEDIA_URL }}" + "img/" + dir + "/" + ssu_cid_string + ".png";
+        final_path_img = "/static/img/" + dir + "/" + ssu_cid_string + ".png";
         final_path_file = "{{ MEDIA_URL }}" + "mol/" + dir + "/" + ssu_cid_string + ".mol";
         //final_path = "{% static 'mol_png/" + path + "/' %}mol_" + ssu_cid + ".png";
         //        console.log(ssu_cid);
