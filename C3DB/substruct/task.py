@@ -93,23 +93,23 @@ def substructure_search(category, super_sub, max_result, query, **kwargs):
             if results_limit is None:
                 sql = """ SELECT db.*, mp.* from "DB_Data" db, "DB_Mopac_1" mp 
                 WHERE db.id IN (SELECT mols.id FROM mols WHERE m<@'%s') 
-                AND db.id=mp.id ORDER BY db."SSU_CID"; """ % query_mol
+                AND db."SSU_CID"=mp."SSU_CID" ORDER BY db."SSU_CID"; """ % query_mol
 
             else:
                 sql = """ SELECT db.*, mp.* from "DB_Data" db, "DB_Mopac_1" mp 
                 WHERE db.id IN (SELECT mols.id FROM mols WHERE m<@'%s' LIMIT %d) 
-                AND db.id=mp.id ORDER BY db."SSU_CID"; """ % (query_mol, results_limit)
+                AND db."SSU_CID"=mp."SSU_CID" ORDER BY db."SSU_CID"; """ % (query_mol, results_limit)
 
         else:
             if results_limit is None:
                 sql = """ SELECT db.*, mp.* from "DB_Data" db, "DB_Mopac_1" mp 
                 WHERE db.id IN (SELECT mols.id FROM mols WHERE m<@'%s') 
-                AND db.id=mp.id %s ORDER BY db."SSU_CID";""" % (query_mol, sql_where)
+                AND db."SSU_CID"=mp."SSU_CID" %s ORDER BY db."SSU_CID";""" % (query_mol, sql_where)
 
             else:
                 sql = """ SELECT db.*, mp.* from "DB_Data" db, "DB_Mopac_1" mp 
                 WHERE db.id IN (SELECT mols.id FROM mols WHERE m<@'%s' LIMIT %d) 
-                AND db.id=mp.id %s ORDER BY db."SSU_CID";""" % (query_mol, results_limit, sql_where)
+                AND db."SSU_CID"=mp."SSU_CID" %s ORDER BY db."SSU_CID";""" % (query_mol, results_limit, sql_where)
 
 
     else:
@@ -117,23 +117,23 @@ def substructure_search(category, super_sub, max_result, query, **kwargs):
             if results_limit is None:
                 sql = """ SELECT db.*, mp.* from "DB_Data" db, "DB_Mopac_1" mp 
                 WHERE db.id IN (SELECT mols.id FROM mols WHERE m@>'%s') 
-                AND db.id=mp.id ORDER BY db."SSU_CID"; """ % (query_mol)
+                AND db."SSU_CID"=mp."SSU_CID" ORDER BY db."SSU_CID"; """ % (query_mol)
 
             else:
                 sql = """ SELECT db.*, mp.* from "DB_Data" db, "DB_Mopac_1" mp 
                 WHERE db.id IN (SELECT mols.id FROM mols WHERE m@>'%s' limit %d) 
-                AND db.id=mp.id ORDER BY db."SSU_CID"; """ % (query_mol, results_limit)
+                AND db."SSU_CID"=mp."SSU_CID" ORDER BY db."SSU_CID"; """ % (query_mol, results_limit)
 
         else:
             if results_limit is None:
                 sql = """ SELECT db.*, mp.* from "DB_Data" db, "DB_Mopac_1" mp 
                 WHERE db.id IN (SELECT mols.id FROM mols WHERE m@>'%s') 
-                AND db.id=mp.id %s ORDER BY db."SSU_CID"; """ % (query_mol, sql_where)
+                AND db."SSU_CID"=mp."SSU_CID" %s ORDER BY db."SSU_CID"; """ % (query_mol, sql_where)
 
             else:
                 sql = """ SELECT db.*, mp.* from "DB_Data" db, "DB_Mopac_1" mp 
                 WHERE db.id IN (SELECT mols.id FROM mols WHERE m@>'%s' limit %d) 
-                AND db.id=mp.id %s ORDER BY db."SSU_CID"; """ % (query_mol, results_limit, sql_where)
+                AND db."SSU_CID"=mp."SSU_CID" %s ORDER BY db."SSU_CID"; """ % (query_mol, results_limit, sql_where)
 
     print sql
     curs.execute(sql)
