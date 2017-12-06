@@ -241,46 +241,38 @@
                                 <tr class="active">
                                     <th>Descriptor</th>
                                     <th>Value</th>
+                                    <th>Descriptor</th>
+                                    <th>Value</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <th>RDKit_MW</th>
                                     <td>{{ mol.RDKit_MW }}</td>
-                                </tr>
-                                <tr>
                                     <th>Pybel_MW</th>
                                     <td>{{ mol.Py_MW }}</td>
                                 </tr>
                                 <tr>
                                     <th>Atoms</th>
                                     <td>{{ mol.AtomNumber }}</td>
-                                </tr>
-                                <tr>
                                     <th>Bonds</th>
                                     <td>{{ mol.BondNumber }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Rings</th>
-                                    <td>{{ mol.RingNumber }}</td>
-                                </tr>
-                                <tr>
                                     <th>LogP</th>
                                     <td>{{ mol.LogP }}</td>
-                                </tr>
-                                <tr>
-                                    <th>MolFormula</th>
-                                    <td>{{ mol.Formula }}</td>
+                                    <th>TPSA</th>
+                                    <td>{{ mol.TPSA }}</td>
                                 </tr>
                                 <tr>
                                     <th>FormalCharge</th>
                                     <td>{{ mol.FormalCharge }}</td>
+                                    <th>Rings</th>
+                                    <td>{{ mol.RingNumber }}</td>
                                 </tr>
                                 <tr>
                                     <th>HBA</th>
                                     <td>{{ mol.HBA }}</td>
-                                </tr>
-                                <tr>
                                     <th>HBD</th>
                                     <td>{{ mol.HBD }}</td>
                                 </tr>
@@ -288,19 +280,23 @@
                                     <th>rBonds</th>
                                     <td>{{ mol.RotateBond }}</td>
                                 </tr>
-                                <tr>
-                                    <th>TPSA</th>
-                                    <td>{{ mol.TPSA }}</td>
-                                </tr>
+
                             </tbody>
-                            
-                            <thead>
-                                <tr>
-                                    <th>Format</th>
-                                    <th>Value</th>
-                                </tr>
+                        </table>
+
+                        <table class="table table-bordered table-hover">
+                            <caption>Various Format</caption>
+                            <thead class="thead-inverse">
+                            <tr>
+                                <th>Format</th>
+                                <th>Value</th>
+                            </tr>
                             </thead>
                             <tbody>
+                                <tr>
+                                    <th>MolFormula</th>
+                                    <td>{{ mol.Formula }}</td>
+                                </tr>
                                 <tr>
                                     <th>yaChI</th>
                                     <td>{{ mol.yaChI }}</td>
