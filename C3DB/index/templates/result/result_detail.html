@@ -238,10 +238,10 @@
                         <table class="table table-bordered table-hover">
                             <caption>Descriptors</caption>
                             <thead class="thead-inverse">
-                                <tr>
+                                <tr class="active">
                                     <th scope="col">Descriptor</th>
                                     <th scope="col">Value</th>
-                                    <th scope="col">Descriptor2</th>
+                                    <th scope="col">Descriptor</th>
                                     <th scope="col">Value</th>
                                 </tr>
                             </thead>
@@ -249,37 +249,37 @@
                                 <tr>
                                     <th scope="row">RDKit_MW</th>
                                     <td>{{ mol.RDKit_MW }}</td>
-                                    <th scope="row">Pybel_MW</th>
+                                    <td scope="row">Pybel_MW</td>
                                     <td>{{ mol.Py_MW }}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Atoms</th>
                                     <td>{{ mol.AtomNumber }}</td>
-                                    <th>Bonds</th>
+                                    <td>Bonds</td>
                                     <td>{{ mol.BondNumber }}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">LogP</th>
                                     <td>{{ mol.LogP }}</td>
-                                    <th>TPSA</th>
+                                    <td>TPSA</td>
                                     <td>{{ mol.TPSA }}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">FormalCharge</th>
                                     <td>{{ mol.FormalCharge }}</td>
-                                    <th>Rings</th>
+                                    <td>Rings</td>
                                     <td>{{ mol.RingNumber }}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">HBA</th>
                                     <td>{{ mol.HBA }}</td>
-                                    <th>HBD</th>
+                                    <td>HBD</td>
                                     <td>{{ mol.HBD }}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">rBonds</th>
                                     <td>{{ mol.RotateBond }}</td>
-                                    <th></th>
+                                    <td></td>
                                     <td></td>
                                 </tr>
 
