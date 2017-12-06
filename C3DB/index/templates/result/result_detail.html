@@ -121,7 +121,7 @@
             <!-- 2D Image & 3D Viewer -->
             <div class="row">
                 <div class="col-sm-5">
-                    <div class="Sketcher" id="molImage" style="width: 455px; height: 325px;"></div>
+                    <div class="Sketcher" id="molImage" style="width: 455px; height: 325;"></div>
                 </div>
                 <div class="col-sm-7">
                     <div class="Viewer">
@@ -154,7 +154,7 @@
 
                             console.log(image_path);
                             console.log(mol_file_path);
-                            $('#molImage').html('<img alt="HighslideJS" title="Click to enlarge" src="' + image_path +'" width="100%">');
+                            $('#molImage').html('<img alt="HighslideJS" title="Click to enlarge" src="' + image_path +'" style="width: 455px; height: 325;">');
                             $('.download').html('<a class="btn btn-info" href="'+ mol_file_path +'" download="mol_{{ mol.SSU_CID }}.mol">Download</a>');
 
                             /* 3D-Canvas */
