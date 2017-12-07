@@ -16,7 +16,7 @@ def MassSearch(category, mass):
 
     if mass is not u"":
         mass = float(mass)
-        sql = """ SELECT * FROM mass2 ORDER BY abs(%.04f - "Py_MW") limit %d; """ % (mass, LIMIT)
+        sql = """ SELECT * FROM mass ORDER BY abs(%.04f - "Py_MW") limit %d; """ % (mass, LIMIT)
         print sql
         curs.execute(sql)
 
