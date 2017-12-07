@@ -239,29 +239,29 @@
                             <caption>Descriptors</caption>
                             <thead class="thead-inverse">
                                 <tr class="active">
-                                    <th scope="col">Descriptor</th>
-                                    <th scope="col">Value</th>
-                                    <th scope="col">Descriptor</th>
-                                    <th scope="col">Value</th>
+                                    <th scope="colgroup">Descriptor</th>
+                                    <th scope="colgroup">Value</th>
+                                    <th scope="colgroup">Descriptor</th>
+                                    <th scope="colgroup">Value</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <th scope="row">RDKit_MW</th>
                                     <td>{{ mol.RDKit_MW }}</td>
-                                    <th scope="row">Pybel_MW</th>
+                                    <td>Pybel_MW</td>
                                     <td>{{ mol.Py_MW }}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Atoms</th>
                                     <td>{{ mol.AtomNumber }}</td>
-                                    <th scope="row">Bonds</th>
+                                    <td>Bonds</td>
                                     <td>{{ mol.BondNumber }}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">LogP</th>
                                     <td>{{ mol.LogP }}</td>
-                                    <th>TPSA</th>
+                                    <td>TPSA</td>
                                     <td>{{ mol.TPSA }}</td>
                                 </tr>
                                 <tr>
