@@ -235,56 +235,82 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div>
-                        <table class="table table-bordered table-hover">
-                            <caption>Descriptors</caption>
-                            <thead class="thead-inverse">
-                                <tr class="active">
-                                    <th scope="colgroup">Descriptor</th>
-                                    <th scope="colgroup">Value</th>
-                                    <th scope="colgroup">Descriptor</th>
-                                    <th scope="colgroup">Value</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">RDKit_MW</th>
-                                    <td>{{ mol.RDKit_MW }}</td>
-                                    <td>Pybel_MW</td>
-                                    <td>{{ mol.Py_MW }}</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Atoms</th>
-                                    <td>{{ mol.AtomNumber }}</td>
-                                    <td>Bonds</td>
-                                    <td>{{ mol.BondNumber }}</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">LogP</th>
-                                    <td>{{ mol.LogP }}</td>
-                                    <td>TPSA</td>
-                                    <td>{{ mol.TPSA }}</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">FormalCharge</th>
-                                    <td>{{ mol.FormalCharge }}</td>
-                                    <td>Rings</td>
-                                    <td>{{ mol.RingNumber }}</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">HBA</th>
-                                    <td>{{ mol.HBA }}</td>
-                                    <td>HBD</td>
-                                    <td>{{ mol.HBD }}</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">rBonds</th>
-                                    <td>{{ mol.RotateBond }}</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <table class="table table-bordered table-hover">
+                                    <caption>Descriptors</caption>
+                                    <thead class="thead-inverse">
+                                    <tr class="active">
+                                        <th>Descriptor</th>
+                                        <th>Value</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th>RDKit_MW</th>
+                                        <td>{{ mol.RDKit_MW }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Atoms</th>
+                                        <td>{{ mol.AtomNumber }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>LogP</th>
+                                        <td>{{ mol.LogP }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>FormalCharge</th>
+                                        <td>{{ mol.FormalCharge }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>HBA</th>
+                                        <td>{{ mol.HBA }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>rBonds</th>
+                                        <td>{{ mol.RotateBond }}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
-                            </tbody>
-                        </table>
+                            <div class="col-sm-6">
+                                <table class="table table-bordered table-hover">
+                                    <thead class="thead-inverse">
+                                    <tr class="active">
+                                        <th>Descriptor</th>
+                                        <th>Value</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th>Pybel_MW</th>
+                                        <td>{{ mol.Py_MW }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Bonds</th>
+                                        <td>{{ mol.BondNumber }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>TPSA</th>
+                                        <td>{{ mol.TPSA }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Rings</th>
+                                        <td>{{ mol.RingNumber }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>HBD</th>
+                                        <td>{{ mol.HBD }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th></th>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
 
 
                         <table class="table table-bordered table-hover">
