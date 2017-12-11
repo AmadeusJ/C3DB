@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.conf.urls import url
-from django.contrib.auth.views import logout
+from django.contrib.auth.views import logout, login
 from . import views
 from exact.views import exact_search_form
 from similarity.views import similar_search_form
