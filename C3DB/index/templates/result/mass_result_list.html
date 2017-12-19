@@ -361,14 +361,10 @@
 
 {% block body %}
 {{ block.super }}
-<script src="http://code.jquery.com/jquery-1.9.0.js"></script>
-<script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
+
+<script src="{% static 'js/table_sorter_basic_search.js' %}"></script>
 <!-- table sorter _jquery library -->
-<script src="{% static 'jquery.tablesorter/jquery.tablesorter.js' %}"></script>
 <!-- tablesorter pager -->
-<link rel="stylesheet" href="{% static 'jquery.tablesorter/addons/pager/jquery.tablesorter.pager.css' %}">
-<script src="{% static 'jquery.tablesorter/addons/pager/jquery.tablesorter.pager.js' %}"></script>
-<script src="{% static 'js/imageLoader.js' %}"></script>
 <script src="{% static 'js/imageLoader.js' %}"></script>
 <script type="text/javascript">
     //alert(document.getElementById("user_count").textContent);
