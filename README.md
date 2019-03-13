@@ -20,7 +20,6 @@ Some DB tables are necessary to start this app.
 
 
  
- This database is using static IP without domain... ;-(
- So, if you want to use this database, contact me!
+ This database is using static IP without domain... ;-(<br>So, if you want to use this database, contact me!
  
  E-mail: dawoonjung1026@gmail.com
