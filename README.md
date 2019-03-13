@@ -18,7 +18,9 @@ If you want to run this app properly, you need to install some prerequsites.
 > **Note:** Actually, you never run this project with just downloading or cloning. 
 Some DB tables are necessary to start this app.
 
+
  
- If you want to use this database, contact me!
+ This database is using static IP without domain... ;-(
+ So, if you want to use this database, contact me!
  
  E-mail: dawoonjung1026@gmail.com
